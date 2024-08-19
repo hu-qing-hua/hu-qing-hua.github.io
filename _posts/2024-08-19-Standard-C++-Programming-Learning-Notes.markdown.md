@@ -1,11 +1,10 @@
 ---
 layout: post
-title:  "Standard C++ Programming Learning Notes"
-date:   2024-08-19 12:00:00 +0800
+title:  "📕Standard C++ Programming Learning Notes"
+date:   2024-08-19 10:30:21 +0800
 categories: jekyll update
----
 
-# 📕Standard C++ Programming Learning Notes
+---
 
 ## Week1 2024/8/1😶‍🌫️-2024/8/5🤗
 
@@ -406,19 +405,7 @@ https://en.cppreference.com/w/cpp/io
 std::cout is included in <font color=chocolate>**"basic_ostream"** </font>in cpp IO library
 
 <u>how do we go from external source to program?</u>
-
-                                          **Implementation vs Abstraction**
-
-                                              🟨🟨🟨🟨🟨🟨🟨🟨🟨                                                 **?**
-
-❓<--(external source)--> 🟨           stream              🟨<--(type conversion)-->fill_in_type
-
-                                              🟨               **"?"**                 🟨                                            in your 
-
-                                              🟨string representation🟨                                           program
-
-                                              🟨 🟨🟨🟨🟨🟨🟨🟨🟨  
-
+![alt text](image.png)
 <u>why is this even useful?</u>
 
 A:Streams allow for a <mark>universal</mark> way of <mark>dealing with external data</mark>
@@ -492,10 +479,10 @@ stream begin with B,end with "\n"
 
 🔜**Use getline()!**
 
-*<font color=green>istream</font>& getline(<font color=green>istream</font>& is, <font color=blue>string</font>& str, <font color=red>char</font> delim)*
-● **getline() reads an input stream**, is, **up until the** delim **char and stores it in some buffer**, str.
-● The delim char is by default ‘\n’. 
-● getline() ***<u>consumes</u>*** the delim character!
+*<font color=green>istream</font>& getline(<font color=green>istream</font>& is, <font color=blue>string</font>& str, <font color=red>char</font> delim)*<br>
+● **getline() reads an input stream**, is, **up until the** delim **char and stores it in some buffer**, str.<br>
+● The delim char is by default ‘\n’. <br>
+● getline() ***<u>consumes</u>*** the delim character!<br>
 ○ PAY ATTENTION TO THIS :)
 
 ```cpp
@@ -511,8 +498,8 @@ extracted_quote + “‘“ << std::endl;
 
 ### 7️⃣Output streams
 
-● a way to write data to a destination/external source
-○ ex. writing out something to the console (std::cout)
+● a way to write data to a destination/external source<br>
+○ ex. writing out something to the console (std::cout)<br>
 ○ use the << operator to <u>***send***</u> to the output stream
 
 🧁Character in output streams are stored in an intermediary(中介) buffer before being flushed to the destination.
@@ -602,31 +589,31 @@ return 0;
 
 **<mark>Output File Stream</mark>**
 
-● Output file streams have a type: std::ofstream
-● a way to write data to a file!
-○ use the << insertion operator to <u>send</u> to the file
-○ Here are some you should know:
-■ is_open()
-■ open()
-■ close()
-■ fail()
+● Output file streams have a type: std::ofstream<br>
+● a way to write data to a file!<br>
+○ use the << insertion operator to <u>send</u> to the file<br>
+○ Here are some you should know:<br>
+■ is_open()<br>
+■ open()<br>
+■ close()<br>
+■ fail()<br>
 
 ### 8️⃣Input streams
 
-● Input streams have the type std::istream
-● a way to read data from an destination/external source
-○ use the >> extractor operator to read from the input stream
-○ Remember the std::cin is the console input stream
+● Input streams have the type std::istream<br>
+● a way to read data from an destination/external source<br>
+○ use the >> extractor operator to read from the input stream<br>
+○ Remember the std::cin is the console input stream<br>
 
 **<u>std::cin</u>**
 
-std::cin is buffered
+std::cin is buffered<br>
 ● Think of it as a place where a user can store some data and then read
-from it
-● std::cin buffer stops at a whitespace
-● Whitespace in C++ includes:
-○ “ ” – a literal space
-○ <font color=purple>\n</font> character
+from it<br>
+● std::cin buffer stops at a whitespace<br>
+● Whitespace in C++ includes:<br>
+○ “ ” – a literal space<br>
+○ <font color=purple>\n</font> character<br>
 ○ <font color=purple>\t</font> character
 
 ```cpp
@@ -635,15 +622,10 @@ double pi;
 std::cin>>pi;
 ```
 
-|     |     |     |     |     |
-| --- | --- | --- | --- | --- |
+![alt text](image-2.png)
 
-⬆️ 刚开始 cin buffer is empty so **prompts for input**! 
-
-| 3   | .   | 1   | 4   | '\n' |     |
-| --- | --- | --- | --- | ---- | --- |
-
-                                                                                    ⬆️ 
+刚开始 cin buffer is empty so **prompts for input**! 
+![alt text](image-1.png)
 
 cin not empty so it reads up to white space and saves it to double pi
 
@@ -728,24 +710,24 @@ In choosing a programming language, there’s always a tradeoff between **speed*
 
 <mark>Standardization:</mark>
 
-Typically, containers export some standard, basic functionality.
-● Allow you to store multiple objects (though all of the same type)
-● Allow access to the collection through some (perhaps limited) way
-               ○ Maybe allow iteration(迭代) through all of the objects
+Typically, containers export some standard, basic functionality.<br>
+● Allow you to store multiple objects (though all of the same type)<br>
+● Allow access to the collection through some (perhaps limited) way<br>
+               ○ Maybe allow iteration(迭代) through all of the objects<br>
 ● May allow editing/deletion
 
 there are two types of containers:
 
 <font color=red>Sequence</font>:
 
-● Containers that can be accessed sequentially
+● Containers that can be accessed sequentially<br>
 ● Anything with an inherent order goes here!
 
 Sequence containers are for when you need to enforce some order on your information!
 
-<font color=blue>Associative</font>
-● Containers that don’t necessarily have a sequential order
-● More easily searched
+<font color=blue>Associative</font><br>
+● Containers that don’t necessarily have a sequential order<br>
+● More easily searched<br>
 ● Maps and sets go here!
 
 | container                             | principle                                                       | characteristic                                                                                                                                                           | type of Interator |
@@ -764,18 +746,18 @@ Sequence containers are for when you need to enforce some order on your informat
 
 ### 3️⃣Container Adaptors
 
-Container adaptors are “wrappers” to existing containers!
-● Wrappers **modify the interface** to sequence containers and change what the client is allowed to do/how they can interact with the container.
+Container adaptors are “wrappers” to existing containers!<br>
+● Wrappers **modify the interface** to sequence containers and change what the client is allowed to do/how they can interact with the container.<br>
 ● How could we make a wrapper to implement a queue from a deque?
 
 A:[std::queue - cppreference.com](https://en.cppreference.com/w/cpp/container/queue)
 
 stack也是如此
 
-**Why?**
-Abstraction again!
+**Why?**<br>
+Abstraction again!<br>
 ● Commonly used data structures made easy for the
-client to use
+client to use<br>
 ● Can use different backing containers based on use type
 
 <font color=orange>**NEW in C++23: flat_map and flat_set are container adaptors of sequence containers that are faster than the default in most use cases!**</font>
@@ -783,25 +765,26 @@ client to use
 ### 4️⃣Interators
 
 <u>All containers are collections of objects…
-**So how do we access those objects?**</u>
-● What if we want to print out everything in a vector?
-● Or loop until we find a certain object in a set?
+**So how do we access those objects?**</u><br>
+● What if we want to print out everything in a vector?<br>
+● Or loop until we find a certain object in a set?<br>
+
 **How is this done in the STL?**
 
-➡️Containers all implement something called an <mark>iterator</mark> to do this!
-● Iterators let you access **all** data in containers programmatically!
-● An iterator has a certain **order**; it “knows” what element will come next
+➡️Containers all implement something called an <mark>iterator</mark> to do this!<br>
+● Iterators let you access **all** data in containers programmatically!<br>
+● An iterator has a certain **order**; it “knows” what element will come next<br>
          ○ Not necessarily the same each time you iterate!
 
 **In the STL**
-All containers implement iterators, but they’re not all the same!
-● Each container has its own iterator, which can have different behavior.
-● All iterators implement a few shared operations:
-○ Initializing---------------------------->  iter = s.begin();
-○ Incrementing----------------------->  ++iter;
-○ Dereferencing---------------------->  *iter;
-○ Comparing--------------------------->  iter != s.end();
-○ Copying-------------------------------->  new_iter = iter;
+All containers implement iterators, but they’re not all the same!<br>
+● Each container has its own iterator, which can have different behavior.<br>
+● All iterators implement a few shared operations:<br>
+○ Initializing---------------------------->  iter = s.begin();<br>
+○ Incrementing----------------------->  ++iter;<br>
+○ Dereferencing---------------------->  *iter;<br>
+○ Comparing--------------------------->  iter != s.end();<br>
+○ Copying-------------------------------->  new_iter = iter;<br>
 
 <u><font color=blue>What other behaviors can iterators have</font>?</u>
 
@@ -829,15 +812,15 @@ https://cplusplus.com/reference/iterator/
 
 🔵**Random-access** iterators allow you to directly access values without visiting all elements sequentially.
 
-                 🔹 iter += 5;
+                 🔹 iter += 5;     
                  🔹Think of vectors; vec[1] or vec[17] or…
                  🔹Be careful not to go out of bounds!
 
-**Categorizing STL iterators**
-Vectors and deques have the most powerful iterators!
-● Creating your own containers means creating their iterators as well.
-● You can access elements in stacks and queues one-by-one, but you have to change the container to do so!
-● Iteration with iterators is **const**
+**Categorizing STL iterators**<br>
+Vectors and deques have the most powerful iterators!<br>
+● Creating your own containers means creating their iterators as well.<br>
+● You can access elements in stacks and queues one-by-one, but you have to change the container to do so!<br>
+● Iteration with iterators is **const**<br>
 
 **Let’s check out that for loop again!**
 
@@ -849,24 +832,20 @@ If we want the element and not just a reference to it, we dereference (*iter).
 
 If we have a map, we can use structured binding to be more efficient while dereferencing!
 
-{% raw %}
-
 ```cpp
-std::map<int, int> map{{1,6}, {2,8}, {0,3}, {3,9}};
+std::map<int, int> map{{1, 6}, {2, 8}, {0, 3}, {3,9}};
 for(auto iter = map.begin(); iter != map.end(); iter++) {
 const auto& [key, value] = *iter; // structured binding!
 }
 ```
 
-{% endraw %}
-
 ### 5️⃣Pointers
 
 **Introducing pointers**
 
-Iterators are a particular type of pointer!
-● Iterators “point” at particular elements in a **container**.
-● Pointers can “point” at **any objects** in your code!
+Iterators are a particular type of pointer!<br>
+● Iterators “point” at particular elements in a **container**.<br>
+● Pointers can “point” at **any objects** in your code!<br>
 
 **<mark>Dereferencing</mark>**
 Pointers are marked by the asterisk (*) next to the type of the object they’re pointing at when they’re declared.
@@ -885,10 +864,10 @@ If we need to access a pointer’s object’s member variables, instead of deref
 `*ptr.val=ptr->val`
 
 **What’s the difference?**
-● Iterators are a type of pointer!
-● Iterators have to point to elements in a container, but pointers can point to any object!
-○ Why is this? All objects stored inside the big container known as **memory**!
-● Can access memory addresses with & and the data at an address/pointer using *
+● Iterators are a type of pointer!<br>
+● Iterators have to point to elements in a container, but pointers can point to any object!<br>
+○ Why is this? All objects stored inside the big container known as **memory**!<br>
+● Can access memory addresses with & and the data at an address/pointer using *<br>
 
 ## Week4 2024/8/9🕋-2024/8/9🎁
 
@@ -896,13 +875,13 @@ If we need to access a pointer’s object’s member variables, instead of deref
 
 **Why classes?**
 
-●One of the premises of the entire C++ language was the lack of object-oriented-programming (OOP) in C.
-● Classes are user-defined types that allow a user to *<u>**encapsulate**</u>* data and functionality using member variables and member functions
+●One of the premises of the entire C++ language was the lack of object-oriented-programming (OOP) in C.<br>
+● Classes are user-defined types that allow a user to *<u>**encapsulate**</u>* data and functionality using member variables and member functions<br>
 
 **What is object-oriented-programming?**
 
-● Object-oriented-programming is centered around objects
-● Focuses on design and implementation of classes!
+● Object-oriented-programming is centered around objects<br>
+● Focuses on design and implementation of classes!<br>
 ● Classes are the **user-defined types** that can be declared as an object!
 
 🎉🎉**Surprise!**
