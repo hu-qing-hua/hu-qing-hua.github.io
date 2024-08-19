@@ -1,10 +1,8 @@
- ---
-
+---
 layout: post
-title: "Standard C++ Programming Learning Notes"
-date: 2024-08-19 10:30:21 +0800
+title:  "Standard C++ Programming Learning Notes"
+date:   2024-08-19 12:00:00 +0800
 categories: jekyll update
-
 ---
 
 # 📕Standard C++ Programming Learning Notes
@@ -851,12 +849,16 @@ If we want the element and not just a reference to it, we dereference (*iter).
 
 If we have a map, we can use structured binding to be more efficient while dereferencing!
 
+{% raw %}
+
 ```cpp
-std::map<int, int> map{{1, 6}, {2, 8}, {0, 3}, {3,9}};
+std::map<int, int> map{{1,6}, {2,8}, {0,3}, {3,9}};
 for(auto iter = map.begin(); iter != map.end(); iter++) {
 const auto& [key, value] = *iter; // structured binding!
 }
 ```
+
+{% endraw %}
 
 ### 5️⃣Pointers
 
