@@ -432,7 +432,7 @@ std<span class="token double-colon punctuation">::</span>cout <span class="token
 </code></pre><p>intermediate buffer: '1''\n'     [it is immediately sent to destination]</p>
 <p>then,When a stream is flushed the <strong>intermediate buffer is cleared</strong>!</p>
 <p>-&gt;存‘2’之前，buffer是空的</p>
-<p>-&gt;没存一个值，buffer都清空一次</p>
+<p>-&gt;每存一个值，buffer都清空一次</p>
 <p>-&gt;<font color="purple"><strong>flushing</strong></font> is an expensive operation!</p>
 <p>-&gt;C++ is (kinda) smart! It knows when to auto flush(它会在buffer满的时候自动刷新，以便可以继续往buffer输数据)</p>
 <p><mark><strong>A shoutout and clarification</strong></mark></p>
@@ -673,7 +673,7 @@ All containers implement iterators, but they’re not all the same!<br><br>
 <p><u><font color="blue">What other behaviors can iterators have</font>?</u></p>
 <p>It depends the type of the iterators.</p>
 <p><a href="https://cplusplus.com/reference/iterator/">https://cplusplus.com/reference/iterator/</a></p>
-<p>看“The properties of each iterator category are:‘的图</p>
+<p><a href="https://www.geeksforgeeks.org/introduction-iterators-c/">https://www.geeksforgeeks.org/introduction-iterators-c/</a></p>
 <p>🔵<strong>Forward</strong> iterators are the minimum level of functionality for standard containers.</p>
 <p>🔹&nbsp;<strong>Input</strong> iterators can appear on the RHS (right hand side) of an = operator</p>
 <p><code>auto elem=*it;</code></p>
