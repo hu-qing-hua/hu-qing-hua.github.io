@@ -32,8 +32,6 @@ theme: minima
 plugins:
   - jekyll-feed
 
-# Minima: show excerpts in the frontpage
-show_excerpts: true
 
 
 # Exclude from processing.
