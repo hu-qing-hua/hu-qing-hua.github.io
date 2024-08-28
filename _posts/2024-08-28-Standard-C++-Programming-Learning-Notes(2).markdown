@@ -17,10 +17,10 @@ be marked const
   - const_iterator = can increment the iterator, cannot dereference and change underlying value
   - const const_iterator = cannot increment iterator, cannot change underlying value
 https://stackoverflow.com/questions/70028107/in-c-is-const-iterator-the-same-as-const-iterator
+
 ### 1️⃣Template Functions
 **Why do we want generic C++?**
-C++ is strongly typed, but generic C++ lets you parametrize
-data types!
+C++ is strongly typed, but generic C++ lets you parametrize data types!
 - Ex. variable return type or input in a class (template classes)
 Can we parametrize even more?
 Can we write a function that works on **any data type**?<br>
@@ -34,6 +34,7 @@ As of C++20, we can limit the acceptable types in:
 - template classes
 - template functions
 - non-template member functions of a template class
+
 These limits or requirements on are called **constraints**.
 A named set of constraints is a **concept**. 
 ```cpp
@@ -146,8 +147,8 @@ Or a word in a stream?
 - Template functions allow you to parametrize the type of a function to be anything without changing
 functionality
 - Generic programming can solve a complicated conceptual problem for any specifics – powerful and flexible!
-- Template code is instantiated at compile time; template metaprogramming takes advantage of this to
-run code at compile time<br>
+- Template code is instantiated at compile time; template metaprogramming takes advantage of this to run code at compile time<br>
+
 ### 4️⃣Functions and Lambdas
 ***How can we make template functions even more general?***<br>
 Let’s review that count_occurrences function!
