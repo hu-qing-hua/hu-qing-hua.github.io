@@ -18,7 +18,7 @@ be marked const
   - const const_iterator = cannot increment iterator, cannot change underlying value
 https://stackoverflow.com/questions/70028107/in-c-is-const-iterator-the-same-as-const-iterator
 
-### 1️⃣Template Functions
+### 1️⃣ Template Functions
 **Why do we want generic C++?**
 C++ is strongly typed, but generic C++ lets you parametrize data types!
 - Ex. variable return type or input in a class (template classes)
@@ -85,7 +85,7 @@ Remember: like in template classes,**template functions are not compiled until u
 The code doesn’t exist until you instantiate it, which runs quicker.
 Can we take advantage of this behavior? Yes!
 
-### 2️⃣Template metaprogramming
+### 2️⃣ Template metaprogramming
 **Templates can be used for efficiency!**
 Normally, code runs during **runtime**.
 With template metaprogramming, code runs **once** during **compile time**!
@@ -136,7 +136,7 @@ TMP isn’t used that much, but it has some interesting implications:
 - Policy-based design
 - Game graphics
 
-### 3️⃣Introduction to Algorithms
+### 3️⃣ Introduction to Algorithms
 **Solving problems with generics**
 What if we wanted to count all the occurrences of a character in a string?
 Or a number in a vector?
@@ -149,7 +149,7 @@ functionality
 - Generic programming can solve a complicated conceptual problem for any specifics – powerful and flexible!
 - Template code is instantiated at compile time; template metaprogramming takes advantage of this to run code at compile time<br>
 
-### 4️⃣Functions and Lambdas
+### 4️⃣ Functions and Lambdas
 ***How can we make template functions even more general?***<br>
 Let’s review that count_occurrences function!
 This is a successfully templated function!
@@ -354,10 +354,10 @@ int main()
 ```
 problem:*The function expects an Animal, so it will try to use the Animal speak function! It doesn’t know it’s been overridden!*
 
-Ⓜ️If you have a function that can take in a pointer to the superclass, it won’t know to use the subclass’s function!
-Ⓜ️The same issue happens if we create a superclass pointer to an existing subclass object.
-Ⓜ️To fix this, we can mark the overridden function as **virtual** in the header!
-Ⓜ️Virtual functions are functions in the superclass we expect to be overridden later on.
+Ⓜ️If you have a function that can take in a pointer to the superclass, it won’t know to use the subclass’s function!<br>
+Ⓜ️The same issue happens if we create a superclass pointer to an existing subclass object.<br>
+Ⓜ️To fix this, we can mark the overridden function as **virtual** in the header!<br>
+Ⓜ️Virtual functions are functions in the superclass we expect to be overridden later on.<br>
 
 改正：
 ```cpp
@@ -396,9 +396,9 @@ int main()
 }
 ```
 
-### 5️⃣Algorithms
+### 5️⃣ Algorithms
 ## Week6 2024/8/27🤨-2024/8/28😫
-### 1️⃣Recap:classes
+### 1️⃣ Recap:classes
 **Objects and Classes**
 - Objects are instances of classes
 - Objects encapsulate data related to a single entity
@@ -420,7 +420,7 @@ Classes let you define new objects with new behavior!
 - And functors?
 We’re missing something important!
 
-### 2️⃣Operators and Operator Overloading
+### 2️⃣ Operators and Operator Overloading
 How can we repurpose common operators to write descriptive and functional code?
 
 How do operators work with classes?
@@ -517,7 +517,7 @@ Certain operators, like <font color=orange>new and delete</font>, don’t requir
 - Overloading this outside of a class is called global overloading and will affect everything!
 void* operator new(size_t size);
 
-### 3️⃣Special Member Function Overview
+### 3️⃣ Special Member Function Overview
 There are six special member functions!Special Member Functions (SMFs)
 These functions are generated only when they're called (and before any are explicitly defined by you):
 - Default constructor
@@ -537,7 +537,7 @@ class Widget{
     Widget& operator=(Widget&& rhs);
 }
 ```
-### 4️⃣Copy and copy assignment
+### 4️⃣ Copy and copy assignment
 **Review: Initializer Lists**
 When we create a constructor, we need to initialize all of our
 member variables.
@@ -589,7 +589,7 @@ Many times, you will want to create a copy that does more than just copies the m
 In these cases, you’d want to override the default special member functions with your own implementation!
 Declare them in the header and write their implementation in the .cpp, like any function!
 
-### 5️⃣Default and delete
+### 5️⃣ Default and delete
 What would you do to prevent copies?
 Let’s say you have a class that handles all of your passwords:
 ```cpp
@@ -663,7 +663,7 @@ The four special member functions discussed so far:
 - Destructor
   - Object destroyed when it is out of scope.
 
-### 6️⃣Move and move assignment
+### 6️⃣ Move and move assignment
 **Is copying enough?**
 We’ve learned about the default constructor, destructor, and the copy constructor and assignment operator.
 - We can create an object, get rid of it, and copy its values to another object!
