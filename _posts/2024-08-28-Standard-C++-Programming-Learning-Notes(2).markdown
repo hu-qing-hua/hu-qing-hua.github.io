@@ -7,7 +7,7 @@ categories: blog
 ---
 
 ## Week5 2024/8/23👌-2024/8/27👍
-### 0️⃣Review: Const and Const Correctness
+### 0️⃣ Review: Const and Const Correctness
 - Use const parameters and variables wherever you can in application code
 - Every member function of a class that doesn’t change its member variables should
 be marked const
@@ -20,9 +20,10 @@ https://stackoverflow.com/questions/70028107/in-c-is-const-iterator-the-same-as-
 
 ### 1️⃣ Template Functions
 **Why do we want generic C++?**
-C++ is strongly typed, but generic C++ lets you parametrize data types!
+<br>C++ is strongly typed, but generic C++ lets you parametrize data types!
 - Ex. variable return type or input in a class (template classes)
-Can we parametrize even more?
+
+<br>Can we parametrize even more?<br>
 Can we write a function that works on **any data type**?<br>
 
 **Why not!**
@@ -30,7 +31,7 @@ Can we write a function that works on **any data type**?<br>
 Functions whose functionality can be adapted to more than one type or class without repeating the entire code for each type.<br>
 
 **Aside: Constraints and Concepts**
-As of C++20, we can limit the acceptable types in:
+<br>As of C++20, we can limit the acceptable types in:
 - template classes
 - template functions
 - non-template member functions of a template class
@@ -77,7 +78,7 @@ cout<<myMin(3.5,4)<<endl;
 ```
 
 **Behind the Instantiation Scenes**
-Remember: like in template classes,**template functions are not compiled until used!**
+<br>Remember: like in template classes,**template functions are not compiled until used!**
 - For each instantiation with different parameters, the compiler generates a new specific version of your template
 - After compilation, it will look like you wrote each version yourself<br>
 
@@ -86,8 +87,8 @@ The code doesn’t exist until you instantiate it, which runs quicker.
 Can we take advantage of this behavior? Yes!
 
 ### 2️⃣ Template metaprogramming
-**Templates can be used for efficiency!**
-Normally, code runs during **runtime**.
+**Templates can be used for efficiency!**<br>
+Normally, code runs during **runtime**.<br>
 With template metaprogramming, code runs **once** during **compile time**!
 ```cpp
 template<unsigned n>//模板结构体 Factorial，它接受一个无符号整数 n 作为模板参数
@@ -104,7 +105,7 @@ std::cout<<Factorial<10>::value<<endl;
 ```
 
 **Aside: constexpr**
-There are other ways in C++ to make code run during compile time.
+<br>There are other ways in C++ to make code run during compile time.
 The constexpr keyword specifies a constant expression.
 - Constant expressions must be immediately initialized and will run at compile time!
 - Passed arguments to constant expressions should be const/constant expressions as well.
@@ -113,7 +114,7 @@ Variables can also be declared as constexpr !<br>
 **constexpr** is an institutionalization of template metaprogramming and is often more readable!
 ```cpp
 #include <iostream>
-constexpr long long fib(int n) { //  function declared as constexpr 这样这个函数会在编译的时候求值
+constexpr long long fib(int n) { //function declared as constexpr 这样这个函数会在编译的时候求值
     if (n <= 1) return n;
     return fib(n - 1) + fib(n - 2);
 }
@@ -138,10 +139,10 @@ TMP isn’t used that much, but it has some interesting implications:
 
 ### 3️⃣ Introduction to Algorithms
 **Solving problems with generics**
-What if we wanted to count all the occurrences of a character in a string?
-Or a number in a vector?
-Or a word in a stream?
-**These are all the same problem!**
+<br>What if we wanted to count all the occurrences of a character in a string?<br>
+Or a number in a vector?<br>
+Or a word in a stream?<br>
+**These are all the same problem!**<br>
 
 **Summary**
 - Template functions allow you to parametrize the type of a function to be anything without changing
@@ -171,13 +172,14 @@ int count_occurrences(InputIt begin, InputIt end, DataType target)
 std::string str = "Tchaikovsky";
 std::cout << "Occurrences of the letter k in Tchaikovsky: " << count_occurrences(str.begin(), str.end(), 'k') << std::endl;
 ```
-This code will work for any containers with any types, for a single specific target.
-Will this work for a more general category of targets than one specific value?
+This code will work for any containers with any types, for a single specific target.<br>
+Will this work for a more general category of targets than one specific value?<br>
 What if we wanted to find all the vowels(元音) in “Tchaikovsky”?<br>
 **Predicate Functions**
 Any function that returns a boolean value is a predicate!
 - isVowel() is an example of a predicate, but there are tons of others we might want!
 - A predicate can have any amount of parameters…
+
 ```cpp
 template <typename InputIt, typename UniPred>
 int count_occurrences(InputIt begin, InputIt end, UniPred pred)
@@ -202,8 +204,10 @@ bool isVowel(char c)
 std::string str = "Tchaikovsky";
 std::cout << "Occurrences of the letter k in Tchaikovsky: " << count_occurrences(str.begin(), str.end(), isVowel) << std::endl;
 ```
+
 <br>What type is UniPred???
 inconceivable<br>
+
 **Function Pointers**
 UniPred is what’s called a function pointer!
 - Function pointers can be treated just like other pointers
@@ -214,6 +218,7 @@ UniPred is what’s called a function pointer!
 Unary（一元） predicates are pretty limited and don’t generalize well.
 我们知道还有二元的predicate fucntion.
 Ideally, we’d like something like this!
+
 ```cpp
 //从一元的
 bool isMorethan3(int num){
@@ -224,8 +229,10 @@ bool isMorethan(int num,int limit){
     return num>limit;
 }
 ```
+
 <br>回到这个例子，Can we use binary predicates?
 If we could, it would be nice to use a binary predicate to handle this!
+
 ```cpp
 template <typename InputIt, typename BinPred>
 int count_occurrences(InputIt begin, InputIt end, BinPred pred)
@@ -240,22 +247,23 @@ int count_occurrences(InputIt begin, InputIt end, BinPred pred)
     }
 }
 ```
-<br>We can’t pass this in from the predicate!调用这里不好写count_occurrences(str.begin(), str.end(), isVowel)
+
+<br>We can’t pass this in from the predicate!  调用这里不好写count_occurrences(str.begin(), str.end(), isVowel)
 <br>
-We want our function to know more information about our predicate.
-However, we can’t pass in more than one parameter.
+We want our function to know more information about our predicate.<br>
+However, we can’t pass in more than one parameter.<br>
 How can we pass along information without needing another parameter?
 <br>
 
-**Let's use lambdas**
+**Let's use lambdas**<br>
 Lambdas are inline, **anonymous** functions that can know about variables declared in their same scope!<br>
 auto var = <font color=orange>[capture-clause]</font> <font color=blue>(auto param)</font>  -> bool
 {
     ...<font color=green>Function body goes here!</font>
 }
-<font color=orange>[capture-clause]</font>:Outside parameters go here
+<font color=orange>[capture-clause]</font>:Outside parameters go here<br>
 <font color=blue>(auto param)</font>:Specifies that Type is generic
-<br>
+<br><br>
 eg:
 
 ```cpp
@@ -264,9 +272,9 @@ auto isMoreThan=[limit](int n){return n>limit;};
 isMoreThan(6);
 ```
 <br>Capture Clauses
-You can capture any outside variable, both by reference and by value.
-- Use just the = symbol to capture everything by value, and just the & symbol to capture everything by reference.
-https://stackoverflow.com/questions/21105169/is-there-any-difference-betwen-and-in-lambda-functions
+You can capture any outside variable, both by reference and by value.<br>
+- Use just the = symbol to capture everything by value, and just the & symbol to capture everything by reference.<br>
+https://stackoverflow.com/questions/21105169/is-there-any-difference-betwen-and-in-lambda-functions<br>
 一个存储值的副本，一个存引用<br>
 
 We’ve solved our problem!
@@ -299,23 +307,23 @@ int main()
 }
 ```
 
-**Using Lambdas**
-Lambdas are pretty computationally cheap and a great tool!
+**Using Lambdas**<br>
+Lambdas are pretty computationally cheap and a great tool!<br>
 - Use a lambda when you need a short function or to access local variables in your function.
 - If you need more logic or overloading, use function pointers.<br>
 
-**Aside: What the Functor?**
-A functor is any class that provides an implementation of operator().
+**Aside: What the Functor?**<br>
+A functor is any class that provides an implementation of operator().<br>
 - They can create closures of “customized” functions! (Closure: a single instantiation of a functor object)
 - Lambdas are just a reskin of functors!<br>
 
-**Tying it all together**
-So far, we’ve talked about lambdas, functors, and function pointers.
-The STL has an overarching, standard function object!
-std::function<return_type(param_types)> func;
+**Tying it all together**<br>
+So far, we’ve talked about lambdas, functors, and function pointers.<br>
+The STL has an overarching, standard function object!<br>
+std::function<return_type(param_types)> func;<br>
 Everything (lambdas, functors, function pointers) can be cast to <u>a standard function</u>(Bigger and slightly more expensive than a function pointer or lambda!)!<br>
 
-**Aside: Virtual Functions**
+**Aside: Virtual Functions**<br>
 Be careful using function pointers with classes, especially if you have a subclass of another class!
 ```cpp
 #include <iostream>
@@ -411,7 +419,7 @@ int main()
 - Allow us to expose state in a way we can control
 <br>
 
-**We almost have everything we need!**
+**We almost have everything we need!**<br>
 Classes let you define new objects with new behavior!
 - We know how to parametrize classes and functions using templates!
 - But...
@@ -434,7 +442,8 @@ What <font color=orange><u>can’t</u></font> be overloaded?
 - Member Access 🈶.
 - Pointer-to-member access 🈶.*
 - Object size, type, and casting 🈶sizeof(),typeid(),cast()
-<br>We can overload operators in two ways:
+
+<br>We can overload operators in two ways:<br>
 <u>Member functions</u>
 - Declare your overloaded operator within the scope of your class!
 - Allows you to use member variables of this->
@@ -443,16 +452,16 @@ What <font color=orange><u>can’t</u></font> be overloaded?
 - Define both left and right hand objects as parameters
 
 <font color=orange>What if we don’t know what will be on the left-hand side?</font>
-**Non-member overloading**
+**Non-member overloading**<br>
 Non-member overloading is preferred by the STL!
 - It allows the LHS to be a non-class type (ex. comparing double to a Fraction)
 - Allows us to overload operators with classes we don’t own! (ex. vector to a StudentList)
   - bool operator< (const Student& lhs, const Student& rhs);
 
-**What about member variables?**
-With member function overloading, we have access to this-> and its private variables.
+**What about member variables?**<br>
+With member function overloading, we have access to this-> and its private variables.<br>
 Can we still access these with non-member operator overloading?
-**Everything is better with friends!**
+**Everything is better with friends!**<br>
 The friend keyword allows non-member functions or classes to access private information in another class!
 - To use, declare the name of the function or class as a friend within the target class’s header!
 - If it’s a class, you must say friend class [name];
@@ -512,13 +521,13 @@ int main() {
 }
 
 ```
-**Be careful with non-member overloading!**
+**Be careful with non-member overloading!**<br>
 Certain operators, like <font color=orange>new and delete</font>, don’t require a specific type.
 - Overloading this outside of a class is called global overloading and will affect everything!
 void* operator new(size_t size);
 
 ### 3️⃣ Special Member Function Overview
-There are six special member functions!Special Member Functions (SMFs)
+There are six special member functions!Special Member Functions (SMFs)<br>
 These functions are generated only when they're called (and before any are explicitly defined by you):
 - Default constructor
 - Destructor
@@ -538,9 +547,8 @@ class Widget{
 }
 ```
 ### 4️⃣ Copy and copy assignment
-**Review: Initializer Lists**
-When we create a constructor, we need to initialize all of our
-member variables.
+**Review: Initializer Lists**<br>
+When we create a constructor, we need to initialize all of our member variables.
 - However, initializing them to be the default value and then reassigning is inefficient!
 ```cpp
 template<typename T>
@@ -561,13 +569,13 @@ _elems(new T[kInitialSize]){}
 - What if the variable is a non-assignable（不可赋值） type?
 - Can be used for any constructor, even non-default ones with parameters!
 
-**Why override special member functions?**
+**Why override special member functions?**<br>
 Sometimes, the default special member functions aren’t sufficient（足够）!
 - By default, the copy constructor will create copies of each member variable.
 - This is member-wise copying!（成员级复制，也就是浅拷贝）
 - But is this always good enough?
 
-**What about pointers?**
+**What about pointers?**<br>
 If your variable is a pointer, a member-wise copy will point to the same allocated data, not a fresh copy!
 ```cpp
 //eg:如果两个对象都尝试释放这个内存，可能会出问题
@@ -582,15 +590,15 @@ public:
 
 ```
 
-Copying isn’t always simple!
+Copying isn’t always simple!<br>
 Many times, you will want to create a copy that does more than just copies the member variables.
 - Deep copy: an object that is a complete, independent copy of the original
 
-In these cases, you’d want to override the default special member functions with your own implementation!
+In these cases, you’d want to override the default special member functions with your own implementation!<br>
 Declare them in the header and write their implementation in the .cpp, like any function!
 
 ### 5️⃣ Default and delete
-What would you do to prevent copies?
+What would you do to prevent copies?<br>
 Let’s say you have a class that handles all of your passwords:
 ```cpp
 class PasswordManager{
@@ -619,13 +627,13 @@ private:
 }
 ```
 Now copying isn't a possible operation!
-<br>Uses
+<br>**Uses**<br>
 We can selectively allow functionality of special member functions!
 - This has lots of uses – what if we only want one copy of an instance to be allowed?
 - This is how classes like <font color=orange>std::unique_ptr</font> work!
 <u>该类满足 MoveConstructible 和 MoveAssignable 的要求，但不满CopyConstructible 和 CopyAssiqnable 的要求。</u>
 
-**=default?**
+**=default?**<br>
 We can also keep the default copy constructor if we declare other constructors!
 
 ```cpp
@@ -643,16 +651,16 @@ private:
 ```
 Declaring any user-defined constructor will make the default disappear without this!
 
-**The Rule of 0**
+**The Rule of 0**<br>
 If the default SMFs work, don’t define your own! We should only define new ones when the default ones generated by the compiler won't work.
 - This usually happens when we work with dynamically allocated memory, like pointers to things on the heap.
 
-**The Rule of 3**
+**The Rule of 3**<br>
 If you have to define a destructor, copy constructor, or copy assignment operator, you should define all three!
 - Needing one signifies you’re handling certain resources manually.
 - We then should handle the creation, assignment, use, and destruction of those resources ourselves!
 
-**Recap**
+**Recap**<br>
 The four special member functions discussed so far:
 - Default Constructor
   - Object created with no parameters, no member variables instantiated
@@ -664,12 +672,12 @@ The four special member functions discussed so far:
   - Object destroyed when it is out of scope.
 
 ### 6️⃣ Move and move assignment
-**Is copying enough?**
+**Is copying enough?**<br>
 We’ve learned about the default constructor, destructor, and the copy constructor and assignment operator.
 - We can create an object, get rid of it, and copy its values to another object!
 - Is this ever insufficient?
 
-**This can be wasteful!**
+**This can be wasteful!**<br>
 Let's say we had to copy our current StringTable into another, whose reference is given to us, and we have no use for our StringTable afterwards.
 ```cpp
 class StringTable{
@@ -700,11 +708,12 @@ class Widget{
 - Defining a move assignment operator prevents generation of a move copy constructor, and vice versa.
   - If the move assignment operator needs to be re-implemented, there'd likely be a problem with the move constructor!
 
-**Caveats**
+**Caveats**<br>
 Move constructors and operators are only generated if:
 ● No copy operations are declared
 ● No move operations are declared
 ● No destructor is declared
+
 Declaring any of these will get rid of the default C++ generated operations.
 
 If we want to explicitly support move operations, we can set the operators to default:
