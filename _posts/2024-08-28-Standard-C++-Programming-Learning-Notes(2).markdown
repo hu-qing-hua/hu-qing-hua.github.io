@@ -12,22 +12,29 @@ categories: blog
 - Every member function of a class that doesn’t change its member variables should
 be marked const
 - auto will drop all const and &, so be sure to specify
+  - When you use auto to deduce the type of a variable, the resulting type will be a copy by default, which means it will not include const or reference (&) qualifiers from the expression being assigned.
+  ```cpp
+  const int x=42;
+  auto y=x;//y is int,not const int;
+  const auto y=x;//y is const int
+  auto& y = x; // y is int& (a reference to x)
+  const auto& y = x; // y is const int& (a reference to a const int)
+  ```
 - Make iterators and const_iterators for all your classes!
   - const iterator = cannot increment the iterator, can dereference and change underlying value
   - const_iterator = can increment the iterator, cannot dereference and change underlying value
   - const const_iterator = cannot increment iterator, cannot change underlying value
-https://stackoverflow.com/questions/70028107/in-c-is-const-iterator-the-same-as-const-iterator
+  - https://stackoverflow.com/questions/70028107/in-c-is-const-iterator-the-same-as-const-iterator
 
 ### 1️⃣ Template Functions
 **Why do we want generic C++?**
 <br>C++ is strongly typed, but generic C++ lets you parametrize data types!
 - Ex. variable return type or input in a class (template classes)
-
 <br>Can we parametrize even more?<br>
 Can we write a function that works on **any data type**?<br>
 
-**Why not!**
-**<font color=orange>Template functions</font>**:
+**Why not!**<br>
+**<font color=orange>Template functions</font>**:<br>
 Functions whose functionality can be adapted to more than one type or class without repeating the entire code for each type.<br>
 
 **Aside: Constraints and Concepts**
@@ -82,8 +89,8 @@ cout<<myMin(3.5,4)<<endl;
 - For each instantiation with different parameters, the compiler generates a new specific version of your template
 - After compilation, it will look like you wrote each version yourself<br>
 
-**Wait a minute…**
-The code doesn’t exist until you instantiate it, which runs quicker.
+**Wait a minute…**<br>
+The code doesn’t exist until you instantiate it, which runs quicker.<br>
 Can we take advantage of this behavior? Yes!
 
 ### 2️⃣ Template metaprogramming
@@ -125,13 +132,13 @@ int main() {
     return 0;
 }
 ```
-**Why?**
+**Why?**<br>
 Overall, can increase performance for these pieces!
 - Compiled code ends up being smaller
 - Something runs once during compiling and can be used as many times as you like during runtime
 TMP was an accident; it was discovered, not invented!
 
-**Applications of TMP**
+**Applications of TMP**<br>
 TMP isn’t used that much, but it has some interesting implications:
 - Optimizing matrices/trees/other mathematical structure operations
 - Policy-based design
