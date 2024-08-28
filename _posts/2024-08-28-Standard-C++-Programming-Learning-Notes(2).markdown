@@ -221,10 +221,10 @@ UniPred is what’s called a function pointer!
 - They can be passed around like variables as parameters or in template functions!
 - They can be called like functions!<br>
 
-现在的example的问题：Poor Generalization
-Unary（一元） predicates are pretty limited and don’t generalize well.
-我们知道还有二元的predicate fucntion.
-Ideally, we’d like something like this!
+现在的example的问题：Poor Generalization<br>
+Unary（一元） predicates are pretty limited and don’t generalize well.<br>
+我们知道还有二元的predicate fucntion.<br>
+Ideally, we’d like something like this!<br>
 
 ```cpp
 //从一元的
@@ -237,7 +237,7 @@ bool isMorethan(int num,int limit){
 }
 ```
 
-<br>回到这个例子，Can we use binary predicates?
+<br>回到这个例子，Can we use binary predicates?<br>
 If we could, it would be nice to use a binary predicate to handle this!
 
 ```cpp
@@ -471,7 +471,8 @@ Can we still access these with non-member operator overloading?
 **Everything is better with friends!**<br>
 The friend keyword allows non-member functions or classes to access private information in another class!
 - To use, declare the name of the function or class as a friend within the target class’s header!
-- If it’s a class, you must say friend class [name];
+- If it’s a class, you must say friend class [name];<br>
+
 ```cpp
 //eg:重载<<
 #include <iostream>
@@ -528,6 +529,7 @@ int main() {
 }
 
 ```
+
 **Be careful with non-member overloading!**<br>
 Certain operators, like <font color=orange>new and delete</font>, don’t require a specific type.
 - Overloading this outside of a class is called global overloading and will affect everything!
