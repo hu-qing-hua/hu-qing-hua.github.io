@@ -1,100 +1,938 @@
 ---
 layout: post
-title: "📕Standard C++ Programming Learning Notes"
+title: "📕Standard C++ Programming Learning Notes(1)"
 date: 2024-08-19 12:00:00 +0800
 categories: blog
 ---
 
 
 
-<!DOCTYPE html><html><head>
-      <title>📕Standard C++ Programming Learning Notes</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      
-      <link rel="stylesheet" href="file:///c:\Users\hqh\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.13\crossnote\dependencies\katex\katex.min.css">
-      
-      
-      
-      
-      
-      <style>
-      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
-/* Please visit the URL below for more information: */
-/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+<!DOCTYPE html>
+<html>
 
-      </style>
-      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function () {
-    // your code here
-  });
-</script></head><body for="html-export">
-    
-    
-      <div class="crossnote markdown-preview  ">
-      <p>其实是对CS 106L课件的简单记录，没有自己的思考在里面。</p>
-<h2 id="week1-202481️-202485">Week1 2024/8/1😶‍🌫️-2024/8/5🤗 </h2>
-<h3 id="1️⃣stlstandard-template-library">1️⃣STL:standard template library </h3>
-<h3 id="2️⃣compiled-vs-interpreted">2️⃣<strong>Compiled vs Interpreted:</strong> </h3>
-<p><strong>when is source code translated❔</strong></p>
-<p><u>Dynamically typed,interpreted</u></p>
-<p>-Types are checked on the fly,during exection,line by line</p>
-<p>-Example:Python</p>
-<p><u>Statically typed,compiled</u></p>
-<p>-Types before program runs during compliation</p>
-<p>-Example:C++</p>
-<p>衍生问题：<mark>how does the pre-processing,complication,assembly and linker work in C++？</mark></p>
-<p>很好的回答1：<a href="https://www.codecademy.com/article/cpp-compile-execute-locally">Compile &amp; Execute | Codecademy</a></p>
-<p>很好的回答2: <a href="https://stackoverflow.com/questions/6264249/how-does-the-compilation-linking-process-work">c++ - How does the compilation/linking process work? - Stack Overflow</a></p>
-<p>(最多赞前两位)</p>
-<p>很像课本最详细的回答3：</p>
-<p>C++的构建流程可以分为四个主要阶段：预处理、编译、汇编和链接。下面是每个阶段的详细说明：</p>
-<ol>
-<li>预处理 (Preprocessing)</li>
-</ol>
-<p>在这个阶段，C++源代码文件（通常以 <code>.cpp</code> 扩展名结尾）会被预处理器处理。主要任务包括：</p>
-<ul>
-<li><strong>文件包含</strong>：用 <code>#include</code> 指令包含其他文件的内容（比如头文件）。</li>
-<li><strong>宏替换</strong>：用 <code>#define</code> 指令定义的宏会被展开。</li>
-<li><strong>条件编译</strong>：用 <code>#ifdef</code>、<code>#ifndef</code>、<code>#if</code> 等指令控制代码的编译条件。</li>
-<li><strong>删除注释</strong>：删除源代码中的注释。</li>
-</ul>
-<p>预处理器的输出是一个处理过的源代码文件，通常没有 <code>.cpp</code> 扩展名，而是带有 <code>.i</code> 扩展名的中间文件，虽然这个文件在实际开发中通常不会显示出来。</p>
-<ol start="2">
-<li>编译 (Compilation)</li>
-</ol>
-<p>编译阶段将预处理后的源代码文件转换为汇编语言代码。编译器的主要任务包括：</p>
-<ul>
-<li><strong>语法分析</strong>：检查代码是否符合C++语言的语法规则。</li>
-<li><strong>语义分析</strong>：检查代码的语义，确保代码逻辑正确。</li>
-<li><strong>优化</strong>：对代码进行各种优化以提高执行效率。</li>
-<li><strong>生成中间代码</strong>：将源代码转换为中间表示（IR），如抽象语法树（AST）。</li>
-</ul>
-<p>编译器生成的输出是目标文件（通常以 <code>.obj</code> 或 <code>.o</code> 扩展名结尾），它包含机器代码，但仍然需要进一步处理。</p>
-<ol start="3">
-<li>汇编 (Assembly)</li>
-</ol>
-<p>汇编阶段将编译器生成的汇编语言代码转换为机器代码。汇编器（Assembler）将汇编语言指令翻译成二进制格式的机器代码，并生成目标文件（<code>.obj</code> 或 <code>.o</code> 文件）。</p>
-<ol start="4">
-<li>链接 (Linking)</li>
-</ol>
-<p>链接阶段将一个或多个目标文件（<code>.obj</code> 或 <code>.o</code> 文件）和库文件（如标准库、第三方库）组合成一个可执行文件。链接器（Linker）的主要任务包括：</p>
-<ul>
-<li><strong>符号解析</strong>：将目标文件中的函数和变量引用解析为实际的内存地址。</li>
-<li><strong>重定位</strong>：调整目标文件中的地址引用，使它们指向正确的内存位置。</li>
-<li><strong>合并段</strong>：将多个目标文件的代码段和数据段合并在一起。</li>
-<li><strong>生成可执行文件</strong>：生成最终的可执行文件（通常是 <code>.exe</code> 文件或没有扩展名的文件，取决于操作系统）。</li>
-</ul>
-<h3 id="3️⃣the-problem-with-types-so-far">3️⃣the problem with types so far </h3>
-<p>🤔first,<strong>it can be a pain to know what the type of a variable is</strong>.</p>
-<p>Aside:<u>the auto keyword</u></p>
-<p>auto:a keyword used in lieu of type when declaring a varible that tells the compiler to deduce the type.</p>
-<p>[this is not the same as no having a type!]</p>
-<p>[the compiler is able to determine the type itself without being explicitly told.]</p>
-<p>🤔second,<strong>any given fucntion can only have exactly one return type</strong></p>
-<p>🤔third,<strong>C++ primitives (and even the types in the STL) can be limited</strong></p>
-<p>➡️what is a struct :A struct is a a group of named variables, each with their own type, that allows programmers to bundle different types together!</p>
-<pre data-role="codeBlock" data-info="c" class="language-c c"><code><span class="token keyword keyword-struct">struct</span> <span class="token class-name">Student</span><span class="token punctuation">{</span>
+<head>
+  <title>📕Standard C++ Programming Learning Notes</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet"
+    href="file:///c:\Users\hqh\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.13\crossnote\dependencies\katex\katex.min.css">
+
+
+
+
+
+  <style>
+    code[class*=language-],
+    pre[class*=language-] {
+      color: #333;
+      background: 0 0;
+      font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      text-align: left;
+      white-space: pre;
+      word-spacing: normal;
+      word-break: normal;
+      word-wrap: normal;
+      line-height: 1.4;
+      -moz-tab-size: 8;
+      -o-tab-size: 8;
+      tab-size: 8;
+      -webkit-hyphens: none;
+      -moz-hyphens: none;
+      -ms-hyphens: none;
+      hyphens: none
+    }
+
+    pre[class*=language-] {
+      padding: .8em;
+      overflow: auto;
+      border-radius: 3px;
+      background: #f5f5f5
+    }
+
+    :not(pre)>code[class*=language-] {
+      padding: .1em;
+      border-radius: .3em;
+      white-space: normal;
+      background: #f5f5f5
+    }
+
+    .token.blockquote,
+    .token.comment {
+      color: #969896
+    }
+
+    .token.cdata {
+      color: #183691
+    }
+
+    .token.doctype,
+    .token.macro.property,
+    .token.punctuation,
+    .token.variable {
+      color: #333
+    }
+
+    .token.builtin,
+    .token.important,
+    .token.keyword,
+    .token.operator,
+    .token.rule {
+      color: #a71d5d
+    }
+
+    .token.attr-value,
+    .token.regex,
+    .token.string,
+    .token.url {
+      color: #183691
+    }
+
+    .token.atrule,
+    .token.boolean,
+    .token.code,
+    .token.command,
+    .token.constant,
+    .token.entity,
+    .token.number,
+    .token.property,
+    .token.symbol {
+      color: #0086b3
+    }
+
+    .token.prolog,
+    .token.selector,
+    .token.tag {
+      color: #63a35c
+    }
+
+    .token.attr-name,
+    .token.class,
+    .token.class-name,
+    .token.function,
+    .token.id,
+    .token.namespace,
+    .token.pseudo-class,
+    .token.pseudo-element,
+    .token.url-reference .token.variable {
+      color: #795da3
+    }
+
+    .token.entity {
+      cursor: help
+    }
+
+    .token.title,
+    .token.title .token.punctuation {
+      font-weight: 700;
+      color: #1d3e81
+    }
+
+    .token.list {
+      color: #ed6a43
+    }
+
+    .token.inserted {
+      background-color: #eaffea;
+      color: #55a532
+    }
+
+    .token.deleted {
+      background-color: #ffecec;
+      color: #bd2c00
+    }
+
+    .token.bold {
+      font-weight: 700
+    }
+
+    .token.italic {
+      font-style: italic
+    }
+
+    .language-json .token.property {
+      color: #183691
+    }
+
+    .language-markup .token.tag .token.punctuation {
+      color: #333
+    }
+
+    .language-css .token.function,
+    code.language-css {
+      color: #0086b3
+    }
+
+    .language-yaml .token.atrule {
+      color: #63a35c
+    }
+
+    code.language-yaml {
+      color: #183691
+    }
+
+    .language-ruby .token.function {
+      color: #333
+    }
+
+    .language-markdown .token.url {
+      color: #795da3
+    }
+
+    .language-makefile .token.symbol {
+      color: #795da3
+    }
+
+    .language-makefile .token.variable {
+      color: #183691
+    }
+
+    .language-makefile .token.builtin {
+      color: #0086b3
+    }
+
+    .language-bash .token.keyword {
+      color: #0086b3
+    }
+
+    pre[data-line] {
+      position: relative;
+      padding: 1em 0 1em 3em
+    }
+
+    pre[data-line] .line-highlight-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: transparent;
+      display: block;
+      width: 100%
+    }
+
+    pre[data-line] .line-highlight {
+      position: absolute;
+      left: 0;
+      right: 0;
+      padding: inherit 0;
+      margin-top: 1em;
+      background: hsla(24, 20%, 50%, .08);
+      background: linear-gradient(to right, hsla(24, 20%, 50%, .1) 70%, hsla(24, 20%, 50%, 0));
+      pointer-events: none;
+      line-height: inherit;
+      white-space: pre
+    }
+
+    pre[data-line] .line-highlight:before,
+    pre[data-line] .line-highlight[data-end]:after {
+      content: attr(data-start);
+      position: absolute;
+      top: .4em;
+      left: .6em;
+      min-width: 1em;
+      padding: 0 .5em;
+      background-color: hsla(24, 20%, 50%, .4);
+      color: #f4f1ef;
+      font: bold 65%/1.5 sans-serif;
+      text-align: center;
+      vertical-align: .3em;
+      border-radius: 999px;
+      text-shadow: none;
+      box-shadow: 0 1px #fff
+    }
+
+    pre[data-line] .line-highlight[data-end]:after {
+      content: attr(data-end);
+      top: auto;
+      bottom: .4em
+    }
+
+    html body {
+      font-family: 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, freesans, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fff;
+      overflow: initial;
+      box-sizing: border-box;
+      word-wrap: break-word
+    }
+
+    html body>:first-child {
+      margin-top: 0
+    }
+
+    html body h1,
+    html body h2,
+    html body h3,
+    html body h4,
+    html body h5,
+    html body h6 {
+      line-height: 1.2;
+      margin-top: 1em;
+      margin-bottom: 16px;
+      color: #000
+    }
+
+    html body h1 {
+      font-size: 2.25em;
+      font-weight: 300;
+      padding-bottom: .3em
+    }
+
+    html body h2 {
+      font-size: 1.75em;
+      font-weight: 400;
+      padding-bottom: .3em
+    }
+
+    html body h3 {
+      font-size: 1.5em;
+      font-weight: 500
+    }
+
+    html body h4 {
+      font-size: 1.25em;
+      font-weight: 600
+    }
+
+    html body h5 {
+      font-size: 1.1em;
+      font-weight: 600
+    }
+
+    html body h6 {
+      font-size: 1em;
+      font-weight: 600
+    }
+
+    html body h1,
+    html body h2,
+    html body h3,
+    html body h4,
+    html body h5 {
+      font-weight: 600
+    }
+
+    html body h5 {
+      font-size: 1em
+    }
+
+    html body h6 {
+      color: #5c5c5c
+    }
+
+    html body strong {
+      color: #000
+    }
+
+    html body del {
+      color: #5c5c5c
+    }
+
+    html body a:not([href]) {
+      color: inherit;
+      text-decoration: none
+    }
+
+    html body a {
+      color: #08c;
+      text-decoration: none
+    }
+
+    html body a:hover {
+      color: #00a3f5;
+      text-decoration: none
+    }
+
+    html body img {
+      max-width: 100%
+    }
+
+    html body>p {
+      margin-top: 0;
+      margin-bottom: 16px;
+      word-wrap: break-word
+    }
+
+    html body>ol,
+    html body>ul {
+      margin-bottom: 16px
+    }
+
+    html body ol,
+    html body ul {
+      padding-left: 2em
+    }
+
+    html body ol.no-list,
+    html body ul.no-list {
+      padding: 0;
+      list-style-type: none
+    }
+
+    html body ol ol,
+    html body ol ul,
+    html body ul ol,
+    html body ul ul {
+      margin-top: 0;
+      margin-bottom: 0
+    }
+
+    html body li {
+      margin-bottom: 0
+    }
+
+    html body li.task-list-item {
+      list-style: none
+    }
+
+    html body li>p {
+      margin-top: 0;
+      margin-bottom: 0
+    }
+
+    html body .task-list-item-checkbox {
+      margin: 0 .2em .25em -1.8em;
+      vertical-align: middle
+    }
+
+    html body .task-list-item-checkbox:hover {
+      cursor: pointer
+    }
+
+    html body blockquote {
+      margin: 16px 0;
+      font-size: inherit;
+      padding: 0 15px;
+      color: #5c5c5c;
+      background-color: #f0f0f0;
+      border-left: 4px solid #d6d6d6
+    }
+
+    html body blockquote>:first-child {
+      margin-top: 0
+    }
+
+    html body blockquote>:last-child {
+      margin-bottom: 0
+    }
+
+    html body hr {
+      height: 4px;
+      margin: 32px 0;
+      background-color: #d6d6d6;
+      border: 0 none
+    }
+
+    html body table {
+      margin: 10px 0 15px 0;
+      border-collapse: collapse;
+      border-spacing: 0;
+      display: block;
+      width: 100%;
+      overflow: auto;
+      word-break: normal;
+      word-break: keep-all
+    }
+
+    html body table th {
+      font-weight: 700;
+      color: #000
+    }
+
+    html body table td,
+    html body table th {
+      border: 1px solid #d6d6d6;
+      padding: 6px 13px
+    }
+
+    html body dl {
+      padding: 0
+    }
+
+    html body dl dt {
+      padding: 0;
+      margin-top: 16px;
+      font-size: 1em;
+      font-style: italic;
+      font-weight: 700
+    }
+
+    html body dl dd {
+      padding: 0 16px;
+      margin-bottom: 16px
+    }
+
+    html body code {
+      font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+      font-size: .85em;
+      color: #000;
+      background-color: #f0f0f0;
+      border-radius: 3px;
+      padding: .2em 0
+    }
+
+    html body code::after,
+    html body code::before {
+      letter-spacing: -.2em;
+      content: '\00a0'
+    }
+
+    html body pre>code {
+      padding: 0;
+      margin: 0;
+      word-break: normal;
+      white-space: pre;
+      background: 0 0;
+      border: 0
+    }
+
+    html body .highlight {
+      margin-bottom: 16px
+    }
+
+    html body .highlight pre,
+    html body pre {
+      padding: 1em;
+      overflow: auto;
+      line-height: 1.45;
+      border: #d6d6d6;
+      border-radius: 3px
+    }
+
+    html body .highlight pre {
+      margin-bottom: 0;
+      word-break: normal
+    }
+
+    html body pre code,
+    html body pre tt {
+      display: inline;
+      max-width: initial;
+      padding: 0;
+      margin: 0;
+      overflow: initial;
+      line-height: inherit;
+      word-wrap: normal;
+      background-color: transparent;
+      border: 0
+    }
+
+    html body pre code:after,
+    html body pre code:before,
+    html body pre tt:after,
+    html body pre tt:before {
+      content: normal
+    }
+
+    html body blockquote,
+    html body dl,
+    html body ol,
+    html body p,
+    html body pre,
+    html body ul {
+      margin-top: 0;
+      margin-bottom: 16px
+    }
+
+    html body kbd {
+      color: #000;
+      border: 1px solid #d6d6d6;
+      border-bottom: 2px solid #c7c7c7;
+      padding: 2px 4px;
+      background-color: #f0f0f0;
+      border-radius: 3px
+    }
+
+    @media print {
+      html body {
+        background-color: #fff
+      }
+
+      html body h1,
+      html body h2,
+      html body h3,
+      html body h4,
+      html body h5,
+      html body h6 {
+        color: #000;
+        page-break-after: avoid
+      }
+
+      html body blockquote {
+        color: #5c5c5c
+      }
+
+      html body pre {
+        page-break-inside: avoid
+      }
+
+      html body table {
+        display: table
+      }
+
+      html body img {
+        display: block;
+        max-width: 100%;
+        max-height: 100%
+      }
+
+      html body code,
+      html body pre {
+        word-wrap: break-word;
+        white-space: pre
+      }
+    }
+
+    .markdown-preview {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box
+    }
+
+    .markdown-preview ul {
+      list-style: disc
+    }
+
+    .markdown-preview ul ul {
+      list-style: circle
+    }
+
+    .markdown-preview ul ul ul {
+      list-style: square
+    }
+
+    .markdown-preview ol {
+      list-style: decimal
+    }
+
+    .markdown-preview ol ol,
+    .markdown-preview ul ol {
+      list-style-type: lower-roman
+    }
+
+    .markdown-preview ol ol ol,
+    .markdown-preview ol ul ol,
+    .markdown-preview ul ol ol,
+    .markdown-preview ul ul ol {
+      list-style-type: lower-alpha
+    }
+
+    .markdown-preview .newpage,
+    .markdown-preview .pagebreak {
+      page-break-before: always
+    }
+
+    .markdown-preview pre.line-numbers {
+      position: relative;
+      padding-left: 3.8em;
+      counter-reset: linenumber
+    }
+
+    .markdown-preview pre.line-numbers>code {
+      position: relative
+    }
+
+    .markdown-preview pre.line-numbers .line-numbers-rows {
+      position: absolute;
+      pointer-events: none;
+      top: 1em;
+      font-size: 100%;
+      left: 0;
+      width: 3em;
+      letter-spacing: -1px;
+      border-right: 1px solid #999;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none
+    }
+
+    .markdown-preview pre.line-numbers .line-numbers-rows>span {
+      pointer-events: none;
+      display: block;
+      counter-increment: linenumber
+    }
+
+    .markdown-preview pre.line-numbers .line-numbers-rows>span:before {
+      content: counter(linenumber);
+      color: #999;
+      display: block;
+      padding-right: .8em;
+      text-align: right
+    }
+
+    .markdown-preview .mathjax-exps .MathJax_Display {
+      text-align: center !important
+    }
+
+    .markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group {
+      display: none
+    }
+
+    .markdown-preview:not([data-for=preview]) .code-chunk .status {
+      display: none
+    }
+
+    .markdown-preview:not([data-for=preview]) .code-chunk .output-div {
+      margin-bottom: 16px
+    }
+
+    .markdown-preview .md-toc {
+      padding: 0
+    }
+
+    .markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link {
+      display: inline;
+      padding: .25rem 0
+    }
+
+    .markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,
+    .markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p {
+      display: inline
+    }
+
+    .markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link {
+      font-weight: 800
+    }
+
+    .scrollbar-style::-webkit-scrollbar {
+      width: 8px
+    }
+
+    .scrollbar-style::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: transparent
+    }
+
+    .scrollbar-style::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: rgba(150, 150, 150, .66);
+      border: 4px solid rgba(150, 150, 150, .66);
+      background-clip: content-box
+    }
+
+    html body[for=html-export]:not([data-presentation-mode]) {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      margin: 0;
+      padding: 0;
+      overflow: auto
+    }
+
+    html body[for=html-export]:not([data-presentation-mode]) .markdown-preview {
+      position: relative;
+      top: 0;
+      min-height: 100vh
+    }
+
+    @media screen and (min-width:914px) {
+      html body[for=html-export]:not([data-presentation-mode]) .markdown-preview {
+        padding: 2em calc(50% - 457px + 2em)
+      }
+    }
+
+    @media screen and (max-width:914px) {
+      html body[for=html-export]:not([data-presentation-mode]) .markdown-preview {
+        padding: 2em
+      }
+    }
+
+    @media screen and (max-width:450px) {
+      html body[for=html-export]:not([data-presentation-mode]) .markdown-preview {
+        font-size: 14px !important;
+        padding: 1em
+      }
+    }
+
+    @media print {
+      html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn {
+        display: none
+      }
+    }
+
+    html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn {
+      position: fixed;
+      bottom: 8px;
+      left: 8px;
+      font-size: 28px;
+      cursor: pointer;
+      color: inherit;
+      z-index: 99;
+      width: 32px;
+      text-align: center;
+      opacity: .4
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn {
+      opacity: 1
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 300px;
+      height: 100%;
+      padding: 32px 0 48px 0;
+      font-size: 14px;
+      box-shadow: 0 0 4px rgba(150, 150, 150, .33);
+      box-sizing: border-box;
+      overflow: auto;
+      background-color: inherit
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar {
+      width: 8px
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: transparent
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: rgba(150, 150, 150, .66);
+      border: 4px solid rgba(150, 150, 150, .66);
+      background-clip: content-box
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a {
+      text-decoration: none
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc {
+      padding: 0 16px
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link {
+      display: inline;
+      padding: .25rem 0
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p {
+      display: inline
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link {
+      font-weight: 800
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+      left: 300px;
+      width: calc(100% - 300px);
+      padding: 2em calc(50% - 457px - 300px / 2);
+      margin: 0;
+      box-sizing: border-box
+    }
+
+    @media screen and (max-width:1274px) {
+      html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+        padding: 2em
+      }
+    }
+
+    @media screen and (max-width:450px) {
+      html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+        width: 100%
+      }
+    }
+
+    html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview {
+      left: 50%;
+      transform: translateX(-50%)
+    }
+
+    html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc {
+      display: none
+    }
+
+    /* Please visit the URL below for more information: */
+    /*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+  </style>
+  <!-- The content below will be included at the end of the <head> element. -->
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+      // your code here
+    });
+  </script>
+</head>
+
+<body for="html-export">
+
+
+  <div class="crossnote markdown-preview  ">
+    <p>其实是对CS 106L课件的简单记录，没有自己的思考在里面。</p>
+    <h2 id="week1-202481️-202485">Week1 2024/8/1😶‍🌫️-2024/8/5🤗 </h2>
+    <h3 id="1️⃣stlstandard-template-library">1️⃣STL:standard template library </h3>
+    <h3 id="2️⃣compiled-vs-interpreted">2️⃣<strong>Compiled vs Interpreted:</strong> </h3>
+    <p><strong>when is source code translated❔</strong></p>
+    <p><u>Dynamically typed,interpreted</u></p>
+    <p>-Types are checked on the fly,during exection,line by line</p>
+    <p>-Example:Python</p>
+    <p><u>Statically typed,compiled</u></p>
+    <p>-Types before program runs during compliation</p>
+    <p>-Example:C++</p>
+    <p>衍生问题：<mark>how does the pre-processing,complication,assembly and linker work in C++？</mark></p>
+    <p>很好的回答1：<a href="https://www.codecademy.com/article/cpp-compile-execute-locally">Compile &amp; Execute |
+        Codecademy</a></p>
+    <p>很好的回答2: <a href="https://stackoverflow.com/questions/6264249/how-does-the-compilation-linking-process-work">c++ -
+        How does the compilation/linking process work? - Stack Overflow</a></p>
+    <p>(最多赞前两位)</p>
+    <p>很像课本最详细的回答3：</p>
+    <p>C++的构建流程可以分为四个主要阶段：预处理、编译、汇编和链接。下面是每个阶段的详细说明：</p>
+    <ol>
+      <li>预处理 (Preprocessing)</li>
+    </ol>
+    <p>在这个阶段，C++源代码文件（通常以 <code>.cpp</code> 扩展名结尾）会被预处理器处理。主要任务包括：</p>
+    <ul>
+      <li><strong>文件包含</strong>：用 <code>#include</code> 指令包含其他文件的内容（比如头文件）。</li>
+      <li><strong>宏替换</strong>：用 <code>#define</code> 指令定义的宏会被展开。</li>
+      <li><strong>条件编译</strong>：用 <code>#ifdef</code>、<code>#ifndef</code>、<code>#if</code> 等指令控制代码的编译条件。</li>
+      <li><strong>删除注释</strong>：删除源代码中的注释。</li>
+    </ul>
+    <p>预处理器的输出是一个处理过的源代码文件，通常没有 <code>.cpp</code> 扩展名，而是带有 <code>.i</code> 扩展名的中间文件，虽然这个文件在实际开发中通常不会显示出来。</p>
+    <ol start="2">
+      <li>编译 (Compilation)</li>
+    </ol>
+    <p>编译阶段将预处理后的源代码文件转换为汇编语言代码。编译器的主要任务包括：</p>
+    <ul>
+      <li><strong>语法分析</strong>：检查代码是否符合C++语言的语法规则。</li>
+      <li><strong>语义分析</strong>：检查代码的语义，确保代码逻辑正确。</li>
+      <li><strong>优化</strong>：对代码进行各种优化以提高执行效率。</li>
+      <li><strong>生成中间代码</strong>：将源代码转换为中间表示（IR），如抽象语法树（AST）。</li>
+    </ul>
+    <p>编译器生成的输出是目标文件（通常以 <code>.obj</code> 或 <code>.o</code> 扩展名结尾），它包含机器代码，但仍然需要进一步处理。</p>
+    <ol start="3">
+      <li>汇编 (Assembly)</li>
+    </ol>
+    <p>汇编阶段将编译器生成的汇编语言代码转换为机器代码。汇编器（Assembler）将汇编语言指令翻译成二进制格式的机器代码，并生成目标文件（<code>.obj</code> 或 <code>.o</code> 文件）。</p>
+    <ol start="4">
+      <li>链接 (Linking)</li>
+    </ol>
+    <p>链接阶段将一个或多个目标文件（<code>.obj</code> 或 <code>.o</code> 文件）和库文件（如标准库、第三方库）组合成一个可执行文件。链接器（Linker）的主要任务包括：</p>
+    <ul>
+      <li><strong>符号解析</strong>：将目标文件中的函数和变量引用解析为实际的内存地址。</li>
+      <li><strong>重定位</strong>：调整目标文件中的地址引用，使它们指向正确的内存位置。</li>
+      <li><strong>合并段</strong>：将多个目标文件的代码段和数据段合并在一起。</li>
+      <li><strong>生成可执行文件</strong>：生成最终的可执行文件（通常是 <code>.exe</code> 文件或没有扩展名的文件，取决于操作系统）。</li>
+    </ul>
+    <h3 id="3️⃣the-problem-with-types-so-far">3️⃣the problem with types so far </h3>
+    <p>🤔first,<strong>it can be a pain to know what the type of a variable is</strong>.</p>
+    <p>Aside:<u>the auto keyword</u></p>
+    <p>auto:a keyword used in lieu of type when declaring a varible that tells the compiler to deduce the type.</p>
+    <p>[this is not the same as no having a type!]</p>
+    <p>[the compiler is able to determine the type itself without being explicitly told.]</p>
+    <p>🤔second,<strong>any given fucntion can only have exactly one return type</strong></p>
+    <p>🤔third,<strong>C++ primitives (and even the types in the STL) can be limited</strong></p>
+    <p>➡️what is a struct :A struct is a a group of named variables, each with their own type, that allows programmers
+      to bundle different types together!</p>
+    <pre data-role="codeBlock" data-info="c" class="language-c c"><code><span class="token keyword keyword-struct">struct</span> <span class="token class-name">Student</span><span class="token punctuation">{</span>
     string name<span class="token punctuation">;</span><span class="token comment">//these are called fields</span>
     string state<span class="token punctuation">;</span>
     <span class="token keyword keyword-int">int</span> age<span class="token punctuation">;</span>
@@ -103,9 +941,10 @@ Student s<span class="token punctuation">;</span>
 s<span class="token punctuation">.</span>name<span class="token operator">=</span><span class="token string">"dolly"</span><span class="token punctuation">;</span>
 s<span class="token punctuation">.</span>state<span class="token operator">=</span><span class="token string">"AR"</span><span class="token punctuation">;</span>
 s<span class="token punctuation">.</span>age<span class="token operator">=</span><span class="token number">21</span><span class="token punctuation">;</span>
-</code></pre><p>➡️the STL has its own structs!</p>
-<p><u>std::pair</u></p>
-<pre data-role="codeBlock" data-info="c" class="language-c c"><code><span class="token comment">//like this</span>
+</code></pre>
+    <p>➡️the STL has its own structs!</p>
+    <p><u>std::pair</u></p>
+    <pre data-role="codeBlock" data-info="c" class="language-c c"><code><span class="token comment">//like this</span>
 <span class="token keyword keyword-struct">struct</span> <span class="token class-name">Pair</span><span class="token punctuation">{</span>
 
 fill_in_type first<span class="token punctuation">;</span>
@@ -113,32 +952,36 @@ fill_in_type first<span class="token punctuation">;</span>
 fill_in_type second<span class="token punctuation">;</span>
 
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p><em>More useful than I thought.-&gt; it can return sucess and result</em></p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>std<span class="token double-colon punctuation">::</span>pair<span class="token operator">&lt;</span><span class="token keyword keyword-bool">bool</span><span class="token punctuation">,</span> Student<span class="token operator">&gt;</span> <span class="token function">lookupStudent</span><span class="token punctuation">(</span>string name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+</code></pre>
+    <p><em>More useful than I thought.-&gt; it can return sucess and result</em></p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>std<span class="token double-colon punctuation">::</span>pair<span class="token operator">&lt;</span><span class="token keyword keyword-bool">bool</span><span class="token punctuation">,</span> Student<span class="token operator">&gt;</span> <span class="token function">lookupStudent</span><span class="token punctuation">(</span>string name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
  Student blank<span class="token punctuation">;</span>
  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">notFound</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span> std<span class="token double-colon punctuation">::</span><span class="token function">make_pair</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">,</span> blank<span class="token punctuation">)</span><span class="token punctuation">;</span>
  Student result <span class="token operator">=</span> <span class="token function">getStudentWithName</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
  <span class="token keyword keyword-return">return</span> std<span class="token double-colon punctuation">::</span><span class="token function">make_pair</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//avoid specifying the type</span>
 <span class="token punctuation">}</span>
 <span class="token keyword keyword-auto">auto</span> output <span class="token operator">=</span> <span class="token function">lookupStudent</span><span class="token punctuation">(</span>“Julie”<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//auto makes this neater</span>
-</code></pre><h2 id="week2-202485-202488️">Week2 2024/8/5🦄-2024/8/8🖼️ </h2>
-<h3 id="1️⃣what-is-initialization">1️⃣what is Initialization </h3>
-<p>----&gt;Provides initial values at the time of construction.</p>
-<p><strong>How</strong>❔</p>
-<p>① <strong><u>direct initialization</u></strong></p>
-<p>-&gt; C++ doesn't care (eg: int s=12.5;). it doesn't type check with direct initialization</p>
-<p>----&gt;<mark>narrowing conversion</mark></p>
-<p>② <strong><u>uniform initialization</u></strong>(a feature in&nbsp;<mark>C++ 11</mark>)</p>
-<p>❗notice: the curly braces‼️ (eg:int s=<mark>{</mark>12.5<mark>}</mark>😉</p>
-<p>--&gt;with uniform initialization C++ does care about types!</p>
-<p>🎉Uniform initialization is awesome because:</p>
-<ul>
-<li>
-<p>It’s <mark>safe</mark>! It doesn’t allow for narrowing conversions—which can lead to unexpected behaviour (or critical system failures 😮)</p>
-</li>
-<li>
-<p>It’s <mark>ubiquitous</mark> it works for all types like vectors, maps, and custom classes, among other things!</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">//eg:Map</span>
+</code></pre>
+    <h2 id="week2-202485-202488️">Week2 2024/8/5🦄-2024/8/8🖼️ </h2>
+    <h3 id="1️⃣what-is-initialization">1️⃣what is Initialization </h3>
+    <p>----&gt;Provides initial values at the time of construction.</p>
+    <p><strong>How</strong>❔</p>
+    <p>① <strong><u>direct initialization</u></strong></p>
+    <p>-&gt; C++ doesn't care (eg: int s=12.5;). it doesn't type check with direct initialization</p>
+    <p>----&gt;<mark>narrowing conversion</mark></p>
+    <p>② <strong><u>uniform initialization</u></strong>(a feature in&nbsp;<mark>C++ 11</mark>)</p>
+    <p>❗notice: the curly braces‼️ (eg:int s=<mark>{</mark>12.5<mark>}</mark>😉</p>
+    <p>--&gt;with uniform initialization C++ does care about types!</p>
+    <p>🎉Uniform initialization is awesome because:</p>
+    <ul>
+      <li>
+        <p>It’s <mark>safe</mark>! It doesn’t allow for narrowing conversions—which can lead to unexpected behaviour (or
+          critical system failures 😮)</p>
+      </li>
+      <li>
+        <p>It’s <mark>ubiquitous</mark> it works for all types like vectors, maps, and custom classes, among other
+          things!</p>
+        <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">//eg:Map</span>
 std<span class="token double-colon punctuation">::</span>map<span class="token operator">&lt;</span>std<span class="token double-colon punctuation">::</span>string<span class="token punctuation">,</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span>ages<span class="token punctuation">{</span>
   <span class="token punctuation">{</span><span class="token string">"Alice"</span><span class="token punctuation">,</span><span class="token number">25</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
   <span class="token punctuation">{</span><span class="token string">"Bob"</span><span class="token punctuation">,</span><span class="token number">30</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -149,7 +992,8 @@ std<span class="token double-colon punctuation">::</span>cout<span class="token 
 
 <span class="token comment">//eg:vector</span>
 std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span>numbers<span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">//eg:struct</span>
+</code></pre>
+        <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">//eg:struct</span>
 <span class="token comment">//before</span>
 Student s<span class="token punctuation">;</span>
 s<span class="token punctuation">.</span>name<span class="token operator">=</span><span class="token string">"dolly"</span><span class="token punctuation">;</span>
@@ -157,12 +1001,13 @@ s<span class="token punctuation">.</span>state<span class="token operator">=</sp
 s<span class="token punctuation">.</span>age<span class="token operator">=</span><span class="token number">21</span><span class="token punctuation">;</span>
 <span class="token comment">//after</span>
 Student s<span class="token punctuation">{</span><span class="token string">"dolly"</span><span class="token punctuation">,</span><span class="token string">"AR"</span><span class="token punctuation">,</span><span class="token number">21</span><span class="token punctuation">}</span><span class="token punctuation">;</span>😘
-</code></pre></li>
-</ul>
-<p>③ <u><strong>structured binding</strong></u>(a feature in&nbsp;<mark>C++ 17</mark>)</p>
-<p>1.A useful way to initialize some variables from data structures with fixed sizes at compile time<br>
-2.Ability to access multiple values returned by a function</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">//eg:pair</span>
+</code></pre>
+      </li>
+    </ul>
+    <p>③ <u><strong>structured binding</strong></u>(a feature in&nbsp;<mark>C++ 17</mark>)</p>
+    <p>1.A useful way to initialize some variables from data structures with fixed sizes at compile time<br>
+      2.Ability to access multiple values returned by a function</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">//eg:pair</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;utility&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string&gt;</span></span>
@@ -226,25 +1071,27 @@ Point <span class="token function">getPoint</span><span class="token punctuation
   std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"X: "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> <span class="token string">", Y: "</span> <span class="token operator">&lt;&lt;</span> y <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><h3 id="2️⃣markreferencesmark">2️⃣<mark>References</mark> </h3>
-<p>what❓</p>
-<p>Declare a name variable as a reference.</p>
-<p>a reference is an alias to an already-existing thing.</p>
-<p>how❓</p>
-<p>use an ampersand(&amp;)</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-int">int</span> num<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">;</span>
+</code></pre>
+    <h3 id="2️⃣markreferencesmark">2️⃣<mark>References</mark> </h3>
+    <p>what❓</p>
+    <p>Declare a name variable as a reference.</p>
+    <p>a reference is an alias to an already-existing thing.</p>
+    <p>how❓</p>
+    <p>use an ampersand(&amp;)</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-int">int</span> num<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span><span class="token operator">&amp;</span> ref<span class="token operator">=</span>num<span class="token punctuation">;</span><span class="token comment">//ref is a variable of type int&amp;, that is an alias to num</span>
 
 
 <span class="token comment">//pass by reference</span>
 <span class="token keyword keyword-void">void</span> <span class="token function">squareN</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token operator">&amp;</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre><p>A reference refers to <mark>the same memory</mark> as its associated variable!</p>
-<p>Passing in a variable by <em><strong>reference</strong></em> into a function just means</p>
-<p><u>“Hey take in the actual piece of memory, don’t make a copy!”</u></p>
-<p>Passing in a variable by <em><strong>value</strong></em> into a function just means</p>
-<p><u>“Hey make a copy, don’t take in the actual variable!”</u></p>
-<p>an edge case______a calssic reference-copy bug_</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+</code></pre>
+    <p>A reference refers to <mark>the same memory</mark> as its associated variable!</p>
+    <p>Passing in a variable by <em><strong>reference</strong></em> into a function just means</p>
+    <p><u>“Hey take in the actual piece of memory, don’t make a copy!”</u></p>
+    <p>Passing in a variable by <em><strong>value</strong></em> into a function just means</p>
+    <p><u>“Hey make a copy, don’t take in the actual variable!”</u></p>
+    <p>an edge case______a calssic reference-copy bug_</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector&gt;</span></span>
 
@@ -264,12 +1111,15 @@ Point <span class="token function">getPoint</span><span class="token punctuation
         std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"("</span> <span class="token operator">&lt;&lt;</span> p<span class="token punctuation">.</span>first <span class="token operator">&lt;&lt;</span> <span class="token string">", "</span> <span class="token operator">&lt;&lt;</span> p<span class="token punctuation">.</span>second <span class="token operator">&lt;&lt;</span> <span class="token string">") "</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre><h3 id="3️⃣l-values-vs-r-values">3️⃣L-values vs R-values </h3>
-<p>An <font color="blue"><strong>l-value</strong></font> can be to the left <u><em><strong>or</strong></em></u> the right of an equal sign!</p>
-<p>eg: ✅int y=x; ✅x=344;</p>
-<p>An <font color="red"><strong>r-value</strong></font> can be ⭐<u><em><strong>ONLY</strong></em></u>⭐ to the right of an equal sign!</p>
-<p>eg:✅int y=21;  ❌21=x;</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;iostream&gt;</span></span>
+</code></pre>
+    <h3 id="3️⃣l-values-vs-r-values">3️⃣L-values vs R-values </h3>
+    <p>An <font color="blue"><strong>l-value</strong></font> can be to the left <u><em><strong>or</strong></em></u> the
+      right of an equal sign!</p>
+    <p>eg: ✅int y=x; ✅x=344;</p>
+    <p>An <font color="red"><strong>r-value</strong></font> can be ⭐<u><em><strong>ONLY</strong></em></u>⭐ to the right
+      of an equal sign!</p>
+    <p>eg:✅int y=21; ❌21=x;</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;iostream&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;cmath&gt;</span></span>
 
@@ -284,15 +1134,17 @@ Point <span class="token function">getPoint</span><span class="token punctuation
     std<span class="token double-colon punctuation">::</span>cout<span class="token operator">&lt;&lt;</span>four<span class="token operator">&lt;&lt;</span>std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><p>It turns out that num is an l-value! But Why?</p>
-<ol>
-<li>Remember what we said about <strong>r-values are temporary</strong>. Notice that num is being passed in by reference!</li>
-<li>We <u><em><strong>cannot</strong></em></u> pass in an r-value by reference because they’re temporary!</li>
-</ol>
-<h3 id="4️⃣umarkconstmarku">4️⃣<u><mark>const</mark></u> </h3>
-<p>what ❔</p>
-<p>A qualifier(限定符) for objects tha declares they cannot be modified.</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span>vec<span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+    <p>It turns out that num is an l-value! But Why?</p>
+    <ol>
+      <li>Remember what we said about <strong>r-values are temporary</strong>. Notice that num is being passed in by
+        reference!</li>
+      <li>We <u><em><strong>cannot</strong></em></u> pass in an r-value by reference because they’re temporary!</li>
+    </ol>
+    <h3 id="4️⃣umarkconstmarku">4️⃣<u><mark>const</mark></u> </h3>
+    <p>what ❔</p>
+    <p>A qualifier(限定符) for objects tha declares they cannot be modified.</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span>vec<span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-const">const</span> std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span>const_vec<span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">;</span><span class="token comment">//a const vector</span>
 std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span>ref_vec<span class="token punctuation">{</span>vec<span class="token punctuation">}</span><span class="token punctuation">;</span><span class="token comment">//a reference to 'vec'</span>
 <span class="token keyword keyword-const">const</span> std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span> const_ref<span class="token punctuation">{</span>vec<span class="token punctuation">}</span><span class="token punctuation">;</span><span class="token comment">//a const reference</span>
@@ -307,55 +1159,69 @@ vec<span class="token punctuation">.</span><span class="token function">push_bac
 const_vec<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//❌ this is const</span>
 ref_vec<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//✅</span>
 const_ref<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//❌this is const,compile error</span>
-</code></pre><p>what else I need to know:</p>
-<ol>
-<li>A few popular compilers include <strong>clang</strong> and <strong>g++</strong></li>
-</ol>
-<h3 id="5️⃣what-are-streams">5️⃣what are streams? </h3>
-<p>"Designing and implementing a general <u><strong>input/output</strong></u> facility for a programming language is notoriously difficult"-----Bjarne Stroustrup</p>
-<p>➡️</p>
-<p>"<s>Designing and implementing</s> a general <u><strong>input/output</strong></u> facility for <s>a programming language is notoriously difficult</s>  C++"-----Bjarne Stroustrup</p>
-<p>➡️</p>
-<p>a general <u><strong>input/output</strong></u> facility for C++</p>
-<p>➡️</p>
-<p>a general <u><strong>input/output(IO)</strong></u> <mark>abstraction</mark> for C++</p>
-<p>Abstractions often provide a consistent <u><em><strong>interface</strong></em></u>,</p>
-<p>and in the case of <font color="darkoragne">streams</font> the interface is for <u>reading</u> and <u>writing</u> data!</p>
-<p><strong>cerr and clog:</strong></p>
-<p><strong>cerr</strong>:used to output errors</p>
-<p><strong>clog</strong>:used for non-critical event logging</p>
-<p><a href="https://www.geeksforgeeks.org/difference-between-cerr-and-clog/">Difference between cerr and clog - GeeksforGeeks</a></p>
-<p>std::cout and the IO library (从上而下，上面的是父类，下面的是子类)</p>
-<p><a href="https://en.cppreference.com/w/cpp/io">https://en.cppreference.com/w/cpp/io</a></p>
-<p>std::cout is included in <font color="chocolate"><strong>"basic_ostream"</strong> </font>in cpp IO library</p>
-<p><u>how do we go from external source to program?</u><br>
-<img src="/images/image.png" alt="alt text"><br>
-<u>why is this even useful?</u></p>
-<p>A:Streams allow for a <mark>universal</mark> way of <mark>dealing with external data</mark></p>
-<p><u>what is streams actually are?</u></p>
-<p>A:     <font color="chocolote"><strong>"basic_iostream"</strong></font> in cpp IO library</p>
-<p>Classify different types of streams</p>
-<p><strong>Input streams (I)</strong><br>
-● a way to read data from a source<br>
-○ Are inherited from <strong>std::istream</strong><br>
-○ ex. reading in something from the console (std::cin)<br>
-○ primary operator: &gt;&gt; (called the <mark>extraction</mark> operator)<br>
-<strong>Output streams (O)</strong><br>
-● a way to write data to a destination<br>
-○ Are inherited from <strong>std::ostream</strong><br>
-○ ex. writing out something to the console (std::cout)<br>
-○ primary operator: &lt;&lt; (called the <mark>insertion</mark> operator)</p>
-<p><font color="red">我经常分不清&lt;&lt; 和&gt;&gt;:</font></p>
-<p>----&gt;</p>
-<ul>
-<li><strong>输出</strong>：<code>std::cout &lt;&lt; "Hello, World!";</code> 这里 <code>&lt;&lt;</code> 将字符串 "Hello, World!" 插入到输出流中。</li>
-<li><strong>输入</strong>：<code>std::cin &gt;&gt; number;</code> 这里 <code>&gt;&gt;</code> 从输入流中提取数据并存储到 <code>number</code> 变量中。</li>
-</ul>
-<h3 id="6️⃣stringstreams">6️⃣stringstreams </h3>
-<p><strong>what?</strong>     A:a way to treat strings as streams</p>
-<p><strong>Utility?</strong>    A:stringstreams are useful for use-cases that deal with mixing data types</p>
-<p><font color="darkorange">"basic_stringstream" </font>in cpp IO library</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+</code></pre>
+    <p>what else I need to know:</p>
+    <ol>
+      <li>A few popular compilers include <strong>clang</strong> and <strong>g++</strong></li>
+    </ol>
+    <h3 id="5️⃣what-are-streams">5️⃣what are streams? </h3>
+    <p>"Designing and implementing a general <u><strong>input/output</strong></u> facility for a programming language is
+      notoriously difficult"-----Bjarne Stroustrup</p>
+    <p>➡️</p>
+    <p>"<s>Designing and implementing</s> a general <u><strong>input/output</strong></u> facility for <s>a programming
+        language is notoriously difficult</s> C++"-----Bjarne Stroustrup</p>
+    <p>➡️</p>
+    <p>a general <u><strong>input/output</strong></u> facility for C++</p>
+    <p>➡️</p>
+    <p>a general <u><strong>input/output(IO)</strong></u> <mark>abstraction</mark> for C++</p>
+    <p>Abstractions often provide a consistent <u><em><strong>interface</strong></em></u>,</p>
+    <p>and in the case of <font color="darkoragne">streams</font> the interface is for <u>reading</u> and <u>writing</u>
+      data!</p>
+    <p><strong>cerr and clog:</strong></p>
+    <p><strong>cerr</strong>:used to output errors</p>
+    <p><strong>clog</strong>:used for non-critical event logging</p>
+    <p><a href="https://www.geeksforgeeks.org/difference-between-cerr-and-clog/">Difference between cerr and clog -
+        GeeksforGeeks</a></p>
+    <p>std::cout and the IO library (从上而下，上面的是父类，下面的是子类)</p>
+    <p><a href="https://en.cppreference.com/w/cpp/io">https://en.cppreference.com/w/cpp/io</a></p>
+    <p>std::cout is included in <font color="chocolate"><strong>"basic_ostream"</strong> </font>in cpp IO library</p>
+    <p><u>how do we go from external source to program?</u><br>
+      <img src="/images/image.png" alt="alt text"><br>
+      <u>why is this even useful?</u>
+    </p>
+    <p>A:Streams allow for a <mark>universal</mark> way of <mark>dealing with external data</mark></p>
+    <p><u>what is streams actually are?</u></p>
+    <p>A: <font color="chocolote"><strong>"basic_iostream"</strong></font> in cpp IO library</p>
+    <p>Classify different types of streams</p>
+    <p><strong>Input streams (I)</strong><br>
+      ● a way to read data from a source<br>
+      ○ Are inherited from <strong>std::istream</strong><br>
+      ○ ex. reading in something from the console (std::cin)<br>
+      ○ primary operator: &gt;&gt; (called the <mark>extraction</mark> operator)<br>
+      <strong>Output streams (O)</strong><br>
+      ● a way to write data to a destination<br>
+      ○ Are inherited from <strong>std::ostream</strong><br>
+      ○ ex. writing out something to the console (std::cout)<br>
+      ○ primary operator: &lt;&lt; (called the <mark>insertion</mark> operator)
+    </p>
+    <p>
+      <font color="red">我经常分不清&lt;&lt; 和&gt;&gt;:</font>
+    </p>
+    <p>----&gt;</p>
+    <ul>
+      <li><strong>输出</strong>：<code>std::cout &lt;&lt; "Hello, World!";</code> 这里 <code>&lt;&lt;</code> 将字符串 "Hello,
+        World!" 插入到输出流中。</li>
+      <li><strong>输入</strong>：<code>std::cin &gt;&gt; number;</code> 这里 <code>&gt;&gt;</code> 从输入流中提取数据并存储到
+        <code>number</code> 变量中。
+      </li>
+    </ul>
+    <h3 id="6️⃣stringstreams">6️⃣stringstreams </h3>
+    <p><strong>what?</strong> A:a way to treat strings as streams</p>
+    <p><strong>Utility?</strong> A:stringstreams are useful for use-cases that deal with mixing data types</p>
+    <p>
+      <font color="darkorange">"basic_stringstream" </font>in cpp IO library
+    </p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sstream&gt;</span></span>
 
@@ -379,88 +1245,105 @@ const_ref<span class="token punctuation">.</span><span class="token function">pu
 
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><p>"Bjarne Stroustrup C makes it easy to shoot yourself in the foot";</p>
-<p>stream begin with B,end with "\n"</p>
-<p><u>we want to extract the quote!</u></p>
-<p><u>but</u> The &gt;&gt; operatoronly reads until <strong>the next whitespace</strong>!(提取时空格不算在里面，像first是"Bjarne"，不是"Bjarne ")</p>
-<p>🔜<strong>Use getline()!</strong></p>
-<p><em><font color="green">istream</font>&amp; getline(<font color="green">istream</font>&amp; is, <font color="blue">string</font>&amp; str, <font color="red">char</font> delim)</em><br><br>
-● <strong>getline() reads an input stream</strong>, is, <strong>up until the</strong> delim <strong>char and stores it in some buffer</strong>, str.<br><br>
-● The delim char is by default ‘\n’. <br><br>
-● getline() <em><strong><u>consumes</u></strong></em> the delim character!<br><br>
-○ PAY ATTENTION TO THIS 😃</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>🔜
+</code></pre>
+    <p>"Bjarne Stroustrup C makes it easy to shoot yourself in the foot";</p>
+    <p>stream begin with B,end with "\n"</p>
+    <p><u>we want to extract the quote!</u></p>
+    <p><u>but</u> The &gt;&gt; operatoronly reads until <strong>the next
+        whitespace</strong>!(提取时空格不算在里面，像first是"Bjarne"，不是"Bjarne ")</p>
+    <p>🔜<strong>Use getline()!</strong></p>
+    <p><em>
+        <font color="green">istream</font>&amp; getline(<font color="green">istream</font>&amp; is, <font color="blue">
+          string</font>&amp; str, <font color="red">char</font> delim)
+      </em><br><br>
+      ● <strong>getline() reads an input stream</strong>, is, <strong>up until the</strong> delim <strong>char and
+        stores it in some buffer</strong>, str.<br><br>
+      ● The delim char is by default ‘\n’. <br><br>
+      ● getline() <em><strong><u>consumes</u></strong></em> the delim character!<br><br>
+      ○ PAY ATTENTION TO THIS 😃</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>🔜
 std<span class="token double-colon punctuation">::</span>string language<span class="token punctuation">,</span> extracted_quote<span class="token punctuation">;</span>
 ss <span class="token operator">&gt;&gt;</span> first <span class="token operator">&gt;&gt;</span> last <span class="token operator">&gt;&gt;</span> language<span class="token punctuation">;</span>
 std<span class="token double-colon punctuation">::</span><span class="token function">getline</span><span class="token punctuation">(</span>ss<span class="token punctuation">,</span> extracted_quote<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//makes it easy to shoot yourself in the foot</span>
 std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> first <span class="token operator">&lt;&lt;</span> “ ” <span class="token operator">&lt;&lt;</span> last <span class="token operator">&lt;&lt;</span> “ said <span class="token keyword keyword-this">this</span><span class="token operator">:</span> ‘” <span class="token operator">&lt;&lt;</span> language <span class="token operator">&lt;&lt;</span> “ “ <span class="token operator">&lt;&lt;</span>
 extracted_quote <span class="token operator">+</span> “‘“ <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
-</code></pre><p>输出：Bjarne Stroustrup said this: 'C makes it easy to shoot yourself in the foot'</p>
-<h3 id="7️⃣output-streams">7️⃣Output streams </h3>
-<p>● a way to write data to a destination/external source<br><br>
-○ ex. writing out something to the console (std::cout)<br><br>
-○ use the &lt;&lt; operator to <u><em><strong>send</strong></em></u> to the output stream</p>
-<p>🧁Character in output streams are stored in an intermediary(中介) buffer before being flushed to the destination.</p>
-<p>🍧std::cout stream is <strong>line-buffered</strong><br>
-🍭contents in buffer not shown on external source until an explicit flush occurs!</p>
-<p>🌺可以用 std::cout&lt;&lt;std::flush; 刷新输出流，让缓冲区的数据强制写到输出设备上</p>
-<p>double tao = 6.28;<br>
-std::cout &lt;&lt; tao; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;------------&gt;</p>
-<table>
-<thead>
-<tr>
-<th>6</th>
-<th>.</th>
-<th>2</th>
-<th>8</th>
-<th></th>
-</tr>
-</thead>
-</table>
-<p>-------Flush------&gt;Console</p>
-<p><mark>std::endl</mark></p>
-<p>std::endl tells the cout stream to end the line!</p>
-<p>std::endl <u><em><strong>also</strong></em></u> tells the stream to <font color="purple"><strong>flush</strong></font></p>
-<p>eg:</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+    <p>输出：Bjarne Stroustrup said this: 'C makes it easy to shoot yourself in the foot'</p>
+    <h3 id="7️⃣output-streams">7️⃣Output streams </h3>
+    <p>● a way to write data to a destination/external source<br><br>
+      ○ ex. writing out something to the console (std::cout)<br><br>
+      ○ use the &lt;&lt; operator to <u><em><strong>send</strong></em></u> to the output stream</p>
+    <p>🧁Character in output streams are stored in an intermediary(中介) buffer before being flushed to the destination.
+    </p>
+    <p>🍧std::cout stream is <strong>line-buffered</strong><br>
+      🍭contents in buffer not shown on external source until an explicit flush occurs!</p>
+    <p>🌺可以用 std::cout&lt;&lt;std::flush; 刷新输出流，让缓冲区的数据强制写到输出设备上</p>
+    <p>double tao = 6.28;<br>
+      std::cout &lt;&lt; tao;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;------------&gt;
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>6</th>
+          <th>.</th>
+          <th>2</th>
+          <th>8</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+    <p>-------Flush------&gt;Console</p>
+    <p><mark>std::endl</mark></p>
+    <p>std::endl tells the cout stream to end the line!</p>
+    <p>std::endl <u><em><strong>also</strong></em></u> tells the stream to <font color="purple"><strong>flush</strong>
+      </font>
+    </p>
+    <p>eg:</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">5</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> i <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><p>intermediate buffer: '1''\n'     [it is immediately sent to destination]</p>
-<p>then,When a stream is flushed the <strong>intermediate buffer is cleared</strong>!</p>
-<p>-&gt;存‘2’之前，buffer是空的</p>
-<p>-&gt;每存一个值，buffer都清空一次</p>
-<p>-&gt;<font color="purple"><strong>flushing</strong></font> is an expensive operation!</p>
-<p>-&gt;C++ is (kinda) smart! It knows when to auto flush(它会在buffer满的时候自动刷新，以便可以继续往buffer输数据)</p>
-<p><mark><strong>A shoutout and clarification</strong></mark></p>
-<blockquote>
-<p>However, upon testing these examples,I observed that '\n' seems to<br>
-flush the buffer in a manner similar to std::cout. Further research<br>
-led me to the CPp Reference std::endl, which states, "In many<br>
-implementations, standard output is line-buffered, and writing '\n'<br>
-causes a flush anyway,unless <mark>std::ios::sync with stdio(false)</mark> was<br>
-executed." This suggests that in many standard outputs, '\n' behaves<br>
-the same as std::cout. Additionally, when I appended cat to my<br>
-program,I noticed that in file output, '\n' does not immediately<br>
-flush the buffer.</p>
-</blockquote>
-<blockquote>
-<p>然而，在测试这些例子时，我发现 '\n' 似乎以类似于 std::cout 的方式刷新缓冲区。进一步的研究让我找到了 CPp Reference std::endl，其中指出：“在许多方面实现中，标准输出是行缓冲的，并且写入 '\n'无论如何都会导致刷新，除非 std::ios::sync with stdio(false) 是已执行。”这表明在许多标准输出中，'\n' 的行为与 std::cout 相同。此外，当我将 cat 添加到我的程序，我注意到在文件输出中，'\n'不会立即刷新缓冲区。</p>
-</blockquote>
-<p>解释：</p>
-<p>标准输出流（<code>std::cout</code>）在许多实现中是行缓冲的，这意味着写入一个换行符 <code>'\n'</code> 通常会导致缓冲区被自动刷新。但是，这种情况有机会被改变</p>
-<p>----&gt;调用了 <code>std::ios::sync_with_stdio(false)</code> 而改变。</p>
-<ul>
-<li><code>std::ios::sync_with_stdio(false)</code> 用于禁用 C++ 标准流（如 <code>std::cout</code>）与 C 标准 I/O 函数（如 <code>printf</code>, <code>scanf</code>）之间的同步。</li>
-<li>当禁用同步后，C++ 标准流和 C 标准 I/O 函数之间不再保证输出顺序的一致性。更重要的是，禁用同步可能会影响缓冲行为。</li>
-</ul>
-<p>----&gt;调用之后，使用'\n'的话，缓冲不会立马输出去，不会频繁刷新，IO消耗小</p>
-<p>只有在显示调用flush或者程序结束或者缓冲满的时候，会刷新缓冲</p>
-<p>所以比较好的做法 <mark><strong>use '\n'!</strong></mark></p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+    <p>intermediate buffer: '1''\n' [it is immediately sent to destination]</p>
+    <p>then,When a stream is flushed the <strong>intermediate buffer is cleared</strong>!</p>
+    <p>-&gt;存‘2’之前，buffer是空的</p>
+    <p>-&gt;每存一个值，buffer都清空一次</p>
+    <p>-&gt;<font color="purple"><strong>flushing</strong></font> is an expensive operation!</p>
+    <p>-&gt;C++ is (kinda) smart! It knows when to auto flush(它会在buffer满的时候自动刷新，以便可以继续往buffer输数据)</p>
+    <p><mark><strong>A shoutout and clarification</strong></mark></p>
+    <blockquote>
+      <p>However, upon testing these examples,I observed that '\n' seems to<br>
+        flush the buffer in a manner similar to std::cout. Further research<br>
+        led me to the CPp Reference std::endl, which states, "In many<br>
+        implementations, standard output is line-buffered, and writing '\n'<br>
+        causes a flush anyway,unless <mark>std::ios::sync with stdio(false)</mark> was<br>
+        executed." This suggests that in many standard outputs, '\n' behaves<br>
+        the same as std::cout. Additionally, when I appended cat to my<br>
+        program,I noticed that in file output, '\n' does not immediately<br>
+        flush the buffer.</p>
+    </blockquote>
+    <blockquote>
+      <p>然而，在测试这些例子时，我发现 '\n' 似乎以类似于 std::cout 的方式刷新缓冲区。进一步的研究让我找到了 CPp Reference
+        std::endl，其中指出：“在许多方面实现中，标准输出是行缓冲的，并且写入 '\n'无论如何都会导致刷新，除非 std::ios::sync with stdio(false)
+        是已执行。”这表明在许多标准输出中，'\n' 的行为与 std::cout 相同。此外，当我将 cat 添加到我的程序，我注意到在文件输出中，'\n'不会立即刷新缓冲区。</p>
+    </blockquote>
+    <p>解释：</p>
+    <p>标准输出流（<code>std::cout</code>）在许多实现中是行缓冲的，这意味着写入一个换行符 <code>'\n'</code> 通常会导致缓冲区被自动刷新。但是，这种情况有机会被改变</p>
+    <p>----&gt;调用了 <code>std::ios::sync_with_stdio(false)</code> 而改变。</p>
+    <ul>
+      <li><code>std::ios::sync_with_stdio(false)</code> 用于禁用 C++ 标准流（如 <code>std::cout</code>）与 C 标准 I/O 函数（如
+        <code>printf</code>, <code>scanf</code>）之间的同步。
+      </li>
+      <li>当禁用同步后，C++ 标准流和 C 标准 I/O 函数之间不再保证输出顺序的一致性。更重要的是，禁用同步可能会影响缓冲行为。</li>
+    </ul>
+    <p>----&gt;调用之后，使用'\n'的话，缓冲不会立马输出去，不会频繁刷新，IO消耗小</p>
+    <p>只有在显示调用flush或者程序结束或者缓冲满的时候，会刷新缓冲</p>
+    <p>所以比较好的做法 <mark><strong>use '\n'!</strong></mark></p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
 std<span class="token double-colon punctuation">::</span>ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">5</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -468,41 +1351,46 @@ std<span class="token double-colon punctuation">::</span>cout <span class="token
 <span class="token punctuation">}</span>
 <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><p><strong><mark>Output File Stream</mark></strong></p>
-<p>● Output file streams have a type: std::ofstream<br><br>
-● a way to write data to a file!<br><br>
-○ use the &lt;&lt; insertion operator to <u>send</u> to the file<br><br>
-○ Here are some you should know:<br><br>
-■ is_open()<br><br>
-■ open()<br><br>
-■ close()<br><br>
-■ fail()<br></p>
-<h3 id="8️⃣input-streams">8️⃣Input streams </h3>
-<p>● Input streams have the type std::istream<br><br>
-● a way to read data from an destination/external source<br><br>
-○ use the &gt;&gt; extractor operator to read from the input stream<br><br>
-○ Remember the std::cin is the console input stream<br></p>
-<p><strong><u>std::cin</u></strong></p>
-<p>std::cin is buffered<br><br>
-● Think of it as a place where a user can store some data and then read<br>
-from it<br><br>
-● std::cin buffer stops at a whitespace<br><br>
-● Whitespace in C++ includes:<br><br>
-○ “ ” – a literal space<br><br>
-○ <font color="purple">\n</font> character<br><br>
-○ <font color="purple">\t</font> character</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-double">double</span> pi<span class="token punctuation">;</span>
+</code></pre>
+    <p><strong><mark>Output File Stream</mark></strong></p>
+    <p>● Output file streams have a type: std::ofstream<br><br>
+      ● a way to write data to a file!<br><br>
+      ○ use the &lt;&lt; insertion operator to <u>send</u> to the file<br><br>
+      ○ Here are some you should know:<br><br>
+      ■ is_open()<br><br>
+      ■ open()<br><br>
+      ■ close()<br><br>
+      ■ fail()<br></p>
+    <h3 id="8️⃣input-streams">8️⃣Input streams </h3>
+    <p>● Input streams have the type std::istream<br><br>
+      ● a way to read data from an destination/external source<br><br>
+      ○ use the &gt;&gt; extractor operator to read from the input stream<br><br>
+      ○ Remember the std::cin is the console input stream<br></p>
+    <p><strong><u>std::cin</u></strong></p>
+    <p>std::cin is buffered<br><br>
+      ● Think of it as a place where a user can store some data and then read<br>
+      from it<br><br>
+      ● std::cin buffer stops at a whitespace<br><br>
+      ● Whitespace in C++ includes:<br><br>
+      ○ “ ” – a literal space<br><br>
+      ○ <font color="purple">\n</font> character<br><br>
+      ○ <font color="purple">\t</font> character</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-double">double</span> pi<span class="token punctuation">;</span>
 
 std<span class="token double-colon punctuation">::</span>cin<span class="token operator">&gt;&gt;</span>pi<span class="token punctuation">;</span>
-</code></pre><p><img src="/images/image-2.png" alt="alt text"></p>
-<p>刚开始 cin buffer is empty so <strong>prompts for input</strong>!<br>
-<img src="/images/image-1.png" alt="alt text"></p>
-<p>cin not empty so it reads up to white space and saves it to double pi</p>
-<p>它读到空白格之前，停下</p>
-<p>如果下面还要有cin操作，必须有一个whitespace</p>
-<p>Notice that cin <u><em><strong>only</strong></em></u> reads until the next whitespace</p>
-<p><font color="red"><strong><u>question</u></strong></font></p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-void">void</span> <span class="token function">cinGetlineBug</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+</code></pre>
+    <p><img src="/images/image-2.png" alt="alt text"></p>
+    <p>刚开始 cin buffer is empty so <strong>prompts for input</strong>!<br>
+      <img src="/images/image-1.png" alt="alt text">
+    </p>
+    <p>cin not empty so it reads up to white space and saves it to double pi</p>
+    <p>它读到空白格之前，停下</p>
+    <p>如果下面还要有cin操作，必须有一个whitespace</p>
+    <p>Notice that cin <u><em><strong>only</strong></em></u> reads until the next whitespace</p>
+    <p>
+      <font color="red"><strong><u>question</u></strong></font>
+    </p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-void">void</span> <span class="token function">cinGetlineBug</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
  <span class="token keyword keyword-double">double</span> pi<span class="token punctuation">;</span>
  <span class="token keyword keyword-double">double</span> tao<span class="token punctuation">;</span>
  std<span class="token double-colon punctuation">::</span>string name<span class="token punctuation">;</span>
@@ -511,240 +1399,296 @@ std<span class="token double-colon punctuation">::</span>cin<span class="token o
  std<span class="token double-colon punctuation">::</span>cin <span class="token operator">&gt;&gt;</span> tao<span class="token punctuation">;</span>
  std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span>pi<span class="token operator">&lt;&lt;</span> name <span class="token operator">&lt;&lt;</span> tao<span class="token operator">&lt;&lt;</span><span class="token char">'\n'</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><p><strong>1</strong> 为什么当我输入12.3 asd das<br>
-12<br>
-的时候，输出12.3 asd das12 ，12.3和asd之间有空格呢</p>
-<p>🔜因为std::cin&gt;&gt;pi的时候，只读到whitespace（也就是空格）之前，</p>
-<p>但是getline默认停止是遇见'\n'，所以它会读把空格读进去。</p>
-<p><strong>2</strong> 为什么输入12.3</p>
-<p>asd dasa</p>
-<p>的时候，输出12.30</p>
-<p>🔜因为输完12.3选择的whitespace是'\n'，std::cin&gt;&gt;pi的时候，读到whitespace'\n'之前，getline开始读就收到'\n'就停止了，所以name='';</p>
-<p>然后cin&gt;&gt;tao的时候，发现a不是double类型---&gt;报错 输出0</p>
-<p>改正：</p>
-<p>std::getline(std::cin, name);</p>
-<p>std::getline(std::cin, name);</p>
-<p><u><strong>that being said</strong></u></p>
-<p>You actually <em><u>shouldn’t</u></em> use getline() and std::cin() together because of the difference in how they parse data.<br>
-If you really do need to though, it is possible, but not recommended.</p>
-<p><mark>To conclude (Main takeaways):</mark></p>
-<ol>
-<li>Streams are a general interface to read and write data in programs</li>
-<li>Input and output streams on the same source/destination type<br>
-compliment each other!</li>
-<li>Don’t use getline() and std::cin() together, unless you<br>
-really really have to!</li>
-</ol>
-<h2 id="week3-202488-202489">Week3 2024/8/8🩰-2024/8/9👑 </h2>
-<h3 id="1️⃣defining-containers">1️⃣Defining Containers </h3>
-<p><u>Container: An object that allows us to collect other objects together and interact with them in some way.</u></p>
-<p>Containers are ways to collect related data together and work with it logically</p>
-<p><mark>Why containers?</mark>  What is the purpose of container types in programming languages?</p>
-<p><u>Organization</u>:Related data can be packaged together!</p>
-<p><u>Standardization</u>:Common features are expected and implemented.</p>
-<p><u>Abstraction</u>:Complex ideas made easier to utilize by clients.</p>
-<h3 id="2️⃣containers-in-the-stl-vs-stanford">2️⃣Containers in the STL vs Stanford </h3>
-<p>In choosing a programming language, there’s always a tradeoff between <strong>speed</strong>, <strong>power</strong>, and <strong>safety</strong>.</p>
-<p>--&gt;延伸：why is C++ so fast</p>
-<p><mark>Standardization:</mark></p>
-<p>Typically, containers export some standard, basic functionality.<br><br>
-● Allow you to store multiple objects (though all of the same type)<br><br>
-● Allow access to the collection through some (perhaps limited) way<br><br>
-○ Maybe allow iteration(迭代) through all of the objects<br><br>
-● May allow editing/deletion</p>
-<p>there are two types of containers:</p>
-<p><font color="red">Sequence</font>:</p>
-<p>● Containers that can be accessed sequentially<br><br>
-● Anything with an inherent order goes here!</p>
-<p>Sequence containers are for when you need to enforce some order on your information!</p>
-<p><font color="blue">Associative</font><br><br>
-● Containers that don’t necessarily have a sequential order<br><br>
-● More easily searched<br><br>
-● Maps and sets go here!</p>
-<table>
-<thead>
-<tr>
-<th>container</th>
-<th>principle</th>
-<th>characteristic</th>
-<th>type of Interator</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><font color="red">vector</font></td>
-<td></td>
-<td>At a high level, a vector is an <strong>ordered</strong> collection of elements of <strong>the same type</strong> that can <u>grow and shrink</u> insize.&nbsp; &nbsp;Internally,vectors implement an array!</td>
-<td>Random-Access</td>
-</tr>
-<tr>
-<td>stack</td>
-<td></td>
-<td></td>
-<td>No Iterator</td>
-</tr>
-<tr>
-<td>queue</td>
-<td></td>
-<td></td>
-<td>No Iterator</td>
-</tr>
-<tr>
-<td><font color="blue">set</font></td>
-<td></td>
-<td>Ordered set require a <strong>comparison operator</strong>&nbsp;to be defined</td>
-<td>Bidirectional</td>
-</tr>
-<tr>
-<td><font color="blue">map</font></td>
-<td>Maps are implemented with pairs! (<code>std::pair&lt;const key,value&gt;</code>)</td>
-<td>Ordered maps require a <strong>comparison operator</strong>&nbsp;to be defined</td>
-<td>Bidirectional</td>
-</tr>
-<tr>
-<td><font color="red">array</font></td>
-<td>is the primitive form of a vector</td>
-<td>fixed size in a strict sequence</td>
-<td></td>
-</tr>
-<tr>
-<td><font color="red">deque</font></td>
-<td>is a double ended queue（底层实现很有意思）</td>
-<td>可以做到had an array that stored other arrays&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;🌺If you need particularly fast inserts in the front, consider an std::deque</td>
-<td>Random-Access</td>
-</tr>
-<tr>
-<td><font color="red">list</font></td>
-<td>is a doubly linked list</td>
-<td>can loop through in either direction!</td>
-<td>Bidirectional</td>
-</tr>
-<tr>
-<td><font color="blue">unordered set</font></td>
-<td></td>
-<td>require a <strong>hash function</strong> to be defined. Unordered containers are <strong>faster</strong>, but can be difficult&nbsp;to get to work with nested containers/collections</td>
-<td></td>
-</tr>
-<tr>
-<td><font color="blue">unordered map</font></td>
-<td></td>
-<td>require a <strong>hash function</strong> to be defined</td>
-<td></td>
-</tr>
-<tr>
-<td>priority queue</td>
-<td></td>
-<td></td>
-<td>No Iterator</td>
-</tr>
-</tbody>
-</table>
-<h3 id="3️⃣container-adaptors">3️⃣Container Adaptors </h3>
-<p>Container adaptors are “wrappers” to existing containers!<br><br>
-● Wrappers <strong>modify the interface</strong> to sequence containers and change what the client is allowed to do/how they can interact with the container.<br><br>
-● How could we make a wrapper to implement a queue from a deque?</p>
-<p>A:<a href="https://en.cppreference.com/w/cpp/container/queue">std::queue - cppreference.com</a></p>
-<p>stack也是如此</p>
-<p><strong>Why?</strong><br><br>
-Abstraction again!<br><br>
-● Commonly used data structures made easy for the<br>
-client to use<br><br>
-● Can use different backing containers based on use type</p>
-<p><font color="orange"><strong>NEW in C++23: flat_map and flat_set are container adaptors of sequence containers that are faster than the default in most use cases!</strong></font></p>
-<h3 id="4️⃣interators">4️⃣Interators </h3>
-<p><u>All containers are collections of objects…<br>
-<strong>So how do we access those objects?</strong></u><br><br>
-● What if we want to print out everything in a vector?<br><br>
-● Or loop until we find a certain object in a set?<br></p>
-<p><strong>How is this done in the STL?</strong></p>
-<p>➡️Containers all implement something called an <mark>iterator</mark> to do this!<br><br>
-● Iterators let you access <strong>all</strong> data in containers programmatically!<br><br>
-● An iterator has a certain <strong>order</strong>; it “knows” what element will come next<br><br>
-○ Not necessarily the same each time you iterate!</p>
-<p><strong>In the STL</strong><br>
-All containers implement iterators, but they’re not all the same!<br><br>
-● Each container has its own iterator, which can have different behavior.<br><br>
-● All iterators implement a few shared operations:<br><br>
-○ Initializing----------------------------&gt;  iter = s.begin();<br><br>
-○ Incrementing-----------------------&gt;  ++iter;<br><br>
-○ Dereferencing----------------------&gt;  *iter;<br><br>
-○ Comparing---------------------------&gt;  iter != s.end();<br><br>
-○ Copying--------------------------------&gt;  new_iter = iter;<br></p>
-<p><u><font color="blue">What other behaviors can iterators have</font>?</u></p>
-<p>It depends the type of the iterators.</p>
-<p><a href="https://cplusplus.com/reference/iterator/">https://cplusplus.com/reference/iterator/</a></p>
-<p><a href="https://www.geeksforgeeks.org/introduction-iterators-c/">https://www.geeksforgeeks.org/introduction-iterators-c/</a></p>
-<p>🔵<strong>Forward</strong> iterators are the minimum level of functionality for standard containers.</p>
-<p>🔹&nbsp;<strong>Input</strong> iterators can appear on the RHS (right hand side) of an = operator</p>
-<p><code>auto elem=*it;</code></p>
-<p>🔹<strong>Output</strong> iterators can appear on the LHS (left hand side) of an = operator</p>
-<p><code>*elem=value;</code></p>
-<p>🔵<strong>Bidirectional</strong> iterators can go forward as well as backward!</p>
-<p>🔹<code>--iter;</code></p>
-<p>🔹Still has the same functionality of forward iterators!</p>
-<p>🔵<strong>Random-access</strong> iterators allow you to directly access values without visiting all elements sequentially.</p>
-<p>🔹 iter += 5;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🔹Think of vectors; vec[1] or vec[17] or…<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🔹Be careful not to go out of bounds!</p>
-<p><strong>Categorizing STL iterators</strong><br><br>
-Vectors and deques have the most powerful iterators!<br><br>
-● Creating your own containers means creating their iterators as well.<br><br>
-● You can access elements in stacks and queues one-by-one, but you have to change the container to do so!<br><br>
-● Iteration with iterators is <strong>const</strong><br></p>
-<p><strong>Let’s check out that for loop again!</strong></p>
-<p><code>for(auto iter=set.begin();iter!=set.end();++iter){}</code></p>
-<p>If we want the element and not just a reference to it, we dereference (*iter).</p>
-<p><code>const auto&amp; elem=*iter</code></p>
-<p>If we have a map, we can use structured binding to be more efficient while dereferencing!<br>
-{% raw %}</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>std<span class="token double-colon punctuation">::</span>map<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> map<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+    <p><strong>1</strong> 为什么当我输入12.3 asd das<br>
+      12<br>
+      的时候，输出12.3 asd das12 ，12.3和asd之间有空格呢</p>
+    <p>🔜因为std::cin&gt;&gt;pi的时候，只读到whitespace（也就是空格）之前，</p>
+    <p>但是getline默认停止是遇见'\n'，所以它会读把空格读进去。</p>
+    <p><strong>2</strong> 为什么输入12.3</p>
+    <p>asd dasa</p>
+    <p>的时候，输出12.30</p>
+    <p>🔜因为输完12.3选择的whitespace是'\n'，std::cin&gt;&gt;pi的时候，读到whitespace'\n'之前，getline开始读就收到'\n'就停止了，所以name='';</p>
+    <p>然后cin&gt;&gt;tao的时候，发现a不是double类型---&gt;报错 输出0</p>
+    <p>改正：</p>
+    <p>std::getline(std::cin, name);</p>
+    <p>std::getline(std::cin, name);</p>
+    <p><u><strong>that being said</strong></u></p>
+    <p>You actually <em><u>shouldn’t</u></em> use getline() and std::cin() together because of the difference in how
+      they parse data.<br>
+      If you really do need to though, it is possible, but not recommended.</p>
+    <p><mark>To conclude (Main takeaways):</mark></p>
+    <ol>
+      <li>Streams are a general interface to read and write data in programs</li>
+      <li>Input and output streams on the same source/destination type<br>
+        compliment each other!</li>
+      <li>Don’t use getline() and std::cin() together, unless you<br>
+        really really have to!</li>
+    </ol>
+    <h2 id="week3-202488-202489">Week3 2024/8/8🩰-2024/8/9👑 </h2>
+    <h3 id="1️⃣defining-containers">1️⃣Defining Containers </h3>
+    <p><u>Container: An object that allows us to collect other objects together and interact with them in some way.</u>
+    </p>
+    <p>Containers are ways to collect related data together and work with it logically</p>
+    <p><mark>Why containers?</mark> What is the purpose of container types in programming languages?</p>
+    <p><u>Organization</u>:Related data can be packaged together!</p>
+    <p><u>Standardization</u>:Common features are expected and implemented.</p>
+    <p><u>Abstraction</u>:Complex ideas made easier to utilize by clients.</p>
+    <h3 id="2️⃣containers-in-the-stl-vs-stanford">2️⃣Containers in the STL vs Stanford </h3>
+    <p>In choosing a programming language, there’s always a tradeoff between <strong>speed</strong>,
+      <strong>power</strong>, and <strong>safety</strong>.
+    </p>
+    <p>--&gt;延伸：why is C++ so fast</p>
+    <p><mark>Standardization:</mark></p>
+    <p>Typically, containers export some standard, basic functionality.<br><br>
+      ● Allow you to store multiple objects (though all of the same type)<br><br>
+      ● Allow access to the collection through some (perhaps limited) way<br><br>
+      ○ Maybe allow iteration(迭代) through all of the objects<br><br>
+      ● May allow editing/deletion</p>
+    <p>there are two types of containers:</p>
+    <p>
+      <font color="red">Sequence</font>:
+    </p>
+    <p>● Containers that can be accessed sequentially<br><br>
+      ● Anything with an inherent order goes here!</p>
+    <p>Sequence containers are for when you need to enforce some order on your information!</p>
+    <p>
+      <font color="blue">Associative</font><br><br>
+      ● Containers that don’t necessarily have a sequential order<br><br>
+      ● More easily searched<br><br>
+      ● Maps and sets go here!
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>container</th>
+          <th>principle</th>
+          <th>characteristic</th>
+          <th>type of Interator</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <font color="red">vector</font>
+          </td>
+          <td></td>
+          <td>At a high level, a vector is an <strong>ordered</strong> collection of elements of <strong>the same
+              type</strong> that can <u>grow and shrink</u> insize.&nbsp; &nbsp;Internally,vectors implement an array!
+          </td>
+          <td>Random-Access</td>
+        </tr>
+        <tr>
+          <td>stack</td>
+          <td></td>
+          <td></td>
+          <td>No Iterator</td>
+        </tr>
+        <tr>
+          <td>queue</td>
+          <td></td>
+          <td></td>
+          <td>No Iterator</td>
+        </tr>
+        <tr>
+          <td>
+            <font color="blue">set</font>
+          </td>
+          <td></td>
+          <td>Ordered set require a <strong>comparison operator</strong>&nbsp;to be defined</td>
+          <td>Bidirectional</td>
+        </tr>
+        <tr>
+          <td>
+            <font color="blue">map</font>
+          </td>
+          <td>Maps are implemented with pairs! (<code>std::pair&lt;const key,value&gt;</code>)</td>
+          <td>Ordered maps require a <strong>comparison operator</strong>&nbsp;to be defined</td>
+          <td>Bidirectional</td>
+        </tr>
+        <tr>
+          <td>
+            <font color="red">array</font>
+          </td>
+          <td>is the primitive form of a vector</td>
+          <td>fixed size in a strict sequence</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <font color="red">deque</font>
+          </td>
+          <td>is a double ended queue（底层实现很有意思）</td>
+          <td>可以做到had an array that stored other arrays&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;🌺If you need
+            particularly fast inserts in the front, consider an std::deque</td>
+          <td>Random-Access</td>
+        </tr>
+        <tr>
+          <td>
+            <font color="red">list</font>
+          </td>
+          <td>is a doubly linked list</td>
+          <td>can loop through in either direction!</td>
+          <td>Bidirectional</td>
+        </tr>
+        <tr>
+          <td>
+            <font color="blue">unordered set</font>
+          </td>
+          <td></td>
+          <td>require a <strong>hash function</strong> to be defined. Unordered containers are <strong>faster</strong>,
+            but can be difficult&nbsp;to get to work with nested containers/collections</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <font color="blue">unordered map</font>
+          </td>
+          <td></td>
+          <td>require a <strong>hash function</strong> to be defined</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>priority queue</td>
+          <td></td>
+          <td></td>
+          <td>No Iterator</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="3️⃣container-adaptors">3️⃣Container Adaptors </h3>
+    <p>Container adaptors are “wrappers” to existing containers!<br><br>
+      ● Wrappers <strong>modify the interface</strong> to sequence containers and change what the client is allowed to
+      do/how they can interact with the container.<br><br>
+      ● How could we make a wrapper to implement a queue from a deque?</p>
+    <p>A:<a href="https://en.cppreference.com/w/cpp/container/queue">std::queue - cppreference.com</a></p>
+    <p>stack也是如此</p>
+    <p><strong>Why?</strong><br><br>
+      Abstraction again!<br><br>
+      ● Commonly used data structures made easy for the<br>
+      client to use<br><br>
+      ● Can use different backing containers based on use type</p>
+    <p>
+      <font color="orange"><strong>NEW in C++23: flat_map and flat_set are container adaptors of sequence containers
+          that are faster than the default in most use cases!</strong></font>
+    </p>
+    <h3 id="4️⃣interators">4️⃣Interators </h3>
+    <p><u>All containers are collections of objects…<br>
+        <strong>So how do we access those objects?</strong></u><br><br>
+      ● What if we want to print out everything in a vector?<br><br>
+      ● Or loop until we find a certain object in a set?<br></p>
+    <p><strong>How is this done in the STL?</strong></p>
+    <p>➡️Containers all implement something called an <mark>iterator</mark> to do this!<br><br>
+      ● Iterators let you access <strong>all</strong> data in containers programmatically!<br><br>
+      ● An iterator has a certain <strong>order</strong>; it “knows” what element will come next<br><br>
+      ○ Not necessarily the same each time you iterate!</p>
+    <p><strong>In the STL</strong><br>
+      All containers implement iterators, but they’re not all the same!<br><br>
+      ● Each container has its own iterator, which can have different behavior.<br><br>
+      ● All iterators implement a few shared operations:<br><br>
+      ○ Initializing----------------------------&gt; iter = s.begin();<br><br>
+      ○ Incrementing-----------------------&gt; ++iter;<br><br>
+      ○ Dereferencing----------------------&gt; *iter;<br><br>
+      ○ Comparing---------------------------&gt; iter != s.end();<br><br>
+      ○ Copying--------------------------------&gt; new_iter = iter;<br></p>
+    <p><u>
+        <font color="blue">What other behaviors can iterators have</font>?
+      </u></p>
+    <p>It depends the type of the iterators.</p>
+    <p><a href="https://cplusplus.com/reference/iterator/">https://cplusplus.com/reference/iterator/</a></p>
+    <p><a
+        href="https://www.geeksforgeeks.org/introduction-iterators-c/">https://www.geeksforgeeks.org/introduction-iterators-c/</a>
+    </p>
+    <p>🔵<strong>Forward</strong> iterators are the minimum level of functionality for standard containers.</p>
+    <p>🔹&nbsp;<strong>Input</strong> iterators can appear on the RHS (right hand side) of an = operator</p>
+    <p><code>auto elem=*it;</code></p>
+    <p>🔹<strong>Output</strong> iterators can appear on the LHS (left hand side) of an = operator</p>
+    <p><code>*elem=value;</code></p>
+    <p>🔵<strong>Bidirectional</strong> iterators can go forward as well as backward!</p>
+    <p>🔹<code>--iter;</code></p>
+    <p>🔹Still has the same functionality of forward iterators!</p>
+    <p>🔵<strong>Random-access</strong> iterators allow you to directly access values without visiting all elements
+      sequentially.</p>
+    <p>🔹 iter += 5;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🔹Think of
+      vectors; vec[1] or vec[17] or…<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🔹Be careful
+      not to go out of bounds!</p>
+    <p><strong>Categorizing STL iterators</strong><br><br>
+      Vectors and deques have the most powerful iterators!<br><br>
+      ● Creating your own containers means creating their iterators as well.<br><br>
+      ● You can access elements in stacks and queues one-by-one, but you have to change the container to do so!<br><br>
+      ● Iteration with iterators is <strong>const</strong><br></p>
+    <p><strong>Let’s check out that for loop again!</strong></p>
+    <p><code>for(auto iter=set.begin();iter!=set.end();++iter){}</code></p>
+    <p>If we want the element and not just a reference to it, we dereference (*iter).</p>
+    <p>这样做，首先是*iter指向元素本身，然后我们创建的是一个引用，所以不造成对元素的复制。</p>
+    <p><code>const auto&amp; elem=*iter</code></p>
+    <p>An iterator is an object that points to an element inside a container and allows traversal through the
+      container's elements.所以不要把iterator看成就是容器里的某个元素了,又通过assignment2,得到教训，iterator也不是单纯是指向元素的指针，就是和&element还是不一样的</p>
+    <p><a
+        href="https://www.geeksforgeeks.org/difference-between-iterators-and-pointers-in-c-c-with-examples/">https://www.geeksforgeeks.org/difference-between-iterators-and-pointers-in-c-c-with-examples/</a>
+    </p>
+    <p></p>
+    <p>If we have a map, we can use structured binding to be more efficient while dereferencing!<br>
+      {% raw %}</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>std<span class="token double-colon punctuation">::</span>map<span class="token operator">&lt;</span><span class="token keyword keyword-int">int</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span><span class="token operator">&gt;</span> map<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-for">for</span><span class="token punctuation">(</span><span class="token keyword keyword-auto">auto</span> iter <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> iter <span class="token operator">!=</span> map<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> iter<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-auto">auto</span><span class="token operator">&amp;</span> <span class="token punctuation">[</span>key<span class="token punctuation">,</span> value<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">*</span>iter<span class="token punctuation">;</span> <span class="token comment">// structured binding!</span>
 <span class="token punctuation">}</span>
-</code></pre><p>{% endraw %}</p>
-<h3 id="5️⃣pointers">5️⃣Pointers </h3>
-<p><strong>Introducing pointers</strong></p>
-<p>Iterators are a particular type of pointer!<br><br>
-● Iterators “point” at particular elements in a <strong>container</strong>.<br><br>
-● Pointers can “point” at <strong>any objects</strong> in your code!<br></p>
-<p><strong><mark>Dereferencing</mark></strong><br>
-Pointers are marked by the asterisk (*) next to the type of the object they’re pointing at when they’re declared.<br>
-The address of a variable can be accessed by using &amp; before its name, same as when passing by reference!<br>
-If you want to access the data stored at a pointer’s address,dereference it using an asterisk again.</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-int">int</span> val<span class="token operator">=</span><span class="token number">18</span><span class="token punctuation">;</span>
+</code></pre>
+    <p>{% endraw %}</p>
+    <h3 id="5️⃣pointers">5️⃣Pointers </h3>
+    <p><strong>Introducing pointers</strong></p>
+    <p>Iterators are a particular type of pointer!<br><br>
+      ● Iterators “point” at particular elements in a <strong>container</strong>.<br><br>
+      ● Pointers can “point” at <strong>any objects</strong> in your code!<br></p>
+    <p><strong><mark>Dereferencing</mark></strong><br>
+      Pointers are marked by the asterisk (*) next to the type of the object they’re pointing at when they’re
+      declared.<br>
+      The address of a variable can be accessed by using &amp; before its name, same as when passing by reference!<br>
+      If you want to access the data stored at a pointer’s address,dereference it using an asterisk again.</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-int">int</span> val<span class="token operator">=</span><span class="token number">18</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span><span class="token operator">*</span> ptr<span class="token operator">=</span><span class="token operator">&amp;</span>val<span class="token punctuation">;</span>
 std<span class="token double-colon punctuation">::</span>cout<span class="token operator">&gt;&gt;</span><span class="token operator">*</span>ptr<span class="token operator">&gt;&gt;</span>std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span><span class="token comment">//18</span>
-</code></pre><p><strong>What if the object has member variables?</strong><br>
-If we need to access a pointer’s object’s member variables, instead of dereferencing (*ptr) and then accessing (.var), there’s a shorthand!</p>
-<p><code>*ptr.val=ptr-&gt;val</code></p>
-<p><strong>What’s the difference?</strong><br>
-● Iterators are a type of pointer!<br><br>
-● Iterators have to point to elements in a container, but pointers can point to any object!<br><br>
-○ Why is this? All objects stored inside the big container known as <strong>memory</strong>!<br><br>
-● Can access memory addresses with &amp; and the data at an address/pointer using *<br></p>
-<h2 id="week4-202489-202489">Week4 2024/8/9🕋-2024/8/9🎁 </h2>
-<h3 id="1️⃣introduction-to-classes">1️⃣Introduction to classes </h3>
-<p><strong>Why classes?</strong></p>
-<p>●One of the premises of the entire C++ language was the lack of object-oriented-programming (OOP) in C.<br><br>
-● Classes are user-defined types that allow a user to <em><u><strong>encapsulate</strong></u></em> data and functionality using member variables and member functions<br></p>
-<p><strong>What is object-oriented-programming?</strong></p>
-<p>● Object-oriented-programming is centered around objects<br><br>
-● Focuses on design and implementation of classes!<br><br>
-● Classes are the <strong>user-defined types</strong> that can be declared as an object!</p>
-<p>🎉🎉<strong>Surprise!</strong></p>
-<p>Containers are classes defined in the STL!🥳</p>
-<p><strong>Comparing 'struct' and 'class'</strong></p>
-<blockquote>
-<p><mark>classes</mark> containing a sequence ofobjects of various types, a set of functions for manipulating these objects, and a set of restrictions on the access of these objects and function;<br>
-<mark>structures</mark> which are classes without access restrictions,</p>
-<p>-------Bjarne Stroustrup</p>
-</blockquote>
-<p>All these fields are public,i.e. can be changed by the user Because of this, we can’t<br>
-enforce certain behaviors in structs, like avoiding a negative age.</p>
-<p>(例如：s.age=-200;例如struct是透明的痛包，class是不透明的🎒);</p>
-<p><strong>Some other cool class stuff</strong></p>
-<p><strong>Type aliasing</strong> - allows you to create synonymous identifiers for types</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Student</span> <span class="token punctuation">{</span>
+</code></pre>
+    <p><strong>What if the object has member variables?</strong><br>
+      If we need to access a pointer’s object’s member variables, instead of dereferencing (*ptr) and then accessing
+      (.var), there’s a shorthand!</p>
+    <p><code>*ptr.val=ptr-&gt;val</code></p>
+    <p><strong>What’s the difference?</strong><br>
+      ● Iterators are a type of pointer!<br><br>
+      ● Iterators have to point to elements in a container, but pointers can point to any object!<br><br>
+      ○ Why is this? All objects stored inside the big container known as <strong>memory</strong>!<br><br>
+      ● Can access memory addresses with &amp; and the data at an address/pointer using *<br></p>
+    <h2 id="week4-202489-202489">Week4 2024/8/9🕋-2024/8/9🎁 </h2>
+    <h3 id="1️⃣introduction-to-classes">1️⃣Introduction to classes </h3>
+    <p><strong>Why classes?</strong></p>
+    <p>●One of the premises of the entire C++ language was the lack of object-oriented-programming (OOP) in C.<br><br>
+      ● Classes are user-defined types that allow a user to <em><u><strong>encapsulate</strong></u></em> data and
+      functionality using member variables and member functions<br></p>
+    <p><strong>What is object-oriented-programming?</strong></p>
+    <p>● Object-oriented-programming is centered around objects<br><br>
+      ● Focuses on design and implementation of classes!<br><br>
+      ● Classes are the <strong>user-defined types</strong> that can be declared as an object!</p>
+    <p>🎉🎉<strong>Surprise!</strong></p>
+    <p>Containers are classes defined in the STL!🥳</p>
+    <p><strong>Comparing 'struct' and 'class'</strong></p>
+    <blockquote>
+      <p><mark>classes</mark> containing a sequence ofobjects of various types, a set of functions for manipulating
+        these objects, and a set of restrictions on the access of these objects and function;<br>
+        <mark>structures</mark> which are classes without access restrictions,
+      </p>
+      <p>-------Bjarne Stroustrup</p>
+    </blockquote>
+    <p>All these fields are public,i.e. can be changed by the user Because of this, we can’t<br>
+      enforce certain behaviors in structs, like avoiding a negative age.</p>
+    <p>(例如：s.age=-200;例如struct是透明的痛包，class是不透明的🎒);</p>
+    <p>这个是因为像struct：Public Access by Default，任何人可以修改值，而且数据缺少封装，不能加以限制。class可以有一个private的int age，一个public的setAge函数里规定年龄范围
+    </p>
+    <p><strong>Some other cool class stuff</strong></p>
+    <p><strong>Type aliasing</strong> - allows you to create synonymous identifiers for types</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Student</span> <span class="token punctuation">{</span>
 Private<span class="token operator">:</span>
 <span class="token comment">/// An example of type aliasing</span>
 <span class="token keyword keyword-using">using</span> String <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>string<span class="token punctuation">;</span>💟
@@ -761,23 +1705,26 @@ String <span class="token function">getState</span><span class="token punctuatio
 <span class="token punctuation">}</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><h3 id="2️⃣container-adapters容器适配器">2️⃣Container adapters容器适配器 </h3>
-<p>🎉🎉Surprise!</p>
-<p>All containers in the STL are ⭐classes⭐(重复一遍 🪅)</p>
-<p>主要有 stack queue priority_queue三种，</p>
-<p>用底层容器实现但是只暴露特定接口函数，不揭露实现细节。</p>
-<p>例如：</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-template">template</span><span class="token operator">&lt;</span>
+</code></pre>
+    <h3 id="2️⃣container-adapters容器适配器">2️⃣Container adapters容器适配器 </h3>
+    <p>🎉🎉Surprise!</p>
+    <p>All containers in the STL are ⭐classes⭐(重复一遍 🪅)</p>
+    <p>主要有 stack queue priority_queue三种，</p>
+    <p>用底层容器实现但是只暴露特定接口函数，不揭露实现细节。</p>
+    <p>例如：</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-template">template</span><span class="token operator">&lt;</span>
     <span class="token keyword keyword-class">class</span> <span class="token class-name">T</span><span class="token punctuation">,</span>
     <span class="token keyword keyword-class">class</span> <span class="token class-name">Container</span> <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>deque<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span>
 <span class="token operator">&gt;</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">queue</span><span class="token punctuation">;</span>
-</code></pre><h3 id="3️⃣inheritance">3️⃣Inheritance </h3>
-<p><strong>Why inheritance?</strong></p>
-<ul>
-<li><strong>Polymorphism多态性</strong>: Different objects might need to have the same interface</li>
-<li><strong>Extensibility</strong>: Inheritance allows you to extend a class by creating a subclass with specific properties</li>
-</ul>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Shape</span> <span class="token punctuation">{</span>
+</code></pre>
+    <h3 id="3️⃣inheritance">3️⃣Inheritance </h3>
+    <p><strong>Why inheritance?</strong></p>
+    <ul>
+      <li><strong>Polymorphism多态性</strong>: Different objects might need to have the same interface</li>
+      <li><strong>Extensibility</strong>: Inheritance allows you to extend a class by creating a subclass with specific
+        properties</li>
+    </ul>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Shape</span> <span class="token punctuation">{</span>
 <span class="token keyword keyword-public">public</span><span class="token operator">:</span>
 <span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-double">double</span> <span class="token function">area</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword keyword-const">const</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token comment">//This is a virtual function, meaning that it is instantiated in the base class </span>
@@ -794,19 +1741,26 @@ String <span class="token function">getState</span><span class="token punctuatio
 <span class="token keyword keyword-double">double</span> _radius<span class="token punctuation">;</span>
 <span class="token comment">//Another pro of inheritance is the encapsulation of class variables.</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p><strong>Subclasses vs Container Adapter</strong></p>
-<ul>
-<li>These are not to be confused</li>
-<li>Subclasses inherit from base class functionality</li>
-<li>Container adapters provide the interface for several classes and act as a <strong>template parameter.</strong></li>
-</ul>
-<h3 id="4️⃣template-classes">4️⃣Template classes </h3>
-<p><font color="pink"><strong>Template Class</strong></font>: A class that is parametrized over some number of types; it is comprised of member variables of a general type/types.</p>
-<p><u>We can now allow classes to be general, and not redundant冗余!</u></p>
-<p><mark>template<typename t=""></typename></mark>:This is a template declaration and allows us to create template classes</p>
-<p><mark>template&lt;typename T,typename U&gt;</mark>:This is a template declaration list which can have various template parameters representing different types.</p>
-<p><strong>The difference:</strong></p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"Container.hh"</span></span>
+</code></pre>
+    <p><strong>Subclasses vs Container Adapter</strong></p>
+    <ul>
+      <li>These are not to be confused</li>
+      <li>Subclasses inherit from base class functionality</li>
+      <li>Container adapters provide the interface for several classes and act as a <strong>template parameter.</strong>
+      </li>
+    </ul>
+    <h3 id="4️⃣template-classes">4️⃣Template classes </h3>
+    <p>
+      <font color="pink"><strong>Template Class</strong></font>: A class that is parametrized over some number of types;
+      it is comprised of member variables of a general type/types.
+    </p>
+    <p><u>We can now allow classes to be general, and not redundant冗余!</u></p>
+    <p><mark>template<typename t=""></typename></mark>:This is a template declaration and allows us to create template
+      classes</p>
+    <p><mark>template&lt;typename T,typename U&gt;</mark>:This is a template declaration list which can have various
+      template parameters representing different types.</p>
+    <p><strong>The difference:</strong></p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"Container.hh"</span></span>
 
 <span class="token keyword keyword-template">template</span><span class="token operator">&lt;</span><span class="token keyword keyword-class">class</span> <span class="token class-name">T</span><span class="token operator">&gt;</span>
 <span class="token class-name">Container</span><span class="token operator">&lt;</span>T<span class="token operator">&gt;</span><span class="token double-colon punctuation">::</span><span class="token function">Container</span><span class="token punctuation">(</span>T val<span class="token punctuation">)</span><span class="token punctuation">{</span>🎐
@@ -830,12 +1784,18 @@ T <span class="token class-name">Container</span><span class="token operator">&l
 T <span class="token class-name">Container</span><span class="token double-colon punctuation">::</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>🎐
     <span class="token keyword keyword-return">return</span> value<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><p>💟C++ wants us to specify our template parameters in our namespace because, based on the parameters our class may behave differently!<br>
-Note: there is no "one" Container,there is one for an int, bool, char,etc., there is one for an int, bool,char, etc.</p>
-<p>💟class and type name are interchangeable in the template declaration list.一样用没区别</p>
-<p>💟<font color="red"><u>模板类的实现也放在头文件，不要在.cpp文件</u></font></p>
-<h3 id="5️⃣const-correctness">5️⃣Const correctness </h3>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">//.h</span>
+</code></pre>
+    <p>💟C++ wants us to specify our template parameters in our namespace because, based on the parameters our class may
+      behave differently!<br>
+      Note: there is no "one" Container,there is one for an int, bool, char,etc., there is one for an int, bool,char,
+      etc.</p>
+    <p>💟class and type name are interchangeable in the template declaration list.一样用没区别</p>
+    <p>💟<font color="red"><u>Templates don’t emit code until instantiated（所以模板类的声明和定义分开在两个文件的话，编译器可能找不到）, so #include
+          the .cpp file in the .h file, not
+          the other way around! 模板类的实现也放在头文件，不要在.cpp文件。或者在.h里加一句 #include "xxx.cpp"</u></font>
+    </p>
+    <h3 id="5️⃣const-correctness">5️⃣Const correctness </h3>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">//.h</span>
 <span class="token keyword keyword-class">class</span> <span class="token class-name">Student</span> <span class="token punctuation">{</span>
 <span class="token keyword keyword-private">private</span><span class="token operator">:</span>
 <span class="token comment">/// An example of type aliasing</span>
@@ -857,11 +1817,13 @@ Note: there is no "one" Container,there is one for an int, bool, char,etc., ther
 <span class="token comment">//- The compiler doesn’t know whether or not getName() and getAge() modify s</span>
 <span class="token comment">//- Remember, member functions can access and modify member variables</span>
 <span class="token punctuation">}</span> 
-</code></pre><p><u><strong>Const interface</strong></u></p>
-<p><strong>Definition</strong>:<br>
-*️⃣Objects that are const can only interact with the const-interface.<br>
-The const interface <u>is simply the functions that are const/do not modify the object/instance of the class.</u></p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">//订正后</span>
+</code></pre>
+    <p><u><strong>Const interface</strong></u></p>
+    <p><strong>Definition</strong>:<br>
+      *️⃣Objects that are const can only interact with the const-interface.<br>
+      The const interface <u>is simply the functions that are const/do not modify the object/instance of the class.</u>
+    </p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">//订正后</span>
 <span class="token comment">//.h</span>
 <span class="token keyword keyword-class">class</span> <span class="token class-name">Student</span> <span class="token punctuation">{</span>
 <span class="token keyword keyword-private">private</span><span class="token operator">:</span>
@@ -894,8 +1856,9 @@ std<span class="token double-colon punctuation">::</span>string <span class="tok
 <span class="token keyword keyword-int">int</span> <span class="token class-name">Student</span><span class="token double-colon punctuation">::</span><span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword keyword-const">const</span> <span class="token punctuation">{</span>🧜‍♀️
 <span class="token keyword keyword-return">return</span> <span class="token keyword keyword-this">this</span><span class="token operator">-&gt;</span>age<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><p>之前搞错的小东西：</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">//.h文件</span>
+</code></pre>
+    <p>之前搞错的小东西：</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">//.h文件</span>
 <span class="token keyword keyword-class">class</span> <span class="token class-name">IntArray</span> <span class="token punctuation">{</span>
 <span class="token keyword keyword-private">private</span><span class="token operator">:</span>
  <span class="token keyword keyword-int">int</span><span class="token operator">*</span> _array
@@ -933,16 +1896,20 @@ secondVal <span class="token operator">=</span> <span class="token number">19</s
 <span class="token function">printElement</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><p><code>static void printElement(const IntArray&amp; arr, size_t inde</code>这里调用的是const对象别名，所以使用的at成员函数也要是const成员函数</p>
-<p>加一个函数<code>int&amp; at(size_t index)const {  return _array[index]; }</code></p>
-<p>我本来想着的是为什么不是</p>
-<p><code>const int&amp; at(size_t index)const {  return _array[index]; }</code></p>
-<p>只能说返回是不是const，语法上是不限制的</p>
-<p>看含义：<code>const</code> 成员函数是指在成员函数声明末尾加上 <code>const</code> 关键字的函数。<code>const</code> 成员函数承诺不修改调用对象的状态。<a href="https://www.geeksforgeeks.org/const-member-functions-c/">Const member functions in C++ - GeeksforGeeks</a></p>
-<p><strong>Question：遇到这种问题，我们是可以再写一个相同功能的const函数，but the level of<br>
-pain/annoying scales linearly with the length of the function</strong></p>
-<p>🔜<mark>const_cast</mark>!</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-int">int</span><span class="token operator">&amp;</span> <span class="token function">findItem</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+</code></pre>
+    <p><code>static void printElement(const IntArray&amp; arr, size_t inde</code>这里调用的是const对象别名，所以使用的at成员函数也要是const成员函数
+    </p>
+    <p>加一个函数<code>int&amp; at(size_t index)const {  return _array[index]; }</code></p>
+    <p>我本来想着的是为什么不是</p>
+    <p><code>const int&amp; at(size_t index)const {  return _array[index]; }</code></p>
+    <p>只能说返回是不是const，语法上是不限制的</p>
+    <p>看含义：<code>const</code> 成员函数是指在成员函数声明末尾加上 <code>const</code> 关键字的函数。<code>const</code> 成员函数承诺不修改调用对象的状态。<a
+        href="https://www.geeksforgeeks.org/const-member-functions-c/">Const member functions in C++ - GeeksforGeeks</a>
+    </p>
+    <p><strong>Question：遇到这种问题，我们是可以再写一个相同功能的const函数，but the level of<br>
+        pain/annoying scales linearly with the length of the function</strong></p>
+    <p>🔜<mark>const_cast</mark>!</p>
+    <pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-int">int</span><span class="token operator">&amp;</span> <span class="token function">findItem</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-auto">auto</span><span class="token operator">&amp;</span> elem<span class="token operator">:</span> arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>elem <span class="token operator">==</span> value<span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span> elem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -952,26 +1919,30 @@ pain/annoying scales linearly with the length of the function</strong></p>
 <span class="token comment">/// one-liners ftw :)</span>
 <span class="token keyword keyword-return">return</span> <span class="token generic-function"><span class="token function">const_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>IntArray<span class="token operator">&amp;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token keyword keyword-this">this</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">findItem</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
-</code></pre><p><u>break this down:</u></p>
-<p>💟The <strong>const_cast</strong> is casting away the const</p>
-<p>💟&lt;IntArray&amp;&gt; here is the key this is our target. A non-const reference</p>
-<p>💟Here we’re dereferencing <strong>this</strong> so that we can cast it as non-const.</p>
-<p><u>step:</u></p>
-<ol>
-<li>Cast so that it is pointing to a non-const object</li>
-<li>Call the non-const version of the function (this is legal now)</li>
-<li>Then cast the non-const return from the function call to a const version</li>
-</ol>
-<p>(2024.8.19  第一次提交，原先用开源的marktext写再转html,发现很多地方格式会改变，于是后面直接在html文件上修改。打算之后用vscode写markdown，写完之后由jekyll转成html,这样漂亮一些)</p>
+</code></pre>
+    <p><u>break this down:</u></p>
+    <p>💟The <strong>const_cast</strong> is casting away the const</p>
+    <p>💟&lt;IntArray&amp;&gt; here is the key this is our target. A non-const reference</p>
+    <p>💟Here we’re dereferencing <strong>this</strong> so that we can cast it as non-const.</p>
+    <p><u>step:</u></p>
+    <ol>
+      <li>Cast so that it is pointing to a non-const object</li>
+      <li>Call the non-const version of the function (this is legal now)</li>
+      <li>Then cast the non-const return from the function call to a const version</li>
+    </ol>
+    <p>(2024.8.19
+      第一次提交，原先用开源的marktext写再转html,发现很多地方格式会改变，于是后面直接在html文件上修改。打算之后用vscode写markdown，写完之后由jekyll转成html,这样漂亮一些)</p>
 
-      </div>
-      
-      
-    
-    
-    
-    
-    
-    
-  
-    </body></html>
+  </div>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
