@@ -808,7 +808,7 @@ Use it in class definitions, like constructors and operators.
 int main() {<br>
 vector<string> vec1 = {“hello”, “world”}<br>
 vector<string> vec2 = std::move(vec1);<br>
-~~<font color=red>`vec1.push_back(“Sure hope vec2 doesn’t see this!”)`</font>~~
+~~<font color=red>`vec1.push_back(\“Sure hope vec2 doesn’t see this!\”)`</font>~~
 }<br>
 In application code we might make a mistake like this and try to push_back() to a moved object. <br>
 
