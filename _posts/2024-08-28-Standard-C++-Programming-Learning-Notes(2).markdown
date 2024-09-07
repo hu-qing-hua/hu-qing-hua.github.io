@@ -763,8 +763,9 @@ Widget& operator=(const Widget&)=default;//support copying
 ### 1️⃣ Lvalues,Rvalues review
 **L-values** live until the end of the scope
 **R-values** live until the end of the line
-
+### 2️⃣ Why do we need move semantics？
 ![1](/images/img3.png "test")
+<br>
 copy就是在别的地方完全复刻一个自己的房子，家具什么完全复刻,非常任性<br>
 move就是搬家的时候 把原先用的沙发什么的都搬过去，省钱省时间<br>
 
@@ -795,7 +796,7 @@ data(std::move(other.data)) {
 `std::move`:std::move()changes an l-value to an x-value.<br>
 Whenever the original object is no longer needed you can use std::move() to transfer as opposed to copy.<br>
 **x-value**: You can plunder me,move anything I'm holding and use it elsewhere(since I'm going to be destroyed soon anyway)".<br>
-
+### 3️⃣ std::move()
 **Circling back to std::move()**
 - You should use this when you’re assigning some l-value that is no longer needed where it is previously stored
 - Generally, we want to avoid using std::move() in application code.
@@ -805,12 +806,12 @@ Use it in class definitions, like constructors and operators.
 **why?**
 int main() {<br>
 vector<string> vec1 = {“hello”, “world”}<br>
-vector<string> vec2 = std::move(vec1);<br>
-<font color=red>~~vec1.push_back(“Sure hope vec2 doesn’t see this!”)~~</font><br>
+vector<string> vec2 = std::move(vec1);
+~~<font color=red>vec1.push_back(“Sure hope vec2 doesn’t see this!”)</font>~~
 }<br>
 In application code we might make a mistake like this and try to push_back() to a moved object. 
 ![2](/images/img4.png "test ")
-
+### 4️⃣ Move constructor and move assignment operator
 **Summarizing move semantics**
 - If your class has <font color=blue>copy constructor</font> and <font color=blue>copy assignment</font> defined, you should also define a <font color="#dddd00">move constructor</font> and <font color="#dddd00">move assignment</font>
 - Define these by overloading your copy constructor and assignment
@@ -827,10 +828,10 @@ and constructors
 4. Copy Assignment Operator: Assigns the contents of one object to another object
 5. Move Assignment Operator: Moves the resources of one object to another object
 6. Destructor: Frees any dynamically allocated resources owned by an object when it is destroyed
-
-**Rule of zero**
-If you don’t need a constructor or a destructor or copy assignment etc. Then simply don’t use it!
-**If your class relies on objects/classes that already have these SMFs implemented, then there’s no need to reimplement this logic!**
+### 5️⃣ Rules of Zero,Three,and Five
+**Rule of zero**<br>
+If you don’t need a constructor or a destructor or copy assignment etc. Then simply don’t use it!<br>
+**If your class relies on objects/classes that already have these SMFs implemented, then there’s no need to reimplement this logic!**<br>
 ```cpp
 class a_string_with_an_id() {
 public:
@@ -841,47 +842,23 @@ std::string str;
 }
 a_string_with_an_id object;
 ```
-Our class a_string_with_an_id has self managing variables. 
+Our class a_string_with_an_id has self managing variables. <br>
 std::string *already* has copy constructor, copy assignment, move constructor, and move assignment!<br>
-
-**Rule of three**
-If you need a custom destructor, then you also probably need to define a copy constructor and a copy assignment operator for your class
-**Why is this the case?**
-If you use a destructor, that often means that you are manually dealing with dynamic memory allocation/are generally just handling your own memory.
-**If this is the case:**
-The compiler will not be able to automatically generate these for you, because of the manual memory management.
-
-**Rule of five**
-If you define a copy constructor or copy assignment operator, then you *should* define a move constructor and a move assignment operator as well.
-**Why?**
+<br>
+**Rule of three**<br>
+If you need a custom destructor, then you also probably need to define a copy constructor and a copy assignment operator for your class<br>
+**Why is this the case?**<br>
+If you use a destructor, that often means that you are manually dealing with dynamic memory allocation/are generally just handling your own memory.<br>
+**If this is the case:**<br>
+The compiler will not be able to automatically generate these for you, because of the manual memory management.<br>
+<br>
+**Rule of five**<br>
+If you define a copy constructor or copy assignment operator, then you *should* define a move constructor and a move assignment operator as well.<br>
+**Why?**<br>
 Copies = Slow<br>
-This is less about correctness, unlike the rule of three, and more about efficiency. 
+This is less about correctness, unlike the rule of three, and more about efficiency. <br>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 2️⃣ Why do we need move semantics？
-### 3️⃣ std::move()
-### 4️⃣ Move constructor and move assignment operator
-### 5️⃣ Rules of Zero,Three,and Five
 
 
 
