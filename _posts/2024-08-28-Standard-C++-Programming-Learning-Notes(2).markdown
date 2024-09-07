@@ -182,7 +182,8 @@ std::cout << "Occurrences of the letter k in Tchaikovsky: " << count_occurrences
 This code will work for any containers with any types, for a single specific target.<br>
 Will this work for a more general category of targets than one specific value?<br>
 What if we wanted to find all the vowels(元音) in “Tchaikovsky”?<br>
-**Predicate Functions**
+<br>
+**Predicate Functions**<br>
 Any function that returns a boolean value is a predicate!
 - isVowel() is an example of a predicate, but there are tons of others we might want!
 - A predicate can have any amount of parameters…
@@ -555,6 +556,9 @@ class Widget{
     Widget& operator=(Widget&& rhs);
 }
 ```
+the difference between copy constructor and move constructor：<br>
+https://www.geeksforgeeks.org/move-constructors-in-c-with-examples/<br>
+
 ### 4️⃣ Copy and copy assignment
 **Review: Initializer Lists**<br>
 When we create a constructor, we need to initialize all of our member variables.
@@ -604,6 +608,7 @@ Many times, you will want to create a copy that does more than just copies the m
 - Deep copy: an object that is a complete, independent copy of the original
 
 In these cases, you’d want to override the default special member functions with your own implementation!<br>
+即默认的拷贝构造函数是浅拷贝，会出现指针指向同一块地址的情况，所以当有需要时，自己手动重写拷贝构造函数，用深拷贝。<br>
 Declare them in the header and write their implementation in the .cpp, like any function!
 
 ### 5️⃣ Default and delete
@@ -640,7 +645,8 @@ Now copying isn't a possible operation!
 We can selectively allow functionality of special member functions!
 - This has lots of uses – what if we only want one copy of an instance to be allowed?
 - This is how classes like <font color=orange>std::unique_ptr</font> work!
-<u>该类满足 MoveConstructible 和 MoveAssignable 的要求，但不满CopyConstructible 和 CopyAssiqnable 的要求。</u>
+
+<u>该类满足 MoveConstructible 和 MoveAssignable 的要求，但不满CopyConstructible 和 CopyAssiqnable 的要求。</u><br>
 
 **=default?**<br>
 We can also keep the default copy constructor if we declare other constructors!
@@ -717,10 +723,29 @@ class Widget{
 - Defining a move assignment operator prevents generation of a move copy constructor, and vice versa.
   - If the move assignment operator needs to be re-implemented, there'd likely be a problem with the move constructor!
 
+**一个例子解释一下 &&**
+```cpp
+User &User::operator=(User &&u)
+{
+    if (this != &u)
+    {
+        name = std::move(u.name);
+        friends = std::move(u.friends);
+    }
+    return *this;
+} 
+``` 
+&& 表示 右值引用。右值引用允许我们捕获右值对象，也就是那些即将被销毁或者不需要保留的临时对象。<br>
+右值引用的主要作用是在移动语义中使用，它可以避免不必要的拷贝，提高性能。通过右值引用，我们可以直接“窃取”另一个对象的资源，而不用进行深拷贝。<br>
+&u:u本身还是一个左值，&u就是指向u对象的实际地址<br>
+name = std::move(u.name)：std::move 将 u.name 转换为右值，从而允许移动操作。std::move 并不会真正 动数据，它只是将对象标记为“可以移动”，从而避免拷贝。<br>
+*this: *就是解引用啦，this是指向当前对象的指针，我们要返回的是一个对象。<br>
+返回 *this 是为了实现链式操作:    User a, b, c; a = b = std::move(c); <br>
+
 **Caveats**<br>
-Move constructors and operators are only generated if:
-● No copy operations are declared
-● No move operations are declared
+Move constructors and operators are only generated if:<br>
+● No copy operations are declared<br>
+● No move operations are declared<br>
 ● No destructor is declared
 
 Declaring any of these will get rid of the default C++ generated operations.
@@ -734,6 +759,129 @@ Widget(const Widget&)=default;
 Widget& operator=(const Widget&)=default;//support copying
 ```
 
+## Week7 2024/9/7🤟-
+### 1️⃣ Lvalues,Rvalues review
+**L-values** live until the end of the scope
+**R-values** live until the end of the line
+
+![1](/images/img3.png "test")
+copy就是在别的地方完全复刻一个自己的房子，家具什么完全复刻,非常任性<br>
+move就是搬家的时候 把原先用的沙发什么的都搬过去，省钱省时间<br>
+
+```cpp
+class HumanGenome {
+private:
+std::vector<char> data;
+public:
+// move constructor
+HumanGenome(HumanGenome&& other) noexcept :
+data(std::move(other.data)) {
+ std::cout << "HumanGenome moved into stage." << std::endl;
+ }
+}
+// Move assignment operator
+ HumanGenome& operator=(HumanGenome&& other) noexcept {
+ if (this != &other) {
+    //data=other.data;//this is actually performing a copy! this defeats the purpose of move.
+ data = std::move(other.data);
+ std::cout << "HumanGenome moved within stage." << std::endl;
+ }
+ return *this;
+ }
+
+```
+`noexcept`:This basically says “hey I guarantee not to throw an exception”<br>
+`HumanGenome&& other`:This basically says “I’m gonna yank this thing’s resource, I will treat it as an r-value”<br>
+`std::move`:std::move()changes an l-value to an x-value.<br>
+Whenever the original object is no longer needed you can use std::move() to transfer as opposed to copy.<br>
+**x-value**: You can plunder me,move anything I'm holding and use it elsewhere(since I'm going to be destroyed soon anyway)".<br>
+
+**Circling back to std::move()**
+- You should use this when you’re assigning some l-value that is no longer needed where it is previously stored
+- Generally, we want to avoid using std::move() in application code.
+Use it in class definitions, like constructors and operators.
+  - The compiler can do much of the optimizations without you needing to do std::move() if you define the move constructor and move assignment operator.
+
+**why?**
+int main() {<br>
+vector<string> vec1 = {“hello”, “world”}<br>
+vector<string> vec2 = std::move(vec1);<br>
+<font color=red>~~vec1.push_back(“Sure hope vec2 doesn’t see this!”)~~</font><br>
+}<br>
+In application code we might make a mistake like this and try to push_back() to a moved object. 
+![2](/images/img4.png "test ")
+
+**Summarizing move semantics**
+- If your class has <font color=blue>copy constructor</font> and <font color=blue>copy assignment</font> defined, you should also define a <font color="#dddd00">move constructor</font> and <font color="#dddd00">move assignment</font>
+- Define these by overloading your copy constructor and assignment
+to be defined for `Type&& other` as well as `Type& other`
+- Use `std::move` to force the use of other types’ move assignments
+and constructors
+- All `std::move(x)` does is cast `x` as an ~~rvalue~~ xvalue
+- Be wary of `std::move(x)` in main function code!
+
+**at this point**
+1. Default constructor: Initializes an object to a default state
+2. Copy constructor: Creates a new object by copying an existing object
+3. Move constructor: Creates a new object by moving the resources of an existing object
+4. Copy Assignment Operator: Assigns the contents of one object to another object
+5. Move Assignment Operator: Moves the resources of one object to another object
+6. Destructor: Frees any dynamically allocated resources owned by an object when it is destroyed
+
+**Rule of zero**
+If you don’t need a constructor or a destructor or copy assignment etc. Then simply don’t use it!
+**If your class relies on objects/classes that already have these SMFs implemented, then there’s no need to reimplement this logic!**
+```cpp
+class a_string_with_an_id() {
+public:
+/// getter and setter methods for our private variables
+private:
+int id;
+std::string str;
+}
+a_string_with_an_id object;
+```
+Our class a_string_with_an_id has self managing variables. 
+std::string *already* has copy constructor, copy assignment, move constructor, and move assignment!<br>
+
+**Rule of three**
+If you need a custom destructor, then you also probably need to define a copy constructor and a copy assignment operator for your class
+**Why is this the case?**
+If you use a destructor, that often means that you are manually dealing with dynamic memory allocation/are generally just handling your own memory.
+**If this is the case:**
+The compiler will not be able to automatically generate these for you, because of the manual memory management.
+
+**Rule of five**
+If you define a copy constructor or copy assignment operator, then you *should* define a move constructor and a move assignment operator as well.
+**Why?**
+Copies = Slow<br>
+This is less about correctness, unlike the rule of three, and more about efficiency. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 2️⃣ Why do we need move semantics？
+### 3️⃣ std::move()
+### 4️⃣ Move constructor and move assignment operator
+### 5️⃣ Rules of Zero,Three,and Five
 
 
 
