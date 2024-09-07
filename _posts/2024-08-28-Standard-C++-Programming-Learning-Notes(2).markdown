@@ -808,10 +808,10 @@ Use it in class definitions, like constructors and operators.
 int main() {<br>
 vector<string> vec1 = {“hello”, “world”}<br>
 vector<string> vec2 = std::move(vec1);<br>
-~~vec1.push_back(“Sure hope vec2 doesn’t see this!”)~~
+~~ vec1.push_back(“Sure hope vec2 doesn’t see this!”) ~~
 }<br>
 In application code we might make a mistake like this and try to push_back() to a moved object. <br>
-![2](/images/img4.png "test ")
+![2](/images/img4.png "test")
 
 ### 4️⃣ Move constructor and move assignment operator
 **Summarizing move semantics**
