@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Standard C++ Programming Learning Notes(2)"
+title:  "Standard C++ Programming Learning Notes(2/2)"
 date:   2024-08-23
 categories: blog
 
@@ -759,7 +759,7 @@ Widget(const Widget&)=default;
 Widget& operator=(const Widget&)=default;//support copying
 ```
 
-## Week7 2024/9/7🤟-
+## Week7 2024/9/7🤟-2024/9/9🙀
 ### 1️⃣ Lvalues,Rvalues review
 **L-values** live until the end of the scope
 **R-values** live until the end of the line
@@ -804,11 +804,11 @@ Whenever the original object is no longer needed you can use std::move() to tran
 Use it in class definitions, like constructors and operators.
   - The compiler can do much of the optimizations without you needing to do std::move() if you define the move constructor and move assignment operator.
 
-**why?**
+**why?**<br>
 int main() {<br>
-vector<string> vec1 = {“hello”, “world”}<br>
+vector<string> vec1 = {"hello", "world"}<br>
 vector<string> vec2 = std::move(vec1);<br>
-~~<font color=red>`vec1.push_back(\“Sure hope vec2 doesn’t see this!\”)`</font>~~
+//vec1.push_back("Sure hope vec2 doesn’t see this!");❌<br>
 }<br>
 In application code we might make a mistake like this and try to push_back() to a moved object. <br>
 
@@ -865,13 +865,360 @@ If you define a copy constructor or copy assignment operator, then you **should*
 Copies = Slow<br>
 This is less about correctness, unlike the rule of three, and more about efficiency. <br>
 
+### 6️⃣ Type Safety
+**Type Safety**: The extent to which a language prevents typing errors.<br>
+**Type Safety**: The extent to which a function signature guarantees the behavior of a function.
+```cpp
+void removeOddsFromEnd(vector<int>& vec){
+while(vec.back() % 2 == 1){
+vec.pop_back();
+}
+}
+```
+problem: <font color=red>hint</font> What if vec is {} / an empty vector!?<br>
+![3](/images/img5.png "hint")<br>
+**Undefined behavior**: Function could crash, could give us garbage, could accidentally give us some actual value<br>
+改正：<br>
+while(!vec.empty() && vec.back() % 2 == 1)<br>
+**Key idea**: it is the **programmers job** to enforce the **precondition** that **vec** be non-empty, otherwise we get undefined behavior!<br>
+<br>
+There may or may not be a “last element” in vec.<br>
+How can vec.back() have deterministic behavior in either case?<br>
+
+```cpp
+valueType& vector<valueType>::back(){
+return *(begin() + size() - 1);
+}
+```
+Dereferencing a pointer without verifying it points to real memory is undefined behavior!<br>
+
+```cpp
+//订正：
+valueType& vector<valueType>::back(){
+if(empty()) throw std::out_of_range;
+return *(begin() + size() - 1);
+}
+```
+Deterministic behavior is great, but can we do better?<br>
+There may or may not be a “last element” in vec<br>
+How can vec.back() <font color=green>warn us of that when we call it</font>?<br>
+
+**Revisiting our definition**<br>
+**Type Safety: The extent to which a function signature guarantees the behavior of a function.**
+❤️A look at a first solution
+```cpp
+std::pair<bool, valueType&> vector<valueType>::back(){
+if(empty()){
+return {false, valueType()};//valueType() :default constructor of valueType()
+}
+return {true, *(begin() + size() - 1)};
+}
+```
+Problems with std::pair<br>
+back() now advertises that there may or may not be a last element<br>
+- valueType may not have a default constructor
+- Even if it does, calling constructors is expensive
+
+上面代码返回值之后，->
+```cpp
+void removeOddsFromEnd(vector<int>& vec){
+while(vec.back().second % 2 == 1){
+vec.pop_back();
+}
+}
+```
+This is still pretty unpredictable behavior! What if the default constructor for an int produced an odd number?
+### 7️⃣ std::optional
+What?<br>
+- std::optional is a template class which will either contain a value of
+type T or contain nothing (expressed as nullopt)
+  - Note: that’s nullopt NOT nullptr. It’s a new thing!
+  - Nullptr: an object that can be converted to a value of any **pointer** type
+  - Nullopt: an object that can be converted to a value of any **optional** type
+
+```cpp
+//看个意思，代码段间不连贯
+std::optional<valueType> vector<valueType>::back(){
+if(empty()){
+return {};
+}
+return *(begin() + size() - 1);
+}
+```
+```cpp
+//原先的
+void removeOddsFromEnd(vector<int>& vec){
+while(vec.back() % 2 == 1){
+vec.pop_back();
+}
+}
+```
+We can’t do arithmetic with an optional, we have to get the value inside the optional (if it exists) first!<br>
+<br>
+
+**What’s the interface of std::optional?**
+std::optional types have a<br>
+- .value() method:
+returns the contained value or throws bad_optional_access
+error
+- .value_or(valueType val)
+returns the contained value or default value, parameter val
+- .has_value()
+returns true if contained value exists, false otherwise
+<br>
+```cpp
+void removeOddsFromEnd(vector<int>& vec){
+while(vec.back().has_value() && vec.back().value() % 2 == 1){
+vec.pop_back();
+}
+}
+```
+This will no longer error, but it is pretty unwieldy :/ <br>
+<br>
+改成：<br>
+while(vec.back() && vec.back().value() % 2 == 1)<br>
+改成：<br>
+while(vec.back().value_or(2) % 2 == 1)<br>
+Totally hacky, but totally works ;Please don’t do this!<br>
+
+**Recap: The problem with std::vector::back()**
+- Why is it so easy to accidentally call back() on empty vectors if the outcome is so dangerous?
+- The function signature gives us a false promise!
+  - valueType& vector<valueType>::back()
+- Promises to return an something of type valueType
+- But in reality, there either may or may not be a “last element” in a vector 
+
+**std::optional<T&> is not available!**
+```cpp
+std::optional<valueType&>
+vector<valueType>::operator[](size_t index){
+return *(begin() + index);
+}
+```
+The underlying memory implications actually get very complicated...<br>
+
+**Best we can do is error..which is what .at() does**
+```cpp
+valueType& vector<valueType>::operator[](size_t index){
+return *(begin() + index);
+}
+valueType& vector<valueType>::at(size_t index){
+if(index >= size()) throw std::out_of_range;
+return *(begin() + index);
+}
+```
+why have both?<br>
+
+operator[]用法：no bounds checking<br>
+速度更快，但Risk: If you access an invalid index (e.g., out-of-bounds), it can lead to undefined behavior, possibly causing crashes or data corruption.
+```cpp
+std::vector<int> vec = {1, 2, 3};
+int value = vec[2]; // Direct access, no checks
+```
+
+at() 用法：with bounds checking<br>
+更安全，就是慢一些
+```cpp
+std::vector<int> vec = {1, 2, 3};
+try {
+    int value = vec.at(2); // Safe access with bounds check
+} catch (const std::out_of_range& e) {
+    std::cerr << "Index out of range" << std::endl;
+}
+```
+
+**Is this…..good?**<br>
+Pros of using std::optional returns:<br>
+- Function signatures create more informative contracts
+- Class function calls have guaranteed and usable behavior
+
+Cons:<br>
+- You will need to use .value() EVERYWHERE
+- (In cpp) It’s still possible to do a bad_optional_access
+- (In cpp) optionals can have undefined behavior too (*optional does same thing as .value() with no error checking)
+- In a lot of cases we want std::optional<T&>...which we don’t have
+
+**Why even bother with optionals?**<br>
+
+**Recall: Design philosophies of C++**
+- Only add features if they solve an actual problem
+- Programmers should be free to choose their own style
+- Compartmentalization is key
+- Allow the programmer full control if they want it
+- Don’t sacrifice performance except as a last resort
+- Enforce safety at compile time whenever possible🤟
+
+**Recap: Type safety and std::optional**<br>
+- You can guarantee the behavior of your programs by using a strict type system!
+- std::optional is a tool that could make this happen: you can return either a value or nothing: .has_value() , .value_or() , .value()
+- This can be unwieldy and slow, so cpp doesn’t use optionals in most stl data structures
+- Many languages, however, do!
+- Besides using them in classes, you can use them in application code where it makes sense! This is highly encouraged :)
+
+## Week8 2024/9/9👓-2024/9/9😌
+### 1️⃣ RALL(Resource Acquisition Is Initialization)
+首先：<br>
+**Exceptions**<br>
+- Exceptions are a way of handling errors when they arise in code
+- Exceptions are “thrown”
+- However, we can write code that lets us handle exceptions so that we can continue in our code without necessarily erroring
+
+例如
+```cpp
+try {
+// code that we check for exceptions
+}
+catch([exception type] e1) { // "if"
+// behavior when we encounter an error
+}
+catch([other exception type] e2) { // "else if"
+// ...
+}
+catch { // the "else" statement
+// catch-all (haha)
+}
+```
+
+问题在： code paths有很多，可能异常的地方也很多，不可能每一个地方都来一下<br>
+![6](/images/img6.png "test6")
+It turns out that there are many resources that you need to release after acquiring<br>
+How to we ensure that we properly release resources in the case that we have an exception?<br>
+->解决问题<br>
+RAII: Resource Acquisition is Initialization (What is this name?)<br>
+RAII was developed by this lad:<br>
+![7](/images/img7.png "test7")
+And it’s a concept that is very emblematic in C++, among other languages.<br>
+So what is RAII?<br>
+- All resources used by a class should be acquired in the constructor!
+- All resources that are used by a class should be released in the destructor.
 
 
+- By abiding by the RAII policy we avoid “half-valid” states.
+- No matter what, the destructor is called whenever the resource goes out of scope.
+- One more thing: the resource/object is usable immediately after it is
+created.
 
+如果我们先用原语mutex上锁，中间一系列操作，再解锁；中间出现问题的话，可能一直不会执行解锁。<br>
+用lock_guard<mutex> lg();<br>
+https://en.cppreference.com/w/cpp/thread/lock_guard#:~:text=The%20class%20lock_guard%20is%20a,the%20mutex%20it%20is%20given. <br>
+A lock guard is a RAII-compliant wrapper that attempts to acquire the passed in lock. It releases the the lock once it goes out of scope
+### 2️⃣ Smart Pointer
+RAII for locks → lock_guard
+- Created a new object that acquires the resource in the constructor and releases in the destructor
+RAII for memory → 🤔<br>
+RAII for memory → We can do the same 🥳
+- These “wrapper” pointers are called “smart pointers”!
+- There are three types of RAII-compliant pointers:
+  - std::unique_ptr
+    -  Uniquely owns its resource, can’t be copied
+  - std::shared_ptr
+    - Can make copies, destructed when the underlying memory goes out of scope
+  - std::weak_ptr
+    - A class of pointers designed to mitigate circular dependencies
+      - More on these in a bit
 
+记住unique_ptr不能复制，因为如果出现一个unique_ptr A先复制了一个B，A再destructor,这个时候B指向的是已经被释放的内存<br>
+Shared pointers get around our issue of trying to copy std::unique_ptr’s by not deallocating the underlying memory until all shared pointers go out of scope!<br>
+![8](/images/img8.png "test8") <br>
+**Initializing smart pointers!**
+```cpp
+std::unique_ptr<T> unique_ptr{new T};
+std::shared_ptr<T> shared_ptr{new T};
+//做了两步1.shared_ptr<T>创建实例 2.new T 初始化它
+```
 
+更好的做法：
+```cpp
+std::unique_ptr<T> std::make_unique<T>{};
+std::shared_ptr<T> std::make_shared<T>{};
+```
+Always use `std::make_unique<T>` and `std::make_shared<T>` <br>
+Why?<br>
+1. The most important reason: if we don’t then we’re going to allocate memory twice, once for the pointer itself, and once for the new T
+2. We should also be consistent — if you use make_unique also use make_shared!
 
+讲到weak_ptr的好处<br>
+```cpp
+#include <iostream>
+#include <memory>
 
+class B;
+
+class A
+{
+public:
+    std::shared_ptr<B> ptr_to_b;
+    ~A()
+    {
+        std::cout << "All of A's resources deallocated" << std::endl;
+    }
+};
+
+class B
+{
+public:
+    std::shared_ptr<A> ptr_to_a;🤨
+    ~B()
+    {
+        std::cout << "All of B's resources deallocated" << std::endl;
+    }
+};
+
+int main()
+{
+    std::shared_ptr<A> shared_ptr_to_a = std::make_shared<A>();
+    std::shared_ptr<B> shared_ptr_to_b = std::make_shared<B>();
+
+    shared_ptr_to_a->ptr_to_b = shared_ptr_to_b;
+    shared_ptr_to_b->ptr_to_a = shared_ptr_to_a;
+
+    return 0; // 循环引用导致A和B都不会被销毁
+}
+
+```
+
+这时使用 weak_ptr：
+
+```cpp
+#include <iostream>
+#include <memory>
+
+class B;
+
+class A
+{
+public:
+    std::shared_ptr<B> ptr_to_b;
+    ~A()
+    {
+        std::cout << "All of A's resources deallocated" << std::endl;
+    }
+};
+
+class B
+{
+public:
+    std::weak_ptr<A> ptr_to_a;😊
+    ~B()
+    {
+        std::cout << "All of B's resources deallocated" << std::endl;
+    }
+};
+
+int main()
+{
+    std::shared_ptr<A> shared_ptr_to_a = std::make_shared<A>();
+    std::shared_ptr<B> shared_ptr_to_b = std::make_shared<B>();
+
+    shared_ptr_to_a->ptr_to_b = shared_ptr_to_b;
+    shared_ptr_to_b->ptr_to_a = shared_ptr_to_a;
+
+    return 0; 
+}
+
+```
+### 3️⃣ Building C++ projects
+好好学gdb吧
 
 
 
