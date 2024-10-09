@@ -338,8 +338,71 @@ Make your linked list circular (highly recommended for project 1), with a single
         }
 
         return currElemIsPrime || squarePrimes(lst.rest);  
-        //这个地方用到 ||短路求值的特点
+        //这个地方用到 ||短路求值的特点，保证递归🤟
     }
 ```
 
-感觉在GradeScope提交评分的过程,和之前在kaggle上提交一样，让我更有成就感。可能因为别人写好测试，通过评分我可以知道我的程序到底有没有问题。
+## Testing
+
+https://github.com/google/truth<br>
+
+![8](/images/img16.png "test7")
+
+### Java里string作为参数传递的情况<br>
+在 Java 中，`String` 是一个特殊的、不可变的对象。它的管理方式有点不同，特别是在处理字符串常量时，会用到**字符串常量池（String Pool）**。
+
+#### 1. **字符串常量池**
+Java 为了优化内存使用，引入了一个叫做**字符串常量池**（也叫**字符串池**）的机制。字符串常量池是堆内存中的一个特殊区域，存储了一些字符串字面量（即直接定义在代码中的字符串常量）以及其他使用 `String.intern()` 方法生成的字符串。
+
+#### 2. **`String` 赋值时的常量池查找机制**
+当你使用**字面量**（比如 `"Hello"`）为一个 `String` 变量赋值时，Java 会先检查字符串常量池中是否已经有这个字符串：
+
+- 如果常量池中已经存在相同内容的字符串，直接**返回池中的引用**，而不会再创建新的对象。
+- 如果常量池中没有这个字符串，Java 会在常量池中**创建一个新的字符串对象**，并返回它的引用。
+
+例如：
+```java
+String s1 = "Hello";  // "Hello" 被存储到常量池中
+String s2 = "Hello";  // 直接从常量池中获取 "Hello" 的引用
+
+System.out.println(s1 == s2);  // true，因为 s1 和 s2 指向同一个常量池中的字符串
+```
+
+在这个例子中，`s1` 和 `s2` 都指向常量池中的同一个 `"Hello"` 字符串。
+
+#### 3. **通过 `new String()` 创建字符串**
+当你使用 `new String("Hello")` 来创建字符串时，Java 不会使用常量池，而是**直接在堆内存中创建一个新的 `String` 对象**，即使 `"Hello"` 已经存在于常量池中。
+
+例如：
+```java
+String s1 = "Hello";             // 常量池中的字符串
+String s2 = new String("Hello");  // 在堆中创建一个新的对象
+
+System.out.println(s1 == s2);  // false，s1 和 s2 指向的是不同的对象
+```
+
+在这种情况下，`s1` 指向常量池中的 `"Hello"`，而 `s2` 是在堆中创建的新对象，因此 `s1 == s2` 返回 `false`，因为它们是不同的对象。
+
+#### 4. **`intern()` 方法**
+如果你希望将一个通过 `new String()` 创建的字符串放入常量池或获取常量池中已有的字符串引用，可以使用 `intern()` 方法。`intern()` 方法会检查常量池中是否已经存在该字符串，如果存在则返回常量池中的引用；如果不存在，则会将该字符串添加到常量池中并返回引用。
+
+```java
+String s1 = new String("Hello");
+String s2 = s1.intern();  // s2 将指向常量池中的 "Hello"
+String s3 = "Hello";
+
+System.out.println(s2 == s3);  // true，s2 和 s3 指向常量池中的同一个字符串
+```
+
+#### 总结
+- **字面量赋值**：`String` 变量通过字面量赋值时，Java 会优先在字符串常量池中查找该字符串，避免重复创建相同的字符串对象。
+- **`new String()`**：每次都会在堆中创建一个新的对象，而不依赖常量池。
+- **`intern()`**：可以将堆中的字符串加入常量池，或获取常量池中的已有字符串。
+
+https://blog.csdn.net/qq_48078182/article/details/121180265<br>
+
+
+
+
+
+
