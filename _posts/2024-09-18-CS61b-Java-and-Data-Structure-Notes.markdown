@@ -583,6 +583,10 @@ By “invoking object”, we mean the object whose method is invoked.
 - Invoking object is a.a的dynamic type是Dog，So use Dog’s praise(Animal)
 
 
+插话：<br>
+![25](/images/img25.png "test25")
+之前一直以为只要做lab，原来还有project.刚做完project0🤟！
+
 
 
 
