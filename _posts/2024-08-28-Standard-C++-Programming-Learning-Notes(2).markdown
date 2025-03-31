@@ -1218,7 +1218,7 @@ int main()
 
 ```
 ### 3️⃣ Building C++ projects
-好好学gdb吧
-
+好好学gdb吧<br>
+[2025/2 update]fish+wsl+gef 会基础的gdb调试了，btw还没看调试的时候的内存信息<br>
 
 

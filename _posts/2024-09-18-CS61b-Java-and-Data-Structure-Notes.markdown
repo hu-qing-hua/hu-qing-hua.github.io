@@ -585,8 +585,15 @@ By “invoking object”, we mean the object whose method is invoked.
 
 插话：<br>
 ![25](/images/img25.png "test25")
-之前一直以为只要做lab，原来还有project.刚做完project0🤟！
+之前一直以为只要做lab，原来还有project.刚做完project0🤟！<br>
+<br>做完lab3，没什么好说的，多用@test，学到在断点处加 conditional breakpoints<br>
 
+## Extends, Casting, Higher Order Functions
+
+解释为什么不能使用super.super调用方法：https://stackoverflow.com/questions/586363/why-is-super-super-method-not-allowed-in-java<br>
+super.super 调用基类的addItem,此时没有if red判断<br>
+
+<br><br><br>暂时先不继续这个课程了。因为我之前都学过几遍数据结构了，现在再看收获不是很大。如果后面发现有什么地方没有印象了再回头翻。-2024/12<br>
 
 
 
