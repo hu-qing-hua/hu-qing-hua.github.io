@@ -1,4 +1,47 @@
-baseURL = 'https://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
-theme = 'archie'
+baseURL = "https://hu-qing-hua.github.io/"
+languageCode = "zh-cn"
+title = "blog of hqh"
+theme="archie"
+copyright = "© hu-qing-hua"
+pygmentsstyle = "monokai"
+pygmentscodefences = true
+pygmentscodefencesguesssyntax = true
+[params]
+	mode="auto"
+	useCDN=false
+	subtitle = ""
+
+[[params.social]]
+name = "GitHub"
+icon = "github"
+url = "https://github.com/hu-qing-hua"
+
+[[params.social]]
+name = "Instagram"
+icon = "instagram"
+url = "https://www.instagram.com/skylark_calling_all_day"
+
+[[params.social]]
+name = "Email"
+icon = "email"
+url = "hhhhhqh49@gmail.com"
+
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "All posts"
+url = "/posts"
+weight = 2
+
+[[menu.main]]
+name = "About"
+url = "/about"
+weight = 3
+
+[[menu.main]]
+name = "Tags"
+url = "/tags"
+weight = 4
