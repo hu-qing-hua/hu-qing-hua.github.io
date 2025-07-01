@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on blog of hqh</title>
-    <link>https://hu-qing-hua.github.io/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on blog of hqh</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>© hu-qing-hua</copyright>
-    <lastBuildDate>Thu, 17 Apr 2025 02:01:58 +0530</lastBuildDate>
-    <atom:link href="https://hu-qing-hua.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Jun 2025 02:01:58 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Note</title>
-      <link>https://hu-qing-hua.github.io/tags/note/</link>
-      <pubDate>Thu, 17 Apr 2025 02:01:58 +0530</pubDate>
-      <guid>https://hu-qing-hua.github.io/tags/note/</guid>
+      <link>http://localhost:1313/tags/note/</link>
+      <pubDate>Sun, 08 Jun 2025 02:01:58 +0530</pubDate>
+      <guid>http://localhost:1313/tags/note/</guid>
       <description></description>
     </item>
   </channel>
