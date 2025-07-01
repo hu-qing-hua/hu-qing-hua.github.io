@@ -65,12 +65,12 @@ type Lock struct {
     state string
 }
 ```
-在做task2的时候，我根据自己理解的实现效果用本地的state来判断lock状态，也能通过task2,是因为现在测试环境是单进程。
-但**设计的目的是用KVserver存储所有共享的数据，lock只提供通用方法**。
+在做task2的时候，我根据自己理解的实现效果用本地的state来判断lock状态，也能通过task2,是因为现在测试环境是单进程。 
+但**设计的目的是用KVserver存储所有共享的数据，lock只提供通用方法**。 
 
    2. 发现这条hint没有用上也能通过所有测试
 “You will need a unique identifier for each lock client; call kvtest.RandValue(8) to generate a random string.”
-但是**如果不实现这条即给每个客户端都加上id唯一标识的话，那么只实现了对锁的互斥使用** 
+但是**如果不实现这条即给每个客户端都加上id唯一标识的话，那么只实现了对锁的互斥使用**  
 这个时候release代码：
 ```go
 func (lk *Lock) Release() {
