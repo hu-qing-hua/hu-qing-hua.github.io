@@ -51,6 +51,7 @@ ps：这里reset的作用是重新设置duration,修改f在回调goroutine里的
 ![alt text](/assets/0701(1).png)
 2. 踩的坑 
    1.  刚开始错误示范 我定义的Lock结构体如下
+```go
 type Lock struct {
     // IKVClerk is a go interface for k/v clerks: the interface hides
     // the specific Clerk type of ck but promises that ck supports
@@ -63,6 +64,7 @@ type Lock struct {
     mu    sync.Mutex // protects the state
     state string
 }
+```
 在做task2的时候，我根据自己理解的实现效果用本地的state来判断lock状态，也能通过task2,是因为现在测试环境是单进程。
 但**设计的目的是用KVserver存储所有共享的数据，lock只提供通用方法**。
 
@@ -70,6 +72,7 @@ type Lock struct {
 “You will need a unique identifier for each lock client; call kvtest.RandValue(8) to generate a random string.”
 但是**如果不实现这条即给每个客户端都加上id唯一标识的话，那么只实现了对锁的互斥使用** 
 这个时候release代码：
+```go
 func (lk *Lock) Release() {
     for {
         val, ver, err := lk.ck.Get(lk.l)
@@ -82,6 +85,7 @@ func (lk *Lock) Release() {
         time.Sleep(100 * time.Millisecond)
     }
 }
+```
 可能出现的问题是所有客户端都可以把锁释放了，即使不是由它上的锁，这样很危险。
 
 3. ![alt text](/assets/0701(2).png)
