@@ -42,7 +42,7 @@ ps：这里reset的作用是重新设置duration,修改f在回调goroutine里的
 	2. 我开始以为通过FNV算法映射的int Y一定不同,因此每一个后缀Y相同的out中间文件保存的都是同一个key。
 	但是lab提示//use ihash(key) % NReduce to choose the reduce，**通过%NReduce之后，不同key也可能映射到同一个Y,因此每个reduce任务需要处理的key也不止一种，每次reduce处理完可以将多个key的统计数据直接输出到结果文件**，这样确实更合理。
 	3. 我开始以为reduce任务只要执行nReduce次左右，但实际运行起来发现经常出现超时重新派发执行的情况
-	4. 0我的设计是worker发生reduce请求，不清空reply而是让coordinator重新赋值一个key，然后worker直接从请求结果里读取需要处理的key.**但实际上这种操作会导致worker端出现多个key**，虽然逻辑上不应该有问题，因为只要能正常返回请求结果允许reduce，那必然是修改了key；但实际上 worker 端的 reply 变量没有被完全重置，导致上一次的 key 残留。所以要每次reply = Reply{}
+	4. 我的设计是worker发生reduce请求，不清空reply而是让coordinator重新赋值一个key，然后worker直接从请求结果里读取需要处理的key.**但实际上这种操作会导致worker端出现多个key**，虽然逻辑上不应该有问题，因为只要能正常返回请求结果允许reduce，那必然是修改了key；但实际上 worker 端的 reply 变量没有被完全重置，导致上一次的 key 残留。所以要每次reply = Reply{}
 
 3. ![alt text](/assets/0701.png)
 
