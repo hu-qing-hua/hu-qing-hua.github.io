@@ -131,6 +131,8 @@ case Follower:
 2. 这时 leader 崩溃了，但 toAppendEntriesCh 里还残留着上一次的心跳信号。
 3. Follower 进入下一轮 select，会优先读取 channel，导致继续 continue，延迟了新一轮选举的开始。
 而在表示状态的通道，我的处理是在每次切换不同State的时候，把别的状态信号通道清空，并写入一次新状态的通道 
+
+
 <br>另外，hint里提到一条是实现GetState
 ```go
 // return currentTerm and whether this server
@@ -178,9 +180,9 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 #### 3D
 1. 3D花了很长时间，实在不知道哪里出错了；没有想到会出现在做3D的过程中，修改到测试3C也通不过的情况，版本也没有及时保存；所以最终还是从finish3B的提交版本上重构。 
 2. 3D需要持久化的内容多了lastIncludeIndex,lastIncludeTerm,Snapshot，在原先的改动上分为三部分
-1.增加snapshot有关的函数
-2.之前直接用的index 现在需要考虑如果已经有快照存储了，需要使用当前log里的索引
-3.之前范围判断的条件需不需要增加考虑已经快照的部分怎么处理
+ 1. 增加snapshot有关的函数
+ 2. 之前直接用的index 现在需要考虑如果已经有快照存储了，需要使用当前log里的索引
+ 3. 之前范围判断的条件需不需要增加考虑已经快照的部分怎么处理
 3. 这里要注意对rf.lastApplied和rf.commitIndex更新不及时情况的处理
 ```go
 func (rf *Raft) UpdateLastApplied() {
