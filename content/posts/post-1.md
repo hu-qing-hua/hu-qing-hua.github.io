@@ -6,7 +6,7 @@ tags: [Note]
 ---
 线程池
 ![alt text](/assets/04091.png)
-经常搭配std::future使用，可以处理异步的返回值和异常
+经常搭配std::future使用，可以处理异步的返回值和异常 
 内存池
 ![alt text](/assets/927.png)
 内存池主要思想是提前预分配好一块大内存，由用户管理这块内存的分配和释放，减少频繁调用malloc/free，减少内存碎片

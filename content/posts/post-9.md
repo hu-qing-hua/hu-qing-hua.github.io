@@ -8,7 +8,7 @@ tags: [Note]
 实现了一个并行的接口
 ## func MapReduce：
 我之前阅读 MapReduce 论文并实现了一个统计字符串的具体任务，mr包里的实现的更通用，思想是一样的。
-![alt text](Untitled-2025-04-17-1257.png)
+![alt text](/assets/Untitled-2025-04-17-1257.png)
 保证安全性: 
 1. MapReduce里的参数：panicChan := &onceChan{channel: make(chan any)},在执行全过程里都会监听这个管道的写入情况，出错就把错误信息写进去，并且通过atomic管理一个变量保证管道只写入一次
 2. Option参数可以设置当前函数的context,全程监听context Done()是否执行

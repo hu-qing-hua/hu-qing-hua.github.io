@@ -5,4 +5,4 @@ description: "希望通过动手去做，可以让我更了解Redis，之后有�
 tags: [Note]
 ---
 # 实现思路
-![alt text](0927.png)
+![alt text](/assets/0927.png)
