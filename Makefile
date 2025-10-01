@@ -1,4 +1,4 @@
 all:
 	rm -rf ./public
-	hugo build
+	hugo 
 	cp -r ./assets ./public/assets
