@@ -4,10 +4,10 @@ date: 2025-04-09T02:01:58+05:30
 description: "简单通过画图来解释思路"
 tags: [Note]
 ---
-线程池
+# 线程池
 ![alt text](/assets/04091.png)
 经常搭配std::future使用，可以处理异步的返回值和异常 
-内存池
+# 内存池
 ![alt text](/assets/927.png)
 1. 每次想要使用的data都需要同时创建一个UnitHeader的大小，记录这块数据的长度和归属的Block。 
 2. 实际上内存池每次需要分配是以Block为单位，如果用户想给当前的程序加上一个作用域scope范围的话，不会另外开辟内存空间分给scope，而是直接放在当前的Block的内存地址里的。既然把scope当成一个普通的数据放在Block里，和一个unit没区别，因此创建时不止需要一个scopeHeader大小还需要一个UnitHeader大小。scope的好处在于用户调用endScope()函数的时候，可以把当前scope里的所有block直接清空。 

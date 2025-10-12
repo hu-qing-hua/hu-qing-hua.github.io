@@ -95,7 +95,7 @@ func once(fn func(error)) func(error) {
 ```
 
 # /zrpc/internal/balancer/p2c
-go-zero 中，负载均衡算法 -- power of two choice 
+## go-zero 中，负载均衡算法 -- power of two choice 
 ![alt text](/assets/Untitled-2025-10-12-2031.png)
 1. healthy检查：节点的success指标（通过EWMA算法计算）不能小于设好的阈值500
 2. load负载算法：
@@ -108,7 +108,7 @@ lag是延迟指标（EWMA算法计算），inflight是请求个数
 3. 防止饥饿的操作
 如果当前距离节点上次被pick已经超过阈值1s，就判断为饥饿状态，强制选择
 
-**细节：** 
+## 细节
 在计算lag的时候需要知道这个节点完成上一次请求需要的时间，这里是通过闭包和异步回调实现的
 Pick函数返回如下
 ```go
@@ -125,7 +125,7 @@ return balancer.PickResult{
 ```go
 func (cc CachedConn) QueryRowIndexCtx(ctx context.Context, v any, key string,keyer func(primary any)string, indexQuery IndexQueryCtxFn,primaryQuery PrimaryQueryCtxFn) error
 ```
-**保证不会缓存击穿———core\syncx\singleflight.go**
+### 保证不会缓存击穿———core\syncx\singleflight.go
 原理是确保同一时间只有一个 goroutine 查询同一数据
 ```go
 call struct {//请求
@@ -148,15 +148,15 @@ if c, ok := g.calls[key]; ok {
 		return c, true
 	}
 ```
-由于flightGroup.calls存储的是指针，所以其余请求只要先获取到c, ok := g.calls[key]，就可以进入等待状态。 
-负责执行的c1在写入c1.val之后，<u>可以立即delete(g.calls, key)，这只是删除key对应的条目</u>，并没有把对象删了，因此其余请求return c,true是可以的 
+由于flightGroup.calls存储的是指针，所以其余请求只要先获取到c, ok := g.calls[key]，就可以进入等待状态。  
+负责执行的c1在写入c1.val之后，<u>可以立即delete(g.calls, key)，这只是删除key对应的条目</u>，并没有把对象删了，因此其余请求return c,true是可以的  
 C++里对应的是
 ```cpp
 calls.erase("key");//只删除映射
 delete ptr;//删除对象 
 ```
 
-**防止缓存穿透 core\stores\cache**
+### 防止缓存穿透 core\stores\cache
 ![alt text](/assets/Untitled-1012.png)
 
 ## 更新操作
