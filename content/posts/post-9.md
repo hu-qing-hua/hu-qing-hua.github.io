@@ -94,3 +94,73 @@ func once(fn func(error)) func(error) {
 }
 ```
 
+# /zrpc/internal/balancer/p2c
+go-zero 中，负载均衡算法 -- power of two choice 
+![alt text](/assets/Untitled-2025-10-12-2031.png)
+1. healthy检查：节点的success指标（通过EWMA算法计算）不能小于设好的阈值500
+2. load负载算法：
+```go
+lag := int64(math.Sqrt(float64(atomic.LoadUint64(&c.lag) + 1)))
+	load := lag * (atomic.LoadInt64(&c.inflight) + 1)
+```
+lag是延迟指标（EWMA算法计算），inflight是请求个数
+
+3. 防止饥饿的操作
+如果当前距离节点上次被pick已经超过阈值1s，就判断为饥饿状态，强制选择
+
+**细节：**
+在计算lag的时候需要知道这个节点完成上一次请求需要的时间，这里是通过闭包和h异步回调实现的
+Pick函数返回如下
+```go
+return balancer.PickResult{
+		SubConn: chosen.conn,
+		Done:    p.buildDoneFunc(chosen),
+	}, nil
+```
+在buildDineFunc里会先获取当前时间也就是被选中的时间start := int64(timex.Now())，然后buildDineFunc返回一个闭包。
+当gRPC使用SubConn向对应节点发送请求后，节点处理完返回响应，此时Done函数被调用，也就是buildDineFunc返回的闭包函数被调用，在闭包里计算延迟lag := int64(now) - start
+
+# 关于数据库和缓存操作
+## 读操作接口
+```go
+func (cc CachedConn) QueryRowIndexCtx(ctx context.Context, v any, key string,keyer func(primary any)string, indexQuery IndexQueryCtxFn,primaryQuery PrimaryQueryCtxFn) error
+```
+**保证不会缓存击穿———core\syncx\singleflight.go**
+原理是确保同一时间只有一个 goroutine 查询同一数据
+```go
+call struct {//请求
+		wg  sync.WaitGroup
+		val any
+		err error
+	}
+
+flightGroup struct {//所有请求数据
+		calls map[string]*call
+		lock  sync.Mutex
+	}
+```
+所有请求都用全局锁lock，对应key的请求只有一个c1能c1.wg.Add(1),执行操作返回结果写入val
+其余相同key的请求：
+```go
+if c, ok := g.calls[key]; ok {
+		g.lock.Unlock()
+		c.wg.Wait()
+		return c, true
+	}
+```
+由于flightGroup.calls存储的是指针，所以其余请求只要先获取到c, ok := g.calls[key]，就可以进入等待状态。 
+负责执行的c1在写入c1.val之后，<u>可以立即delete(g.calls, key)，这只是删除key对应的条目</u>，并没有把对象删了，因此其余请求return c,true是可以的 
+C++里对应的是
+```cpp
+calls.erase("key");//只删除映射
+delete ptr;//删除对象 
+```
+
+**防止缓存穿透 core\stores\cache**
+![alt text](/assets/Untitled-1012.png)
+
+## 更新操作
+先更新数据库 
+再删除对应的缓存
+Q:为什么只删除不重新写入缓存
+A:如果写入缓存这一步失败，会导致数据库和缓存不一致，所以只做删除，下次调到的时候再从数据库加载
