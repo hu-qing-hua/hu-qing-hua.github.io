@@ -108,8 +108,8 @@ lag是延迟指标（EWMA算法计算），inflight是请求个数
 3. 防止饥饿的操作
 如果当前距离节点上次被pick已经超过阈值1s，就判断为饥饿状态，强制选择
 
-**细节：**
-在计算lag的时候需要知道这个节点完成上一次请求需要的时间，这里是通过闭包和h异步回调实现的
+**细节：** 
+在计算lag的时候需要知道这个节点完成上一次请求需要的时间，这里是通过闭包和异步回调实现的
 Pick函数返回如下
 ```go
 return balancer.PickResult{
@@ -117,7 +117,7 @@ return balancer.PickResult{
 		Done:    p.buildDoneFunc(chosen),
 	}, nil
 ```
-在buildDineFunc里会先获取当前时间也就是被选中的时间start := int64(timex.Now())，然后buildDineFunc返回一个闭包。
+在buildDineFunc里会先获取当前时间也就是被选中的时间start := int64(timex.Now())，然后buildDineFunc返回一个闭包。 
 当gRPC使用SubConn向对应节点发送请求后，节点处理完返回响应，此时Done函数被调用，也就是buildDineFunc返回的闭包函数被调用，在闭包里计算延迟lag := int64(now) - start
 
 # 关于数据库和缓存操作
