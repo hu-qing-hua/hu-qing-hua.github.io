@@ -48,10 +48,10 @@ func ConstructServer() (*server.Server, error) {
 	return server.NewServer(handler, logger), nil
 }
 ```
-在使用过程中不断尝试解决了我的疑惑,以QA方式记录：
+在使用过程中不断尝试解决了我的疑惑,以QA方式记录： 
 1. 
-Q:dig怎么知道调用什么函数创建对应的实例？  
-A:dig会建立类型到函数的映射表，用户指明了创建函数 
+Q:dig怎么知道调用什么函数创建对应的实例？   
+A:dig会建立类型到函数的映射表，用户指明了创建函数  
 eg :
 ```go
 _ = container.Provide(handler.NewHandler)  // 提供server.Handler
@@ -138,20 +138,21 @@ go里的reflect库居然可以用tag实现自定义的name,我之前用cpp做反
 	//当调用cancel时，ctx会被取消，所有用到ctx的协程都会收到通知
 	ctx, cancel := context.WithCancel(context.Background())
 ```
-因为如此才能在监听要关闭server的时候及时关闭其他所有在处理的线程
-2. conn, err := listener.Accept() 这里是一个tcp连接
-本地就可以建立多次tcp连接：（操作系统会自动分配源端口）
-第一个redis-cli 
-redis-cli -h localhost -p 6379  # 源端口: 54321 → 目标端口: 6379 
+因为如此才能在监听要关闭server的时候及时关闭其他所有在处理的线程 
+2. conn, err := listener.Accept() 这里是一个tcp连接 
+本地就可以建立多次tcp连接：（操作系统会自动分配源端口） 
+第一个redis-cli  
+redis-cli -h localhost -p 6379  # 源端口: 54321 → 目标端口: 6379  
 
-第二个redis-cli（新终端）   
-redis-cli -h localhost -p 6379  # 源端口: 54322 → 目标端口: 6379 
+第二个redis-cli（新终端）    
+redis-cli -h localhost -p 6379  # 源端口: 54322 → 目标端口: 6379 ß  
 
-第三个redis-cli（新终端） 
-redis-cli -h localhost -p 6379  # 源端口: 54323 → 目标端口: 6379 
+第三个redis-cli（新终端）  
+redis-cli -h localhost -p 6379  # 源端口: 54323 → 目标端口: 6379  
 
 # 3. package handler
-
+## 作用
+处理并完成请求
 ## 细节
 ### 匿名字段
 普通来说如果想让*fakeReadWriter是一个合法的io.ReadWriter，需要实现Reader和Write接口
@@ -249,5 +250,3 @@ func NewOptions(opts ...OptionFunc) Options {
 ```
 ### zap/lumberjack
 log/ log rotation
-
-# 10. package timer
