@@ -105,11 +105,11 @@ func ConstructServer() (*server.Server, error) {
 	return server.NewServer(h, l), nil
 }
 ```
- 1. 开始我想dig要创建server.Handler是怎么做的，难道它要先创建server，然后再传入server里的handler吗? 
-后来发现dig创建是根据类型，它解析了 server.Handler 发现这个类型其实和依赖里注册的handler.NewHandler一致， 
-那么它知道这里实际要创建的是一个handler,并没有说会先去创建server 
- 2. 由于单例模式，那之后我想invoke调用一个handler类型的时候，dig返回的实例 
-其实也是在constructServer里被当作server接口的handler实例；要注意不要出现数据污染的情况
+ 1. 开始我想dig要创建server.Handler是怎么做的，难道它要先创建server，然后再传入server里的handler吗?  
+后来发现dig创建是根据类型，它解析了 server.Handler 发现这个类型其实和依赖里注册的handler.NewHandler一致，  
+那么它知道这里实际要创建的是一个handler,并没有说会先去创建server  
+ 2. 由于单例模式，那之后我想invoke调用一个handler类型的时候，dig返回的实例  
+其实也是在constructServer里被当作server接口的handler实例；要注意不要出现数据污染的情况 
 
 ### sync.Once
 https://victoriametrics.com/blog/go-sync-once/ 关于现在的sync.Once实现方式讲的好好
