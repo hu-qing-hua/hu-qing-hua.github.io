@@ -114,62 +114,44 @@ SSL(前身) TLS（现在一般用的）
 3. 服务器再发送：Certificate,发送自己的数字证书digital certificate。客户端浏览器就可以对照自己的证书信任列表，看这个证书是否可行
 4. 服务端发送：server key exchange ,把自己的公钥Pubkey给客户端
 #### 客户端如何确认这个公钥是可信的？
-```mermaid
-sequenceDiagram
-    participant Client as 客户端
-    participant Server as 服务器
-
-    Server->>Client: Certificate（含身份公钥 A）
-    Note over Client: 验证 CA 签名，信任公钥 A
-
-    Server->>Client: Server Key Exchange
-    Note over Server: 临时公钥 B\n私钥 A 对(B+随机数)签名
-
-    Note over Client: 取出 B
-    Note over Client: 使用公钥 A 验证签名
-    Note over Client: 确认 B 来自服务器
-    Note over Client: 使用 B 计算会话密钥
-
-    Client->>Server: Client Key Exchange
-```
-
+![alt text](/assets/image_copy.png)
 5. 如果这个时候服务端也想要客户端的公钥，这里还要有一个发送请求 （eg:登录网银等情况下需要
 6. 服务器发送：Server Hello done
 7. 客户端
     1. 先发送 Client Key Exchange ;客户端生成第三个随机数（预主密钥）；并且用收到的公钥对这个随机数加密再发送给服务端;
     2. 发送Change Ciper Spec，告诉服务器之后用商议好的算法和密钥加密
     3. 发送Encrypted Handshake Message,告诉服务器自己已经准备好了
-8. 服务器也发送Encrypted Handshake Message表示准备好了。TLS握手完成！
+8. 服务器也发送Encrypted Handshake Message表示准备好了。TLS握手完成！<br>
 之后：服务器用私钥可以把客户端发送的与主密钥解密；这样双方都知道三个随机数；用三个随机数计算出会话密钥；最后，就可以用这个会话密钥实现对称加密！
 ####  验证证书链
-客户端验证步骤（以 HTTPS 为例）
+客户端验证步骤（以 HTTPS 为例）<br>
 当你的浏览器（客户端）访问 https://www.example.com 时，会发生以下事情：
 ##### 第1步：证书传输
-服务器将它的数字证书（以及可能的中间证书）发送给浏览器。
+服务器将它的数字证书（以及可能的中间证书）发送给浏览器。<br>
 ##### 第2步：证书验证 - 浏览器执行以下关键检查
-验证证书链（信任链）
-概念：全世界的 CA 有成百上千家，浏览器不可能直接信任所有。浏览器只预装了一小批最顶层的根证书颁发机构（Root CA） 的公钥。 过程：服务器证书通常不是由根 CA 直接签发的，而是由中间 CA（Intermediate CA）签发，中间 CA 的证书再由根 CA 签发。这就形成了一条“证书链”。
-服务器证书 -> 由中间 CA 签名
-中间 CA 证书 -> 由根 CA 签名
-根 CA 证书 -> 自签名，且已预装在浏览器/操作系统的信任存储（Trust Store） 中。
-**验证**：浏览器用预装的根 CA 的公钥去验证中间 CA 证书的签名；如果通过，再用中间 CA 证书的公钥去验证服务器证书的签名。只要链上所有签名都验证通过，就说明这个服务器证书是由一个可信的 CA 签发的。
-**验证域名信息**
-浏览器检查证书中的 Common Name 或 Subject Alternative Name 字段，看是否与正在访问的域名（www.example.com）完全匹配。如果不匹配，会显示“证书与域名不匹配”的错误。
-验证有效期：浏览器检查证书的有效起止日期，确保当前时间在证书的有效期之内。如果证书已过期或尚未生效，会显示错误。 检查证书吊销状态（可选但重要）
-即使证书本身有效，也有可能因为私钥泄露等原因而被发行方提前吊销。浏览器会通过以下两种方式之一检查：
-CRL（证书吊销列表）：向 CA 维护的一个列表查询该证书是否已被吊销。
-OCSP（在线证书状态协议）：直接向 CA 的 OCSP 服务器查询该证书的实时状态。 如果证书已被吊销，浏览器会拒绝连接。
+验证证书链（信任链）<br>
+概念：全世界的 CA 有成百上千家，浏览器不可能直接信任所有。浏览器只预装了一小批最顶层的根证书颁发机构（Root CA） 的公钥。 过程：服务器证书通常不是由根 CA 直接签发的，而是由中间 CA（Intermediate CA）签发，中间 CA 的证书再由根 CA 签发。这就形成了一条“证书链”。<br>
+服务器证书 -> 由中间 CA 签名<br>
+中间 CA 证书 -> 由根 CA 签名<br>
+根 CA 证书 -> 自签名，且已预装在浏览器/操作系统的信任存储（Trust Store） 中。<br>
+**验证**：浏览器用预装的根 CA 的公钥去验证中间 CA 证书的签名；如果通过，再用中间 CA 证书的公钥去验证服务器证书的签名。只要链上所有签名都验证通过，就说明这个服务器证书是由一个可信的 CA 签发的。<br>
+**验证域名信息**<br>
+浏览器检查证书中的 Common Name 或 Subject Alternative Name 字段，看是否与正在访问的域名（www.example.com）完全匹配。如果不匹配，会显示“证书与域名不匹配”的错误。<br>
+验证有效期：浏览器检查证书的有效起止日期，确保当前时间在证书的有效期之内。如果证书已过期或尚未生效，会显示错误。 检查证书吊销状态（可选但重要）<br>
+即使证书本身有效，也有可能因为私钥泄露等原因而被发行方提前吊销。浏览器会通过以下两种方式之一检查：<br>
+CRL（证书吊销列表）：向 CA 维护的一个列表查询该证书是否已被吊销。<br>
+OCSP（在线证书状态协议）：直接向 CA 的 OCSP 服务器查询该证书的实时状态。 如果证书已被吊销，浏览器会拒绝连接。<br>
 ##### 第3步：密钥交换
-只有当以上所有检查都通过后，浏览器才确信证书中的公钥确实是 www.example.com 的合法公钥。随后，它才会使用这个公钥来加密后续通信的对称会话密钥（例如在 RSA 密钥交换中），或者进行椭圆曲线 Diffie-Hellman (ECDHE) 密钥交换。
+只有当以上所有检查都通过后，浏览器才确信证书中的公钥确实是 www.example.com 的合法公钥。随后，它才会使用这个公钥来加密后续通信的对称会话密钥（例如在 RSA 密钥交换中），或者进行椭圆曲线 Diffie-Hellman (ECDHE) 密钥交换。<br>
 CA证书 （里面重要的东西：san(subject alternative name 包含域名 ip 多个地址)，公钥，签名）
 ### 自建ca证书
 我用tfssl自建的是CA证书 （Root CA Certificate）; 这个证书是签发其他子证书像SSL之类的。
 那么自建的和公共的CA（例如Let's Encrypt、阿里云）区别就是，这些公共的CA 浏览器和操作系统都是信任的。但是我建的这个CA只有我自己信任。
-1. 创建根 CA
+1. 创建根 CA<br>
 cfssl genkey -initca root-ca.json | cfssljson -bare root-ca
-2. 用根 CA 签发服务器证书
+2. 用根 CA 签发服务器证书<br>
 cfssl gencert -ca root-ca.pem -ca-key root-ca-key.pem server.json | cfssljson -bare server
-3. 用根 CA 签发客户端证书
+3. 用根 CA 签发客户端证书<br>
 cfssl gencert -ca root-ca.pem -ca-key root-c
 
 ## 输出一条url发生的事情
@@ -181,39 +163,42 @@ cfssl gencert -ca root-ca.pem -ca-key root-c
     如果请求的资源没过期，直接返给客户端，不发生请求
     过期就下一步，发送请求
 3. 服务器会进行DNS域名解析
-【本地DNS服务器做的递归如下：】
-1️⃣ 浏览器缓存  Chrome 内存中保存最近的 DNS 记录
-2️⃣ 操作系统缓存    Windows hosts 文件 or macOS/Linux 的 /etc/hosts
-3️⃣ 路由器缓存  家庭路由器可能缓存常用域名
-4️⃣ ISP DNS 缓存    运营商 DNS 缓存（如 114.114.114.114）
-不行的话：
-而Local DNS向其他服务器发起的是迭代查询：
-本地 DNS 服务器
-   ↓
-根 DNS (.)
-   ↓
-顶级域 DNS (.com)
-   ↓
-权威 DNS (example.com 的 NS 记录)
-   ↓
-返回 A 记录（IP 地址，如 203.0.113.45）
-4. 发送socket 完成tcp连接
-Socket = IP地址 + 端口号
-例如：192.168.1.100:80 或 14.215.177.38:443
-TCP连接建立 = 本地Socket ↔ 远程Socket
-            (192.168.1.100:54321) (14.215.177.38:80)
-浏览器(客户端)                    服务器
-     │                            │
-     │        SYN (seq=x)         │
-     │━━━━━━━━━━━━━━━━━━━━━━━━━━━→│
-     │                            │
-     │    SYN+ACK (seq=y,ack=x+1) │
-     │←━━━━━━━━━━━━━━━━━━━━━━━━━━━│
-     │                            │
-     │        ACK (ack=y+1)       │
-     │━━━━━━━━━━━━━━━━━━━━━━━━━━━→│
-     │        连接建立            │
-https的话还需要TLS握手
+【本地DNS服务器做的递归如下：】<br>
+1️⃣ 浏览器缓存  Chrome 内存中保存最近的 DNS 记录<br>
+2️⃣ 操作系统缓存    Windows hosts 文件 or macOS/Linux 的 /etc/hosts<br>
+3️⃣ 路由器缓存  家庭路由器可能缓存常用域名<br>
+4️⃣ ISP DNS 缓存    运营商 DNS 缓存（如 114.114.114.114）<br>
+不行的话：<br>
+而Local DNS向其他服务器发起的是迭代查询：<br>
+本地 DNS 服务器<br>
+   ↓<br>
+根 DNS (.)<br>
+   ↓<br>
+顶级域 DNS (.com)<br>
+   ↓<br>
+权威 DNS (example.com 的 NS 记录)<br>
+   ↓<br>
+返回 A 记录（IP 地址，如 203.0.113.45）<br>
+4. 发送socket 完成tcp连接<br>
+Socket = IP地址 + 端口号<br>
+例如：192.168.1.100:80 或 14.215.177.38:443<br>
+
+TCP连接建立 = 本地Socket ↔ 远程Socket<br>
+(192.168.1.100:54321)         (14.215.177.38:80)<br>
+
+浏览器(客户端)                     服务器<br>
+     │                             │<br>
+     │        SYN (seq=x)         │<br>
+     │ ━━━━━━━━━━━━━━━━━━━━━━━━→  │<br>
+     │                             │<br>
+     │   SYN+ACK (seq=y, ack=x+1) │<br>
+     │ ←━━━━━━━━━━━━━━━━━━━━━━━━  │<br>
+     │                             │<br>
+     │        ACK (ack=y+1)       │<br>
+     │ ━━━━━━━━━━━━━━━━━━━━━━━━→  │<br>
+     │                             │<br>
+     │        连接建立            │<br>
+https的话还需要TLS握手<br>
 5. 浏览器就会构建http请求报文，通过tcp连接发送给服务器（应用层）
 GET请求 带上cookie 认证信息
 传输层：[TCP头部] + [HTTP报文]=[TCP报文段]
@@ -247,8 +232,8 @@ GET请求 带上cookie 认证信息
 服务端收到消息，反序列化数据，从注册表里找到对应方法，通过反射执行结果并再次序列化返回
 5. 客户端反序列化并读取结果
 ### 反射
-**第一种**：有一些rpc反射是在运行时拿字符串去查表是哪个函数
-**第二种**：c++ reflect 是用模板元编程，在编译时期通过constexpr if 刺探试探一个聚合类里有多少个成员。然后遇到反序列化结果后直接查编译时期建好的静态表。实现比较hack;1.编译时间会变长：使用大量的模板元编程 2.限制很多：reflect-cpp对于聚合类要求不能有虚函数、不能有自定义构造函数、不能有私有成员（或者有getter/setter）
+**第一种**：有一些rpc反射是在运行时拿字符串去查表是哪个函数<br>
+**第二种**：c++ reflect 是用模板元编程，在编译时期通过constexpr if 刺探试探一个聚合类里有多少个成员。然后遇到反序列化结果后直接查编译时期建好的静态表。实现比较hack;1.编译时间会变长：使用大量的模板元编程 2.限制很多：reflect-cpp对于聚合类要求不能有虚函数、不能有自定义构造函数、不能有私有成员（或者有getter/setter）<br>
 **第三种**：元数据（Metadata）: 在编译时期生成的包含名称的数据。
 一般来说程序员给变量/结构体命名是为了方便维护代码，C++为了节省二进制空间，会在编译之后丢弃名字。但是我们在把结构体序列化json文件或者日志打印结构体内容的时候，都希望能知道对应的名字。
 为了实现这一点，最简单的方法是hard code,也就是手动编写元数据。但是工程变大了之后，手写会变得复杂容易出错。
@@ -265,14 +250,14 @@ protoc --cpp_out=. test.proto
 而reflect-cpp 是通过Template Metaprogramming(模板元编程)实现，优点是只需要引入头文件库，使用非常方便。
 
 ## 关于epoll
-### 五种IO模型：
+五种IO模型：
 [1]blockingIO - 阻塞IO
 [2]nonblockingIO - 非阻塞IO
 [3]signaldrivenIO - 信号驱动IO
 [4]asynchronousIO - 异步IO
 [5]IOmultiplexing - IO多路复用
+<br>
 epoll 是事件驱动的IO多路复用，linux还有select poll。
-
 用户是如何通过系统调用间接操作事件监控表的
 1. 通过 epoll_create 可以创建一个epoll 实例，会返回一个epfd
 2. 内核里有一颗红黑树和一个就绪链表，用户可以通过epoll_ctl（传入 epfd 和要操作的 fd）修改内核中红黑树上的监控集合

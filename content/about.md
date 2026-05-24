@@ -4,4 +4,4 @@ button: 'About us'
 weight: 2
 ---
 
-I am Hu Qinghua.
+A newbie who keeps learning
