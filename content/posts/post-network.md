@@ -1,7 +1,7 @@
 ---
 title: "计网知识梳理和思考"
 date: 2026-03-08T02:01:58+05:30
-description: "最近重新阅读了《图解 HTTP》，顺便结合此前整理的计算机网络笔记，对相关知识进行了系统梳理。本文主要记录一些核心概念以及个人理解。"
+description: "最近读了一本比较老的《图解 HTTP》，顺便结合此前整理的计算机网络笔记，对相关知识进行了系统梳理。本文主要记录一些核心概念以及个人理解。"
 tags: [Note]
 ---
 ## tcp/ip 协议族分层：
@@ -114,13 +114,15 @@ SSL(前身) TLS（现在一般用的）
 3. 服务器再发送：Certificate,发送自己的数字证书digital certificate。客户端浏览器就可以对照自己的证书信任列表，看这个证书是否可行
 4. 服务端发送：server key exchange ,把自己的公钥Pubkey给客户端
 #### 客户端如何确认这个公钥是可信的？
+
 ![alt text](/assets/image_copy.png)
-5. 如果这个时候服务端也想要客户端的公钥，这里还要有一个发送请求 （eg:登录网银等情况下需要
-6. 服务器发送：Server Hello done
-7. 客户端
-    1. 先发送 Client Key Exchange ;客户端生成第三个随机数（预主密钥）；并且用收到的公钥对这个随机数加密再发送给服务端;
-    2. 发送Change Ciper Spec，告诉服务器之后用商议好的算法和密钥加密
-    3. 发送Encrypted Handshake Message,告诉服务器自己已经准备好了
+
+5. 如果这个时候服务端也想要客户端的公钥，这里还要有一个发送请求 （eg:登录网银等情况下需要<br>
+6. 服务器发送：Server Hello done<br>
+7. 客户端<br>
+    1. 先发送 Client Key Exchange ;客户端生成第三个随机数（预主密钥）；并且用收到的公钥对这个随机数加密再发送给服务端;<br>
+    2. 发送Change Ciper Spec，告诉服务器之后用商议好的算法和密钥加密<br>
+    3. 发送Encrypted Handshake Message,告诉服务器自己已经准备好了<br>
 8. 服务器也发送Encrypted Handshake Message表示准备好了。TLS握手完成！<br>
 之后：服务器用私钥可以把客户端发送的与主密钥解密；这样双方都知道三个随机数；用三个随机数计算出会话密钥；最后，就可以用这个会话密钥实现对称加密！
 ####  验证证书链
